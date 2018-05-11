@@ -14,11 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 public abstract class Skill extends IForgeRegistryEntry.Impl<Skill> implements Comparable<Skill> {
-    private final ResourceLocation background;
     private final ResourceLocation spriteLocation;
     private final String name;
     private final List<Unlockable> unlockables = new ArrayList<>();
-    private SkillConfig skillConfig;
+    protected ResourceLocation background;
+    protected SkillConfig skillConfig;
 
     public Skill(ResourceLocation name, ResourceLocation background) {
         this.name = name.toString().replace(":", ".");
@@ -62,7 +62,8 @@ public abstract class Skill extends IForgeRegistryEntry.Impl<Skill> implements C
     }
 
     public Pair<Integer, Integer> getSpriteFromRank(int rank) {
-        return new MutablePair<>(Math.min(rank, 3) * 16, 0);
+        //TODO: If we ever end up having more images than 4 when the Math.min is changed make sure to also change the value rank is divided by
+        return new MutablePair<>(Math.min(rank / 2, 3) * 16, 0);
     }
 
     @Override

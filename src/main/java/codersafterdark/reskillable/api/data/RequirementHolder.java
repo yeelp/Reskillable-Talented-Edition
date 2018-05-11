@@ -14,9 +14,8 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class RequirementHolder {
 
@@ -37,6 +36,7 @@ public class RequirementHolder {
     public RequirementHolder(RequirementHolder... others) {
         this.forcedEmpty = false;
         this.requirements = Lists.newArrayList();
+        //TODO Eventually look into optimizing this. Potentially by presorting others by requirement count
         for (RequirementHolder other : others) {
             for (Requirement otherRequirement : other.requirements) {
                 boolean noMatch = true;
@@ -66,17 +66,14 @@ public class RequirementHolder {
     }
 
     public static RequirementHolder fromStringList(String[] requirementStringList) {
-        RequirementHolder requirementHolder;
-
-        if (requirementStringList.length == 0) {
-            requirementHolder = RequirementHolder.realEmpty();
-        } else {
-            List<Requirement> requirements = Arrays.stream(requirementStringList)
-                    .map(ReskillableAPI.getInstance().getRequirementRegistry()::getRequirement)
-                    .collect(Collectors.toList());
-            requirementHolder = new RequirementHolder(requirements);
+        List<Requirement> requirements = new ArrayList<>();
+        for (String s : requirementStringList) {
+            Requirement requirement = ReskillableAPI.getInstance().getRequirementRegistry().getRequirement(s);
+            if (requirement != null) {
+                requirements.add(requirement);
+            }
         }
-        return requirementHolder;
+        return requirements.isEmpty() ? RequirementHolder.realEmpty() : new RequirementHolder(requirements);
     }
 
     public static RequirementHolder fromString(String s) {
@@ -114,7 +111,6 @@ public class RequirementHolder {
         if (!isRealLock()) {
             return;
         }
-
         if (GuiScreen.isShiftKeyDown()) {
             tooltip.add(TextFormatting.DARK_PURPLE + I18n.translateToLocal("skillable.misc.skillLock"));
             for (Requirement requirement : requirements) {

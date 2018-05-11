@@ -69,7 +69,7 @@ public class PlayerSkillInfo {
     }
 
     public int getRank() {
-        return level / (skill.getCap() / 7);
+        return 8 * level / skill.getCap();
     }
 
     public int getSkillPoints() {
@@ -116,7 +116,7 @@ public class PlayerSkillInfo {
 
     public void forEachEventHandler(Consumer<IAbilityEventHandler> consumer) {
         unlockables.forEach((u) -> {
-            if (u instanceof IAbilityEventHandler) {
+            if (u.isEnabled() && u instanceof IAbilityEventHandler) {
                 consumer.accept((IAbilityEventHandler) u);
             }
         });
