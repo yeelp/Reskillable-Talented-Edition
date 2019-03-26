@@ -1,4 +1,4 @@
-package codersafterdark.reskillable.api.data;
+package codersafterdark.reskillable.api.data.key;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;

@@ -1,5 +1,6 @@
-package codersafterdark.reskillable.api.data;
+package codersafterdark.reskillable.api.data.key;
 
+import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.base.LevelLockHandler;
 
 public interface ParentLockKey extends LockKey {

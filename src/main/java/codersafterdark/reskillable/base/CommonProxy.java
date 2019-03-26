@@ -2,6 +2,9 @@ package codersafterdark.reskillable.base;
 
 import codersafterdark.reskillable.advancement.ReskillableAdvancements;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.cap.DefaultPlayerDataCap;
+import codersafterdark.reskillable.api.data.cap.IPlayerData;
+import codersafterdark.reskillable.api.data.cap.PlayerDataStorage;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import codersafterdark.reskillable.api.unlockable.AutoUnlocker;
 import codersafterdark.reskillable.commands.ReskillableCmd;
@@ -13,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -20,6 +24,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(IPlayerData.class, new PlayerDataStorage(), DefaultPlayerDataCap::new);
         MinecraftForge.EVENT_BUS.register(PlayerDataHandler.EventHandler.class);
         MinecraftForge.EVENT_BUS.register(LevelLockHandler.class);
         MinecraftForge.EVENT_BUS.register(RequirementCache.class);

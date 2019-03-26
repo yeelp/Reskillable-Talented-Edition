@@ -1,4 +1,4 @@
-package codersafterdark.reskillable.api.data;
+package codersafterdark.reskillable.api.data.key;
 
 public final class GenericLockKey implements LockKey {
     private Class<? extends LockKey> type;

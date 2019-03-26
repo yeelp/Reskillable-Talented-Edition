@@ -2,6 +2,7 @@ package codersafterdark.reskillable.base;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.data.*;
+import codersafterdark.reskillable.api.data.key.*;
 import codersafterdark.reskillable.network.MessageLockedItem;
 import codersafterdark.reskillable.network.PacketHandler;
 import net.minecraft.block.Block;

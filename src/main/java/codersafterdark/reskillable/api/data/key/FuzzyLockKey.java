@@ -1,4 +1,4 @@
-package codersafterdark.reskillable.api.data;
+package codersafterdark.reskillable.api.data.key;
 
 public interface FuzzyLockKey extends LockKey {
     /**
