@@ -51,12 +51,20 @@ public abstract class Skill extends IForgeRegistryEntry.Impl<Skill> implements C
         return background;
     }
 
+    public void setBackground(ResourceLocation resourceLocation) {
+        this.background = resourceLocation;
+    }
+
     public int getCap() {
         return skillConfig.getLevelCap();
     }
 
     public boolean isEnabled() {
         return skillConfig.isEnabled();
+    }
+
+    public boolean hasLevelButton() {
+        return skillConfig.hasLevelButton();
     }
 
     public ResourceLocation getSpriteLocation() {

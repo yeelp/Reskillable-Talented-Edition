@@ -29,6 +29,7 @@ public class ReskillableModAccess implements IModAccess {
         SkillConfig skillConfig = new SkillConfig();
         String categoryName = "skill." + name.toString();
         skillConfig.setEnabled(ConfigHandler.config.get(categoryName, "Enabled", skillConfig.isEnabled()).getBoolean());
+        skillConfig.setLevelButton(ConfigHandler.config.get(categoryName, "LevelButton", skillConfig.hasLevelButton()).getBoolean());
         skillConfig.setLevelCap(ConfigHandler.config.get(categoryName, "Level Cap", skillConfig.getLevelCap()).getInt());
         skillConfig.setBaseLevelCost(ConfigHandler.config.get(categoryName, "Base Level Cost", skillConfig.getBaseLevelCost()).getInt());
         skillConfig.setSkillPointInterval(ConfigHandler.config.get(categoryName, "Skill Point Interval", skillConfig.getSkillPointInterval()).getInt());

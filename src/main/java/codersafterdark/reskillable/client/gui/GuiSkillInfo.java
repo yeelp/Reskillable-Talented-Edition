@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.client.gui;
 
+import static codersafterdark.reskillable.client.base.RenderHelper.renderTooltip;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
@@ -13,6 +15,9 @@ import codersafterdark.reskillable.lib.LibMisc;
 import codersafterdark.reskillable.network.MessageLevelUp;
 import codersafterdark.reskillable.network.MessageUnlockUnlockable;
 import codersafterdark.reskillable.network.PacketHandler;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
 import net.minecraft.client.gui.GuiButton;
@@ -26,12 +31,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
 import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import static codersafterdark.reskillable.client.base.RenderHelper.renderTooltip;
 
 public class GuiSkillInfo extends GuiScreen {
     public static final ResourceLocation SKILL_INFO_RES = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/skill_info.png");
@@ -75,7 +74,7 @@ public class GuiSkillInfo extends GuiScreen {
         int top = height / 2 - guiHeight / 2;
 
         buttonList.clear();
-        if (ConfigHandler.enableLevelUp) {
+        if (ConfigHandler.enableLevelUp && skill.hasLevelButton()) {
             buttonList.add(levelUpButton = new GuiButtonLevelUp(left + 147, top + 10));
         }
         InventoryTabHandler.addTabs(this, buttonList);
@@ -103,7 +102,7 @@ public class GuiSkillInfo extends GuiScreen {
         GlStateManager.color(1F, 1F, 1F);
         GlStateManager.enableBlend();
         GlStateManager.blendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        if (ConfigHandler.enableLevelUp) {
+        if (ConfigHandler.enableLevelUp && skill.hasLevelButton()) {
             mc.renderEngine.bindTexture(SKILL_INFO_RES);
         } else {
             mc.renderEngine.bindTexture(SKILL_INFO_RES2);
@@ -125,7 +124,7 @@ public class GuiSkillInfo extends GuiScreen {
             costStr = new TextComponentTranslation("reskillable.misc.capped").getUnformattedComponentText();
         }
 
-        if (ConfigHandler.enableLevelUp) {
+        if (ConfigHandler.enableLevelUp && skill.hasLevelButton()) {
             drawCenteredString(mc.fontRenderer, costStr, left + 138, top + 13, 0xAFFF02);
             levelUpButton.setCost(cost);
         }
@@ -219,7 +218,7 @@ public class GuiSkillInfo extends GuiScreen {
 
     @Override
     protected void actionPerformed(GuiButton button) {
-        if (ConfigHandler.enableLevelUp && button == levelUpButton) {
+        if (ConfigHandler.enableLevelUp && skill.hasLevelButton() && button == levelUpButton) {
             MessageLevelUp message = new MessageLevelUp(skill.getRegistryName());
             PacketHandler.INSTANCE.sendToServer(message);
         }

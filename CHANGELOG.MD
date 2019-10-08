@@ -1,8 +1,10 @@
 # Changelog
 
-# 1.12.6
+# 1.13.0
 - Fix null pointer when rendering button [#175](https://github.com/Coders-After-Dark/Reskillable/issues/175)
 - Added optional parameter to increment skill command to increment by x levels [#155](https://github.com/Coders-After-Dark/Reskillable/issues/155)
+- Added API functionality to change background of the built in skills
+- Added config options to the individual skills to be able to toggle off manually leveling them up.
 
 
 ## 1.12.5

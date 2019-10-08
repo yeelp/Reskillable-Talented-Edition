@@ -4,6 +4,7 @@ import java.util.Map;
 
 public class SkillConfig {
     private boolean enabled = true;
+    private boolean levelButton = true;
     private int levelCap = 32;
     private int skillPointInterval = 2;
     private int baseLevelCost = 3;
@@ -15,6 +16,14 @@ public class SkillConfig {
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public boolean hasLevelButton() {
+        return levelButton;
+    }
+
+    public void setLevelButton(boolean button) {
+        this.levelButton = button;
     }
 
     public int getLevelCap() {
