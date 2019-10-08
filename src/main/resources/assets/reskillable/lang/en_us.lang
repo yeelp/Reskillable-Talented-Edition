@@ -102,7 +102,7 @@ reskillable.toast.unlockable_desc=Unlocked!
 reskillable.command.usage=/reskillable subcommand
 reskillable.command.resetskill.usage=/reskillable resetskill <player> <skill>
 reskillable.command.setskilllevel.usage=/reskillable setskilllevel <player> <skill> <level>
-reskillable.command.incrementskill.usage=/reskillable incrementskill <player> <skill>
+reskillable.command.incrementskill.usage=/reskillable incrementskill <player> <skill> <optional_level>
 reskillable.command.resetall.usage=/reskillable resetall <player>
 reskillable.command.toggletrait.usage=/reskillable toggletrait <player> <trait>
 

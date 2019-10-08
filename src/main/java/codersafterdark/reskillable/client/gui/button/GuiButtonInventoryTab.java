@@ -82,7 +82,8 @@ public class GuiButtonInventoryTab extends GuiButton {
         }
 
         public boolean shouldRender() {
-            return renderPred.test(PlayerDataHandler.get(Minecraft.getMinecraft().player));
+            PlayerData data = PlayerDataHandler.get(Minecraft.getMinecraft().player);
+            return data != null && renderPred.test(data);
         }
     }
 }

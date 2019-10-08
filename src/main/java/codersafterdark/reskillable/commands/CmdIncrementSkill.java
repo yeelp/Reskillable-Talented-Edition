@@ -52,12 +52,31 @@ public class CmdIncrementSkill extends CommandBase {
         if (!ReskillableRegistries.SKILLS.containsKey(skillName)) {
             throw new CommandException("reskillable.command.invalid.skill", skillName);
         }
+        int levels = 1;
+        if (args.length > 2) {
+            try {
+                levels = Integer.parseInt(args[2]);
+            } catch (NumberFormatException e) {
+                throw new CommandException("reskillable.command.invalid.missing.level", args[2]);
+            }
+            if (levels < 1) {
+                throw new CommandException("reskillable.command.invalid.belowmin", levels);
+            }
+        }
         Skill skill = ReskillableRegistries.SKILLS.getValue(skillName);
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo skillInfo = data.getSkillInfo(skill);
         int oldLevel = skillInfo.getLevel();
-        if (!MinecraftForge.EVENT_BUS.post(new LevelUpEvent.Pre(player, skill, oldLevel + 1, oldLevel))) {
-            skillInfo.levelUp();
+        int maxLevel = skill.getCap();
+        if (oldLevel + levels > maxLevel) {
+            levels = maxLevel - oldLevel;
+            if (levels <= 0) {
+                sender.sendMessage(new TextComponentTranslation("reskillable.command.fail.skillup", skillName, player.getDisplayName()));
+                return;
+            }
+        }
+        if (!MinecraftForge.EVENT_BUS.post(new LevelUpEvent.Pre(player, skill, oldLevel + levels, oldLevel))) {
+            skillInfo.setLevel(oldLevel + levels);
             data.saveAndSync();
             MinecraftForge.EVENT_BUS.post(new LevelUpEvent.Post(player, skill, skillInfo.getLevel(), oldLevel));
             sender.sendMessage(new TextComponentTranslation("reskillable.command.success.skillup", skillName, player.getDisplayName()));

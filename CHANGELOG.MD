@@ -1,5 +1,10 @@
 # Changelog
 
+# 1.12.6
+- Fix null pointer when rendering button [#175](https://github.com/Coders-After-Dark/Reskillable/issues/175)
+- Added optional parameter to increment skill command to increment by x levels [#155](https://github.com/Coders-After-Dark/Reskillable/issues/155)
+
+
 ## 1.12.5
 - Fixed a crash caused when switching from server to single player.
 - Fixed doors and some other things still activating, even if you are holding an item that you cannot use.

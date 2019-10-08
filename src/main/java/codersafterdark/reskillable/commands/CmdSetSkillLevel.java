@@ -60,9 +60,9 @@ public class CmdSetSkillLevel extends CommandBase {
         try {
             level = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            throw new CommandException("reskillable.command.invalid.level", args[2]);
+            throw new CommandException("reskillable.command.invalid.missing.level", args[2]);
         }
-        if (level <= 0) {
+        if (level < 1) {
             throw new CommandException("reskillable.command.invalid.belowmin", level);
         }
         Skill skill = ReskillableRegistries.SKILLS.getValue(skillName);
