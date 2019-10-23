@@ -33,6 +33,7 @@ minecraft {
 
     mappings = "${mc_mappings}"
     replace 'GRADLE:VERSION', "${mc_version}"
+    replace 'GRADLE:BUILD', "${mod_version}"
 
     // Scala: not even once
     replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays'
