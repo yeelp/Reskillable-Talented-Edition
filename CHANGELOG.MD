@@ -5,6 +5,7 @@
 - Added optional parameter to increment skill command to increment by x levels [#155](https://github.com/Coders-After-Dark/Reskillable/issues/155)
 - Added API functionality to change background of the built in skills
 - Added config options to the individual skills to be able to toggle off manually leveling them up.
+- Made it so that the golden osmosis trait also repairs offhand and armor. And can repair anything that is repairable in an anvil using a golden ingot. [#177](https://github.com/Coders-After-Dark/Reskillable/issues/177)
 
 
 ## 1.12.5

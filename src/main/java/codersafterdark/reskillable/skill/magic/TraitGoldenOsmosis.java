@@ -1,14 +1,15 @@
 package codersafterdark.reskillable.skill.magic;
 
+import static codersafterdark.reskillable.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.base.ExperienceHelper;
-import com.google.common.collect.ImmutableSet;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import static codersafterdark.reskillable.lib.LibMisc.MOD_ID;
 
 public class TraitGoldenOsmosis extends Trait {
     public TraitGoldenOsmosis() {
@@ -18,11 +19,24 @@ public class TraitGoldenOsmosis extends Trait {
 
     @Override
     public void onPlayerTick(PlayerTickEvent event) {
-        ItemStack stack = event.player.getHeldItemMainhand();
-        if (!event.player.world.isRemote && ImmutableSet.of(Items.GOLDEN_PICKAXE, Items.GOLDEN_AXE, Items.GOLDEN_SHOVEL, Items.GOLDEN_SWORD).contains(stack.getItem()) && stack.getMetadata() > 3) {
-            if (ExperienceHelper.getPlayerXP(event.player) > 0) {
-                ExperienceHelper.drainPlayerXP(event.player, 1);
-                stack.setItemDamage(stack.getMetadata() - 3);
+        if (!event.player.world.isRemote) {
+            tryRepair(event.player, event.player.getHeldItemMainhand());
+            tryRepair(event.player, event.player.getHeldItemOffhand());
+            event.player.inventory.armorInventory.forEach(stack -> tryRepair(event.player, stack));
+        }
+    }
+
+    private void tryRepair(EntityPlayer player, ItemStack stack) {
+        if (!stack.isEmpty()) {
+            int damage = stack.getItemDamage();
+            if (damage > 2) {
+                Item item = stack.getItem();
+                if (item.isRepairable() && item.getIsRepairable(stack, new ItemStack(Items.GOLD_INGOT))) {
+                    if (ExperienceHelper.getPlayerXP(player) > 0) {
+                        ExperienceHelper.drainPlayerXP(player, 1);
+                        stack.setItemDamage(damage - 3);
+                    }
+                }
             }
         }
     }
