@@ -1,9 +1,12 @@
 package codersafterdark.reskillable.api;
 
 import codersafterdark.reskillable.api.data.PlayerData;
+import codersafterdark.reskillable.api.profession.ProfessionConfig;
 import codersafterdark.reskillable.api.requirement.*;
 import codersafterdark.reskillable.api.requirement.logic.LogicParser;
 import codersafterdark.reskillable.api.skill.SkillConfig;
+import codersafterdark.reskillable.api.talent.Talent;
+import codersafterdark.reskillable.api.talent.TalentConfig;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import codersafterdark.reskillable.api.unlockable.UnlockableConfig;
 import net.minecraft.advancements.Advancement;
@@ -30,6 +33,13 @@ public class ReskillableAPI {
             }
             return new TraitRequirement(unlockable);
         });
+        requirementRegistry.addRequirementHandler("talent", input -> {
+            Talent talent = ReskillableRegistries.TALENTS.getValue(new ResourceLocation(input));
+            if (talent == null) {
+                throw new RequirementException("Talent '" + input + "' not found.");
+            }
+            return new TalentRequirement(talent);
+        });
         requirementRegistry.addRequirementHandler("unobtainable", input -> new UnobtainableRequirement());
         requirementRegistry.addRequirementHandler("none", input -> new NoneRequirement()); //Makes it so other requirements are ignored
 
@@ -51,12 +61,18 @@ public class ReskillableAPI {
         instance = reskillableAPI;
     }
 
+    public ProfessionConfig getProfessionConfig(ResourceLocation name) {return modAccess.getProfessionConfig(name);}
+
     public SkillConfig getSkillConfig(ResourceLocation name) {
         return modAccess.getSkillConfig(name);
     }
 
     public UnlockableConfig getTraitConfig(ResourceLocation name, int x, int y, int cost, String[] defaultRequirements) {
         return modAccess.getUnlockableConfig(name, x, y, cost, defaultRequirements);
+    }
+
+    public TalentConfig getTalentConfig(ResourceLocation name, int x, int y, int cost, String[] defaultRequirements) {
+        return modAccess.getTalentConfig(name, x, y, cost, defaultRequirements);
     }
 
     public void syncPlayerData(EntityPlayer entityPlayer, PlayerData playerData) {

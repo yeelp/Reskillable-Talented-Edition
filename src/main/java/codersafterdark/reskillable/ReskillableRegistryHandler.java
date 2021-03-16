@@ -2,9 +2,15 @@ package codersafterdark.reskillable;
 
 import codersafterdark.reskillable.advancement.ReskillableAdvancements;
 import codersafterdark.reskillable.api.event.LevelUpEvent;
+import codersafterdark.reskillable.api.event.LevelUpProfessionEvent;
 import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
+import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
+import codersafterdark.reskillable.profession.*;
+import codersafterdark.reskillable.profession.warrior.TalentFrenzy;
+import codersafterdark.reskillable.profession.warrior.TalentRally;
 import codersafterdark.reskillable.skill.*;
 import codersafterdark.reskillable.skill.agility.TraitHillWalker;
 import codersafterdark.reskillable.skill.agility.TraitRoadWalk;
@@ -37,8 +43,22 @@ import static codersafterdark.reskillable.lib.LibMisc.MOD_ID;
 public class ReskillableRegistryHandler {
     @SubscribeEvent
     public static void buildRegistry(RegistryEvent.NewRegistry newRegistryEvent) {
+        new RegistryBuilder<Profession>().setName(new ResourceLocation(MOD_ID, "profession")).setType(Profession.class).create();
         new RegistryBuilder<Skill>().setName(new ResourceLocation(MOD_ID, "skill")).setType(Skill.class).create();
         new RegistryBuilder<Unlockable>().setName(new ResourceLocation(MOD_ID, "unlockable")).setType(Unlockable.class).create();
+        new RegistryBuilder<Talent>().setName(new ResourceLocation(MOD_ID, "talent")).setType(Talent.class).create();
+    }
+
+    @SubscribeEvent
+    public static void registerProfessions(RegistryEvent.Register<Profession> professionRegister) {
+        professionRegister.getRegistry().registerAll(
+                new ProfessionWarrior(),
+                new ProfessionRogue(),
+                new ProfessionMage(),
+                new ProfessionFarmer(),
+                new ProfessionGatherer(),
+                new ProfessionTinkerer()
+                );
     }
 
     @SubscribeEvent
@@ -77,6 +97,22 @@ public class ReskillableRegistryHandler {
                 new TraitFossilDigger(),
                 new TraitObsidianSmasher()
         );
+    }
+
+    @SubscribeEvent
+    public static void registerTalents(RegistryEvent.Register<Talent> talentRegister) {
+        talentRegister.getRegistry().registerAll(
+                new TalentRally(),
+                new TalentFrenzy()
+        );
+    }
+
+    @SubscribeEvent
+    public static void professionAdvancementHandling(LevelUpProfessionEvent.Post postEvent) {
+        if (postEvent.getEntityPlayer() instanceof EntityPlayerMP) {
+            ReskillableAdvancements.PROFESSION_LEVEL.trigger((EntityPlayerMP) postEvent.getEntityPlayer(),
+                postEvent.getProfession(), postEvent.getLevel());
+        }
     }
 
     @SubscribeEvent

@@ -1,9 +1,6 @@
 package codersafterdark.reskillable.api.requirement;
 
-import codersafterdark.reskillable.api.event.CacheInvalidatedEvent;
-import codersafterdark.reskillable.api.event.LevelUpEvent;
-import codersafterdark.reskillable.api.event.LockUnlockableEvent;
-import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
+import codersafterdark.reskillable.api.event.*;
 import codersafterdark.reskillable.api.requirement.logic.DoubleRequirement;
 import codersafterdark.reskillable.api.requirement.logic.OuterRequirement;
 import codersafterdark.reskillable.api.requirement.logic.impl.NOTRequirement;
@@ -148,14 +145,29 @@ public class RequirementCache {
     }
 
     @SubscribeEvent
+    public static void onProfessionLevelChange(LevelUpProfessionEvent.Post event) {
+        invalidateCache(event.getEntityPlayer().getUniqueID(), ProfessionRequirement.class);
+    }
+
+    @SubscribeEvent
     public static void onLevelChange(LevelUpEvent.Post event) {
         //Just invalidate all skills because it is easier than checking each requirement they have to see if the skill matches
         invalidateCache(event.getEntityPlayer().getUniqueID(), SkillRequirement.class);
     }
 
     @SubscribeEvent
+    public static void onTalentLocked(LockTalentEvent.Post event) {
+        invalidateCache(event.getEntityPlayer().getUniqueID(), TalentRequirement.class);
+    }
+
+    @SubscribeEvent
     public static void onUnlockableLocked(LockUnlockableEvent.Post event) {
         invalidateCache(event.getEntityPlayer().getUniqueID(), TraitRequirement.class);
+    }
+
+    @SubscribeEvent
+    public static void onTalentUnlocked(UnlockTalentEvent.Post event) {
+        invalidateCache(event.getEntityPlayer().getUniqueID(), TalentRequirement.class);
     }
 
     @SubscribeEvent

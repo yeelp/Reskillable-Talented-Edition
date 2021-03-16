@@ -66,9 +66,9 @@ public class GuiButtonInventoryTab extends GuiButton {
     }
 
     public enum TabType {
+        PROFESSIONS(2, null),
         INVENTORY(1, null),
-        SKILLS(0, null),
-        ABILITIES(2, PlayerData::hasAnyAbilities);
+        SKILLS(0, null);
 
         public final int iconIndex;
         private Predicate<PlayerData> renderPred;

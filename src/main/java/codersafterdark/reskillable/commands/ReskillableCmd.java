@@ -13,7 +13,9 @@ public class ReskillableCmd extends CommandTreeBase {
         addSubcommand(new CmdResetAll());
         addSubcommand(new CmdResetSkill());
         addSubcommand(new CmdSetSkillLevel());
+        addSubcommand(new CmdSetProfessionLevel());
         addSubcommand(new CmdToggleTrait());
+        addSubcommand(new CmdToggleTalent());
     }
 
     @Nonnull

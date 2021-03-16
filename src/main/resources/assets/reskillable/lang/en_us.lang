@@ -1,11 +1,16 @@
 # MISC
 reskillable.misc.capped=MAX
 reskillable.misc.skills=Skills
+reskillable.misc.professions=Professions
 reskillable.misc.requirements=Requirements:
 reskillable.misc.requirements_shift=Hold SHIFT for requirements
 reskillable.misc.skill_points=%d Skill Points
 reskillable.misc.shift=Hold SHIFT for description
 reskillable.misc.unlocked=Unlocked!
+reskillable.misc.level=Level
+reskillable.misc.levels=Levels
+reskillable.misc.cost=Cost:
+reskillable.misc.talent_rank=Rank: %d / %d
 
 reskillable.misc.locked.item=You don't meet the requirements to use this item
 reskillable.misc.locked.block_break=You don't meet the requirements to break this block
@@ -13,9 +18,11 @@ reskillable.misc.locked.block_use=You don't meet the requirements to use this bl
 reskillable.misc.locked.armor_equip=You don't meet the requirements to wear this armor
 
 # FORMATS
+reskillable.requirements.format.profession=%s%s: %s%d
 reskillable.requirements.format.skill=%s%s: %s%d
 reskillable.requirements.format.advancement=Advancement: %s%s
 reskillable.requirements.format.trait=Trait: %s%s
+reskillable.requirements.format.talent=Talent: %s%s
 reskillable.requirements.format.unobtainable=Unobtainable
 reskillable.requirements.format.and=AND
 reskillable.requirements.format.nand=NAND
@@ -23,6 +30,35 @@ reskillable.requirements.format.or=OR
 reskillable.requirements.format.nor=NOR
 reskillable.requirements.format.xor=XOR
 reskillable.requirements.format.xnor=XNOR
+
+# PROFESSION NAMES
+reskillable.profession.reskillable.warrior=Warrior
+reskillable.profession.reskillable.rogue=Rogue
+reskillable.profession.reskillable.mage=Mage
+reskillable.profession.reskillable.tinkerer=Tinkerer
+reskillable.profession.reskillable.farmer=Farmer
+reskillable.profession.reskillable.gatherer=Gatherer
+
+# SUBPROFESSION NAMES
+reskillable.subprofession.reskillable.warden=Warden
+reskillable.subprofession.reskillable.gladiator=Gladiator
+reskillable.subprofession.reskillable.berserker=Berserker
+
+reskillable.subprofession.reskillable.assassin=Assassin
+reskillable.subprofession.reskillable.archer=Archer
+
+reskillable.subprofession.reskillable.wizard=Wizard
+reskillable.subprofession.reskillable.alchemist=Alchemist
+
+reskillable.subprofession.reskillable.miner=Miner
+reskillable.subprofession.reskillable.seafarer=Seafarer
+reskillable.subprofession.reskillable.forager=Forager
+
+reskillable.subprofession.reskillable.rancher=Rancher
+reskillable.subprofession.reskillable.chef=Chef
+
+reskillable.subprofession.reskillable.blacksmith=Blacksmith
+reskillable.subprofession.reskillable.engineer=Engineer
 
 # SKILL NAMES
 reskillable.skill.reskillable.mining=Mining
@@ -74,6 +110,13 @@ reskillable.unlock.reskillable.effect_twist.desc=Being hit by a monster while un
 reskillable.unlock.reskillable.hillwalker=Hill Walker
 reskillable.unlock.reskillable.hillwalker.desc=After many a long journey, and steep-climb, you've reached a state of perpetual stepping-up to any occasion. You now have step-assist!
 
+# TALENT NAMES
+reskillable.talent.reskillable.rally=In War, Victory
+reskillable.talent.reskillable.rally.desc=Killing an enemy gives nearby allies (including yourself) buffs within 12.0 blocks. Strength I and Resistance I for 5 seconds. Continued kills refresh duration
+
+reskillable.talent.reskillable.frenzy=Blood Frenzy
+reskillable.talent.reskillable.frenzy.desc=Dealing damage now heals you for a small amount, but the continued frenzy for blood lowers your damage resistance by 15%%
+
 # RANK NAMES
 reskillable.rank.0=Novice
 reskillable.rank.1=Fledgling
@@ -88,13 +131,14 @@ reskillable.rank.8=Ascendant
 # TAB NAMES
 reskillable.tab.inventory=Inventory
 reskillable.tab.skills=Skills
-reskillable.tab.abilities=Abilities
+reskillable.tab.professions=Professions
 
 # KEY-BINDINGS
 key.controls.reskillable=Reskillable
 key.open_gui=Open Skill GUI
 
 # TOAST MESSAGES
+reskillable.toast.profession_desc=Reached level: %s
 reskillable.toast.skill_desc=Reached level: %s
 reskillable.toast.unlockable_desc=Unlocked!
 
@@ -112,6 +156,8 @@ reskillable.command.success.resetskill=Successfully reset Skill: '%s' for player
 reskillable.command.success.setskilllevel=Successfully set the level of Skill: '%s' to '%s' for player '%s'.
 reskillable.command.success.skillup=Successfully leveled up Skill: '%s' for player '%s'.
 reskillable.command.success.resetall=Successfully reset all skills for player '%s'.
+reskillable.command.success.locktalent=Successfully locked '%s' for player '%s'.
+reskillable.command.success.unlocktalent=Successfully unlocked '%s' for player '%s'.
 
 reskillable.command.fail.unlocktrait=Failed to unlock '%s' for player '%s'.
 reskillable.command.fail.locktrait=Failed to lock '%s' for player '%s'.
@@ -119,6 +165,8 @@ reskillable.command.fail.resetskill=Failed to reset Skill: '%s' for player '%s'.
 reskillable.command.fail.setskilllevel=Failed to set the level of Skill: '%s' to '%s' for player '%s'.
 reskillable.command.fail.skillup=Failed to level up Skill: '%s' for player '%s'.
 reskillable.command.fail.resetall=Failed to reset skills '%s' for player '%s'.
+reskillable.command.fail.locktalent=Failed to lock '%s' for player '%s'.
+reskillable.command.fail.unlocktalent=Failed to unlock '%s' for player '%s'.
 
 reskillable.command.invalid.skill=Skill '%s' is invalid.
 reskillable.command.invalid.trait=Trait '%s' is invalid.
@@ -133,8 +181,11 @@ reskillable.command.invalid.missing.playerskill=You must enter the name of both 
 reskillable.command.invalid.missing.playertrait=You must enter the name of both a player and a trait.
 reskillable.command.invalid.missing.playerskilllevel=You must enter the name of both a player and a skill, and a level for the skill.
 reskillable.command.invalid.missing.skilllevel=You must enter the name of a skill, and a level for the skill.
+reskillable.command.invalid.missing.playertalent=You must enter the name of both a player and a talent.
+reskillable.command.invalid.missing.talent=You must enter the name of a talent.
+reskillable.command.invalid.talent=Talent '%s' is invalid.
 
-# ADVANCMENTS
+# ADVANCEMENTS
 reskillable.advancement.first_level.title=First Level Up!
 reskillable.advancement.first_level.desc=You've Leveled your First Skill
 

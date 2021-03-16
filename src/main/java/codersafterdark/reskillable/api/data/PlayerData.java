@@ -2,9 +2,11 @@ package codersafterdark.reskillable.api.data;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.ReskillableRegistries;
+import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Ability;
 import codersafterdark.reskillable.api.unlockable.IAbilityEventHandler;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,28 +26,42 @@ import java.util.function.Consumer;
 
 public class PlayerData {
     private static final String TAG_SKILLS_CMP = "SkillLevels";
+    private static final String TAG_PROFESSIONS_CMP = "ProfessionLevels";
+    private static final String TAG_TALENTS_CMP = "TalentRanks";
     private final boolean client;
     private final RequirementCache requirementCache;
     public WeakReference<EntityPlayer> playerWR;
+    private Map<Profession, PlayerProfessionInfo> professionInfo = new HashMap<>();
     private Map<Skill, PlayerSkillInfo> skillInfo = new HashMap<>();
+    private Map<Talent, PlayerTalentInfo> talentInfo = new HashMap<>();
 
     public PlayerData(EntityPlayer player) {
         playerWR = new WeakReference<>(player);
         client = player.getEntityWorld().isRemote;
         requirementCache = RequirementCache.getCache(player);
 
+        ReskillableRegistries.PROFESSIONS.getValuesCollection().forEach(p -> professionInfo.put(p, new PlayerProfessionInfo(p)));
         ReskillableRegistries.SKILLS.getValuesCollection().forEach(s -> skillInfo.put(s, new PlayerSkillInfo(s)));
+        ReskillableRegistries.TALENTS.getValuesCollection().forEach(t -> talentInfo.put(t, new PlayerTalentInfo(t)));
 
         load();
     }
+
+    public PlayerProfessionInfo getProfessionInfo(Profession p) {return professionInfo.get(p);}
 
     public PlayerSkillInfo getSkillInfo(Skill s) {
         return skillInfo.get(s);
     }
 
+    public PlayerTalentInfo getTalentInfo(Talent t) {return talentInfo.get(t);}
+
     public Collection<PlayerSkillInfo> getAllSkillInfo() {
         return skillInfo.values();
     }
+
+    public Collection<PlayerProfessionInfo> getAllProfessionInfo() {return professionInfo.values();}
+
+    public Collection<PlayerTalentInfo> getAllTalentInfo() {return talentInfo.values();}
 
     public boolean hasAnyAbilities() {
         return !getAllAbilities().isEmpty();
@@ -106,6 +122,8 @@ public class PlayerData {
 
     public void loadFromNBT(NBTTagCompound cmp) {
         NBTTagCompound skillsCmp = cmp.getCompoundTag(TAG_SKILLS_CMP);
+        NBTTagCompound profsCmp = cmp.getCompoundTag(TAG_PROFESSIONS_CMP);
+        NBTTagCompound talentsCmp = cmp.getCompoundTag(TAG_TALENTS_CMP);
         for (PlayerSkillInfo info : skillInfo.values()) {
             String key = info.skill.getKey();
             if (skillsCmp.hasKey(key)) {
@@ -113,10 +131,26 @@ public class PlayerData {
                 info.loadFromNBT(infoCmp);
             }
         }
+        for (PlayerProfessionInfo info : professionInfo.values()) {
+            String key = info.profession.getKey();
+            if (profsCmp.hasKey(key)) {
+                NBTTagCompound infoCmp = profsCmp.getCompoundTag(key);
+                info.loadFromNBT(infoCmp);
+            }
+        }
+        for (PlayerTalentInfo info : talentInfo.values()) {
+            String key = info.talent.getKey();
+            if (talentsCmp.hasKey(key)) {
+                NBTTagCompound infoCmp = talentsCmp.getCompoundTag(key);
+                info.loadFromNBT(infoCmp);
+            }
+        }
     }
 
     public void saveToNBT(NBTTagCompound cmp) {
         NBTTagCompound skillsCmp = new NBTTagCompound();
+        NBTTagCompound profsCmp = new NBTTagCompound();
+        NBTTagCompound talentsCmp = new NBTTagCompound();
 
         for (PlayerSkillInfo info : skillInfo.values()) {
             String key = info.skill.getKey();
@@ -125,7 +159,23 @@ public class PlayerData {
             skillsCmp.setTag(key, infoCmp);
         }
 
+        for (PlayerProfessionInfo info: professionInfo.values()) {
+            String key = info.profession.getKey();
+            NBTTagCompound infoCmp = new NBTTagCompound();
+            info.saveToNBT(infoCmp);
+            profsCmp.setTag(key, infoCmp);
+        }
+
+        for (PlayerTalentInfo info: talentInfo.values()) {
+            String key = info.talent.getKey();
+            NBTTagCompound infoCmp = new NBTTagCompound();
+            info.saveToNBT(infoCmp);
+            talentsCmp.setTag(key, infoCmp);
+        }
+
+        cmp.setTag(TAG_PROFESSIONS_CMP, profsCmp);
         cmp.setTag(TAG_SKILLS_CMP, skillsCmp);
+        cmp.setTag(TAG_TALENTS_CMP, talentsCmp);
     }
 
     // Event Handlers
@@ -168,5 +218,6 @@ public class PlayerData {
 
     public void forEachEventHandler(Consumer<IAbilityEventHandler> consumer) {
         skillInfo.values().forEach(info -> info.forEachEventHandler(consumer));
+        professionInfo.values().forEach(info -> info.forEachEventHandler(consumer));
     }
 }

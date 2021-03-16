@@ -2,7 +2,8 @@ package codersafterdark.reskillable.client.gui.handler;
 
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.client.base.RenderHelper;
-import codersafterdark.reskillable.client.gui.GuiAbilities;
+import codersafterdark.reskillable.client.gui.GuiProfessionInfo;
+import codersafterdark.reskillable.client.gui.GuiProfessions;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;
 import codersafterdark.reskillable.client.gui.GuiSkills;
 import codersafterdark.reskillable.client.gui.button.GuiButtonInventoryTab;
@@ -37,9 +38,13 @@ public class InventoryTabHandler {
             x -= 10;
             y += 15;
         }
+
+        if (currScreen instanceof GuiProfessionInfo) {
+            x -= 82;
+        }
         buttonList.add(new GuiButtonInventoryTab(82931, x, y, GuiButtonInventoryTab.TabType.INVENTORY, gui -> gui instanceof GuiInventory || gui instanceof GuiContainerCreative));
         buttonList.add(new GuiButtonInventoryTab(82932, x, y + 29, GuiButtonInventoryTab.TabType.SKILLS, gui -> gui instanceof GuiSkills || gui instanceof GuiSkillInfo));
-        buttonList.add(new GuiButtonInventoryTab(82933, x, y + 58, GuiButtonInventoryTab.TabType.ABILITIES, gui -> gui instanceof GuiAbilities));
+        buttonList.add(new GuiButtonInventoryTab(82933, x, y + 58, GuiButtonInventoryTab.TabType.PROFESSIONS, gui -> gui instanceof GuiProfessions || gui instanceof GuiProfessionInfo));
     }
 
     @SubscribeEvent
@@ -64,9 +69,8 @@ public class InventoryTabHandler {
                 case SKILLS:
                     mc.displayGuiScreen(new GuiSkills());
                     break;
-                case ABILITIES:
-                    mc.displayGuiScreen(new GuiAbilities());
-                    break;
+                case PROFESSIONS:
+                    mc.displayGuiScreen(new GuiProfessions());
             }
         }
     }

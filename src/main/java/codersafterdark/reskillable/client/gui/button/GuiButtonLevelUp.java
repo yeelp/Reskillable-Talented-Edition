@@ -1,12 +1,17 @@
 package codersafterdark.reskillable.client.gui.button;
 
+import static codersafterdark.reskillable.client.base.RenderHelper.renderTooltip;
+
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GuiButtonLevelUp extends GuiButton {
     int cost;
@@ -47,4 +52,13 @@ public class GuiButtonLevelUp extends GuiButton {
             }
         }
     }
+
+    public void drawLevelButtonTooltip(String cost, int mouseX, int mouseY) {
+        List<String> tooltip = new ArrayList<>();
+
+        tooltip.add(cost);
+
+        renderTooltip(mouseX, mouseY, tooltip);
+    }
+
 }

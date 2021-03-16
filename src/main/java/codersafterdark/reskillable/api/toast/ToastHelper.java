@@ -1,10 +1,10 @@
 package codersafterdark.reskillable.api.toast;
 
+import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
-import codersafterdark.reskillable.network.SkillToastPacket;
-import codersafterdark.reskillable.network.PacketHandler;
-import codersafterdark.reskillable.network.UnlockableToastPacket;
+import codersafterdark.reskillable.network.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.relauncher.Side;
@@ -26,6 +26,20 @@ public class ToastHelper {
     }
 
     @SideOnly(Side.CLIENT)
+    public static void sendProfessionToast(Profession profession, int level) {
+        if (profession != null) {
+            sendToast(new ProfessionToast(profession, level));
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void sendTalentToast(Talent t) {
+        if (t != null) {
+            sendToast(new TalentToast(t));
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
     public static void sendSkillToast(Skill skill, int level) {
         if (skill != null) {
             sendToast(new SkillToast(skill, level));
@@ -38,9 +52,21 @@ public class ToastHelper {
         }
     }
 
+    public static void sendTalentToast(EntityPlayerMP player, Talent t) {
+        if (t != null) {
+            PacketHandler.INSTANCE.sendTo(new TalentToastPacket(t.getRegistryName()), player);
+        }
+    }
+
     public static void sendSkillToast(EntityPlayerMP player, Skill skill, int level) {
         if (skill != null) {
             PacketHandler.INSTANCE.sendTo(new SkillToastPacket(skill.getRegistryName(), level), player);
+        }
+    }
+
+    public static void sendProfessionToast(EntityPlayerMP player, Profession profession, int level) {
+        if (profession != null) {
+            PacketHandler.INSTANCE.sendTo(new ProfessionToastPacket(profession.getRegistryName(), level), player);
         }
     }
 }

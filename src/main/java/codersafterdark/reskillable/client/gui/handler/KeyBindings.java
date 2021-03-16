@@ -15,9 +15,10 @@ import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class KeyBindings {
+    public static KeyBinding openProfessions = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_professions"), Keyboard.KEY_P, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
     public static KeyBinding openGUI = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_gui"), Keyboard.KEY_Y, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
-
     public static void init() {
+        ClientRegistry.registerKeyBinding(openProfessions);
         ClientRegistry.registerKeyBinding(openGUI);
     }
 
