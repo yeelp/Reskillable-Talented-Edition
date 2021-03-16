@@ -6,7 +6,7 @@ Reskillable: Talented Edition is a fork of Reskillable that introduces a class s
 
 * Professions have their own GUI with different subclasses and colors
 * Talents can have multiple ranks that increase the potency of the effect
-* New traits have been added to flesh out the original skills and provide more cross-mod compatiblity
+* New traits have been added to flesh out the original skills and provide more cross-mod compatibility
 \
 \
 **Note**\
