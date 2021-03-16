@@ -1,6 +1,7 @@
 package codersafterdark.reskillable.client.gui.handler;
 
 import codersafterdark.reskillable.Reskillable;
+import codersafterdark.reskillable.client.gui.GuiProfessions;
 import codersafterdark.reskillable.client.gui.GuiSkills;
 import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.client.Minecraft;
@@ -15,11 +16,15 @@ import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class KeyBindings {
-    public static KeyBinding openProfessions = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_professions"), Keyboard.KEY_P, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
-    public static KeyBinding openGUI = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_gui"), Keyboard.KEY_Y, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
+    public static KeyBinding openGUI = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_skills_gui"), Keyboard.KEY_Y, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
+    public static KeyBinding keyProfessionGui = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_professions_gui"), Keyboard.KEY_P, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
+    public static KeyBinding keySeasonsHUD = new KeyBinding(Reskillable.proxy.getLocalizedString("key.toggle_seasons_hud"), Keyboard.KEY_H, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
+
+
     public static void init() {
-        ClientRegistry.registerKeyBinding(openProfessions);
         ClientRegistry.registerKeyBinding(openGUI);
+        ClientRegistry.registerKeyBinding(keyProfessionGui);
+        ClientRegistry.registerKeyBinding(keySeasonsHUD);
     }
 
     @SubscribeEvent
@@ -34,5 +39,24 @@ public class KeyBindings {
                 Minecraft.getMinecraft().displayGuiScreen(new GuiSkills());
             }
         }
+    }
+
+    @SubscribeEvent
+    public void keyInput(InputEvent.KeyInputEvent event) {
+        // Exit on key de-press
+        if (!Keyboard.getEventKeyState()) {
+            return;
+        }
+        // If Profession key is pressed, and F3 key is not being held (F3+N toggles Spectator mode)
+        if (keyProfessionGui.isKeyDown() && !Keyboard.isKeyDown(Keyboard.KEY_F3)) {
+            openProfessionGui();
+        }
+    }
+
+    // Opens GUI to show profession menu
+    @SideOnly(Side.CLIENT)
+    private void openProfessionGui () {
+        Minecraft mc = Minecraft.getMinecraft();
+        mc.displayGuiScreen(new GuiProfessions());
     }
 }

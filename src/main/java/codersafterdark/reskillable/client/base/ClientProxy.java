@@ -2,6 +2,7 @@ package codersafterdark.reskillable.client.base;
 
 import codersafterdark.reskillable.base.CommonProxy;
 import codersafterdark.reskillable.base.ToolTipHandler;
+import codersafterdark.reskillable.client.gui.compat.SeasonsOverlay;
 import codersafterdark.reskillable.client.gui.handler.InventoryTabHandler;
 import codersafterdark.reskillable.client.gui.handler.KeyBindings;
 import net.minecraft.advancements.Advancement;
@@ -12,6 +13,7 @@ import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
@@ -30,6 +32,10 @@ public class ClientProxy extends CommonProxy {
         MinecraftForge.EVENT_BUS.register(ToolTipHandler.class);
         MinecraftForge.EVENT_BUS.register(getClass());
         MinecraftForge.EVENT_BUS.register(new KeyBindings());
+
+        if (Loader.isModLoaded("sereneseasons")) {
+            MinecraftForge.EVENT_BUS.register(SeasonsOverlay.instance);
+        }
     }
 
     @Override

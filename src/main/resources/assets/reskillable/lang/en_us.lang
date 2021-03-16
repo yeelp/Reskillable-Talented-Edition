@@ -110,6 +110,9 @@ reskillable.unlock.reskillable.effect_twist.desc=Being hit by a monster while un
 reskillable.unlock.reskillable.hillwalker=Hill Walker
 reskillable.unlock.reskillable.hillwalker.desc=After many a long journey, and steep-climb, you've reached a state of perpetual stepping-up to any occasion. You now have step-assist!
 
+reskillable.unlock.reskillable.seasonal_greetings=Seasonal Greetings
+reskillable.unlock.reskillable.seasonal_greetings.desc=Provides a visual indicator of the current season. Press [H] (by default) to toggle.
+
 # TALENT NAMES
 reskillable.talent.reskillable.rally=In War, Victory
 reskillable.talent.reskillable.rally.desc=Killing an enemy gives nearby allies (including yourself) buffs within 12.0 blocks. Strength I and Resistance I for 5 seconds. Continued kills refresh duration
@@ -135,7 +138,9 @@ reskillable.tab.professions=Professions
 
 # KEY-BINDINGS
 key.controls.reskillable=Reskillable
-key.open_gui=Open Skill GUI
+key.open_skills_gui=Open Skill GUI
+key.open_professions_gui=Open Profession GUI
+key.toggle_seasons_hud=Toggle Seasons HUD
 
 # TOAST MESSAGES
 reskillable.toast.profession_desc=Reached level: %s
@@ -191,3 +196,17 @@ reskillable.advancement.first_level.desc=You've Leveled your First Skill
 
 reskillable.advancement.attack_5.title=Attack!
 reskillable.advancement.attack_5.desc=You've Leveled Attack to 5
+
+# HUD
+reskillable.hud.early_spring=Early Spring
+reskillable.hud.mid_spring=Mid Spring
+reskillable.hud.late_spring=Late Spring
+reskillable.hud.early_summer=Early Summer
+reskillable.hud.mid_summer=Mid Summer
+reskillable.hud.late_summer=Late Summer
+reskillable.hud.early_autumn=Early Autumn
+reskillable.hud.mid_autumn=Mid Autumn
+reskillable.hud.late_autumn=Late Autumn
+reskillable.hud.early_winter=Early Winter
+reskillable.hud.mid_winter=Mid Winter
+reskillable.hud.late_winter=Late Winter

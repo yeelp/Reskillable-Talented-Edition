@@ -24,6 +24,7 @@ import codersafterdark.reskillable.skill.defense.TraitUndershirt;
 import codersafterdark.reskillable.skill.farming.TraitGreenThumb;
 import codersafterdark.reskillable.skill.farming.TraitHungryFarmer;
 import codersafterdark.reskillable.skill.farming.TraitMoreWheat;
+import codersafterdark.reskillable.skill.farming.TraitSeasons;
 import codersafterdark.reskillable.skill.gathering.TraitDropGuarantee;
 import codersafterdark.reskillable.skill.gathering.TraitLuckyFisherman;
 import codersafterdark.reskillable.skill.magic.TraitGoldenOsmosis;
@@ -33,6 +34,7 @@ import codersafterdark.reskillable.skill.mining.TraitObsidianSmasher;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.registries.RegistryBuilder;
@@ -96,7 +98,12 @@ public class ReskillableRegistryHandler {
                 new TraitSafePort(),
                 new TraitFossilDigger(),
                 new TraitObsidianSmasher()
+                // NEW TRAITS
         );
+
+        if (Loader.isModLoaded("sereneseasons")) {
+            unlockablesRegister.getRegistry().register(new TraitSeasons());
+        }
     }
 
     @SubscribeEvent

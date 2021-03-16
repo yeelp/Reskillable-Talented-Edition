@@ -311,7 +311,7 @@ public class GuiProfessionInfo extends GuiScreen {
             if (this.mc.currentScreen == null) {
                 this.mc.setIngameFocus();
             }
-        } else if (keyCode == KeyBindings.openProfessions.getKeyCode() || keyCode == Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode()) {
+        } else if (keyCode == KeyBindings.keyProfessionGui.getKeyCode() || keyCode == Minecraft.getMinecraft().gameSettings.keyBindInventory.getKeyCode()) {
             this.mc.displayGuiScreen(null);
             if (this.mc.currentScreen != null) {
                 this.mc.setIngameFocus();
