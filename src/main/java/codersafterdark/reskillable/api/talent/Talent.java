@@ -7,7 +7,6 @@ import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.profession.Profession;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.Level;
