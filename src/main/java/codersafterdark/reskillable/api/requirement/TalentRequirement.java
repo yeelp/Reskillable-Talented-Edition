@@ -32,9 +32,9 @@ public class TalentRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
+    public RequirementComparison matches(Requirement other) {
         return other instanceof TalentRequirement ? talent.getKey().equals(((TalentRequirement) other).talent.getKey()) ?
-                RequirementComparision.EQUAL_TO : RequirementComparision.NOT_EQUAL : RequirementComparision.NOT_EQUAL;
+                RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL : RequirementComparison.NOT_EQUAL;
     }
 
     @Override

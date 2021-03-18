@@ -17,6 +17,9 @@ reskillable.misc.locked.block_break=You don't meet the requirements to break thi
 reskillable.misc.locked.block_use=You don't meet the requirements to use this block
 reskillable.misc.locked.armor_equip=You don't meet the requirements to wear this armor
 
+reskillable.misc.scroll.message.success=You successfully cleansed your abilities
+reskillable.misc.scroll.message.fail=You failed to cleanse your abilities
+
 # FORMATS
 reskillable.requirements.format.profession=%s%s: %s%d
 reskillable.requirements.format.skill=%s%s: %s%d
@@ -30,6 +33,9 @@ reskillable.requirements.format.or=OR
 reskillable.requirements.format.nor=NOR
 reskillable.requirements.format.xor=XOR
 reskillable.requirements.format.xnor=XNOR
+
+# ITEMS
+item.reskillable.scroll_respec.name=Writ of Renewal
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
@@ -63,12 +69,12 @@ reskillable.subprofession.reskillable.engineer=Engineer
 # SKILL NAMES
 reskillable.skill.reskillable.mining=Mining
 reskillable.skill.reskillable.gathering=Gathering
-reskillable.skill.reskillable.attack=Attack
-reskillable.skill.reskillable.defense=Defense
+reskillable.skill.reskillable.attack=Strength
+reskillable.skill.reskillable.defense=Vitality
 reskillable.skill.reskillable.building=Building
 reskillable.skill.reskillable.farming=Farming
-reskillable.skill.reskillable.agility=Agility
-reskillable.skill.reskillable.magic=Magic
+reskillable.skill.reskillable.agility=Finesse
+reskillable.skill.reskillable.magic=Wisdom
 
 # UNLOCKABLE NAMES
 reskillable.unlock.reskillable.obsidian_smasher=Obsidian Smasher
@@ -79,7 +85,7 @@ reskillable.unlock.reskillable.ore_cascade=Ore Cascade
 reskillable.unlock.reskillable.ore_cascade.desc=Toggled Ability: Mining an Ore Block will cause the entire vein to be mined out instead. The Pickaxe will take double durability damage
 reskillable.unlock.reskillable.lucky_fisherman=Lucky Fisherman
 reskillable.unlock.reskillable.lucky_fisherman.desc=Luck increased while fishing
-reskillable.unlock.reskillable.drop_guarantee=Drop Guarantee
+reskillable.unlock.reskillable.drop_guarantee=Poach
 reskillable.unlock.reskillable.drop_guarantee.desc=Enemy mobs will always drop at least one item (if applicable)
 reskillable.unlock.reskillable.neutralissse=DefuSSse
 reskillable.unlock.reskillable.neutralissse.desc=Landing a blow on a Creeper just after it starts igniting will neutralize it for a few seconds
@@ -110,15 +116,47 @@ reskillable.unlock.reskillable.effect_twist.desc=Being hit by a monster while un
 reskillable.unlock.reskillable.hillwalker=Hill Walker
 reskillable.unlock.reskillable.hillwalker.desc=After many a long journey, and steep-climb, you've reached a state of perpetual stepping-up to any occasion. You now have step-assist!
 
+reskillable.unlock.reskillable.lucky_strikes=Lucky Strikes
+reskillable.unlock.reskillable.lucky_strikes.desc=
 reskillable.unlock.reskillable.seasonal_greetings=Seasonal Greetings
 reskillable.unlock.reskillable.seasonal_greetings.desc=Provides a visual indicator of the current season. Press [H] (by default) to toggle.
 
 # TALENT NAMES
 reskillable.talent.reskillable.rally=In War, Victory
 reskillable.talent.reskillable.rally.desc=Killing an enemy gives nearby allies (including yourself) buffs within 12.0 blocks. Strength I and Resistance I for 5 seconds. Continued kills refresh duration
+reskillable.talent.reskillable.vigilance=In Peace, Vigilance
+reskillable.talent.reskillable.vigilance.desc=If you do not hit an entity for 30 seconds, you will slowly regen health.
+reskillable.talent.reskillable.sacrifice=In Death, Sacrifice
+reskillable.talent.reskillable.sacrifice.desc=When killed, all nearby players within 32.0 blocks will be fully healed and cleansed of any negative potion effects.
+reskillable.talent.reskillable.blocking=The First Thirty Heartbeats
+reskillable.talent.reskillable.blocking.desc=Successfully blocking an attack grants you 10%% Damage Resistance for 3 seconds. Continued blocks refreshes duration.
+reskillable.talent.reskillable.mantra=Unifying Mantra
+reskillable.talent.reskillable.mantra.desc=Holding a shield in the offhand will absorb 50%% of the received damage from nearby players within 8.0 blocks.
+reskillable.talent.reskillable.aura=A Warrior's Aura
+reskillable.talent.reskillable.aura.desc=Every 10 seconds, you pull all entities towards you.
+reskillable.talent.reskillable.warden_novice=Novice Warden Training
+reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%% (Total: 5%%)
+reskillable.talent.reskillable.warden_advanced=Advanced Warden Training
+reskillable.talent.reskillable.warden_advanced.desc=Allows usage of Mid-Tier Shields/Sabers. Increase damage resistance by another 5%% (Total: 10%%)
+reskillable.talent.reskillable.warden_master=Master Warden Training
+reskillable.talent.reskillable.warden_master.desc=Allows usage of High-Tier Shields/Sabers. Increase damage resistance by another 5%% (Total: 15%%)
 
 reskillable.talent.reskillable.frenzy=Blood Frenzy
 reskillable.talent.reskillable.frenzy.desc=Dealing damage now heals you for a small amount, but the continued frenzy for blood lowers your damage resistance by 15%%
+reskillable.talent.reskillable.adrenaline=Adrenaline
+reskillable.talent.reskillable.adrenaline.desc=Receive a permanent potion effect of Delay Death. Trait activates when you first reach 0 health. The active effect will still protect you from death, but the closer you get to 0 the higher the chance of instantly dying randomly and dropping all your items.
+reskillable.talent.reskillable.berserk_advanced=Advanced Berserker Training
+reskillable.talent.reskillable.berserk_advanced.desc=Allows usage of Mid-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by another 10%% (Total: 15%%)
+reskillable.talent.reskillable.berserk_master=Master Berserker Training
+reskillable.talent.reskillable.berserk_master.desc=Allows usage of High-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by another 10%% (Total: 25%%)
+reskillable.talent.reskillable.berserk_novice=Novice Berserker Training
+reskillable.talent.reskillable.berserk_novice.desc=Allows usage of Low-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by 5%% (Total: 5%%)
+reskillable.talent.reskillable.edge=On The Edge
+reskillable.talent.reskillable.edge.desc=Increase attack damage by 50%%, attack speed by 20%%, and movement speed by 10%% while below 50%% maximum health.
+reskillable.talent.reskillable.fear=Fear Into Thy Enemy
+reskillable.talent.reskillable.fear.desc=Attacks have a 10%% to apply Fear status effect on majority of enemies while below 50%% maximum health.
+reskillable.talent.reskillable.jump=Into The Fire
+reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%.
 
 # RANK NAMES
 reskillable.rank.0=Novice

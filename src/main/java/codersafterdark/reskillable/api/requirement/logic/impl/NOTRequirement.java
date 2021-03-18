@@ -2,7 +2,7 @@ package codersafterdark.reskillable.api.requirement.logic.impl;
 
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.requirement.Requirement;
-import codersafterdark.reskillable.api.requirement.RequirementComparision;
+import codersafterdark.reskillable.api.requirement.RequirementComparison;
 import codersafterdark.reskillable.api.requirement.logic.OuterRequirement;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
@@ -80,19 +80,19 @@ public class NOTRequirement extends Requirement implements OuterRequirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement o) {
+    public RequirementComparison matches(Requirement o) {
         if (o instanceof NOTRequirement) {
-            RequirementComparision match = requirement.matches(((NOTRequirement) o).requirement);
+            RequirementComparison match = requirement.matches(((NOTRequirement) o).requirement);
             switch (match) {
                 case GREATER_THAN:
-                    return RequirementComparision.LESS_THAN;
+                    return RequirementComparison.LESS_THAN;
                 case LESS_THAN:
-                    return RequirementComparision.GREATER_THAN;
+                    return RequirementComparison.GREATER_THAN;
                 default:
                     return match;
             }
         }
-        return RequirementComparision.NOT_EQUAL;
+        return RequirementComparison.NOT_EQUAL;
     }
 
     @Override

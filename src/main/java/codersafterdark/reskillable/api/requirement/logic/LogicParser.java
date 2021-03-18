@@ -71,10 +71,10 @@ public class LogicParser {
         }
 
         //Simplify the requirements if they are the "same" to be the one that is more restrictive
-        RequirementComparision matches = left.matches(right);
-        if (matches.equals(RequirementComparision.EQUAL_TO) || matches.equals(RequirementComparision.GREATER_THAN)) {
+        RequirementComparison matches = left.matches(right);
+        if (matches.equals(RequirementComparison.EQUAL_TO) || matches.equals(RequirementComparison.GREATER_THAN)) {
             return left;
-        } else if (matches.equals(RequirementComparision.LESS_THAN)) {
+        } else if (matches.equals(RequirementComparison.LESS_THAN)) {
             return right;
         }
         return new ANDRequirement(left, right);
@@ -93,7 +93,7 @@ public class LogicParser {
             return parseNOT(left);
         }
 
-        if (left.matches(right).equals(RequirementComparision.EQUAL_TO)) {
+        if (left.matches(right).equals(RequirementComparison.EQUAL_TO)) {
             return parseNOT(left);
         }
         return new NANDRequirement(left, right);
@@ -113,19 +113,19 @@ public class LogicParser {
         }
 
         //Simplify the requirements if they are the "same" to be the one that is less restrictive
-        RequirementComparision matches = left.matches(right);
-        if (matches.equals(RequirementComparision.EQUAL_TO) || matches.equals(RequirementComparision.LESS_THAN)) {
+        RequirementComparison matches = left.matches(right);
+        if (matches.equals(RequirementComparison.EQUAL_TO) || matches.equals(RequirementComparison.LESS_THAN)) {
             return left;
-        } else if (matches.equals(RequirementComparision.GREATER_THAN)) {
+        } else if (matches.equals(RequirementComparison.GREATER_THAN)) {
             return right;
         }
 
         //If one is equal to the inverse of the other then it simplifies to TRUE
         if (left instanceof NOTRequirement) {
-            if (!(right instanceof NOTRequirement) && ((NOTRequirement) left).getRequirement().matches(right).equals(RequirementComparision.EQUAL_TO)) {
+            if (!(right instanceof NOTRequirement) && ((NOTRequirement) left).getRequirement().matches(right).equals(RequirementComparison.EQUAL_TO)) {
                 return TRUE;
             }
-        } else if (right instanceof NOTRequirement && left.matches(((NOTRequirement) right).getRequirement()).equals(RequirementComparision.EQUAL_TO)) {
+        } else if (right instanceof NOTRequirement && left.matches(((NOTRequirement) right).getRequirement()).equals(RequirementComparison.EQUAL_TO)) {
             return TRUE;
         }
         return new ORRequirement(left, right);
@@ -144,7 +144,7 @@ public class LogicParser {
             return parseNOT(left);
         }
 
-        if (left.matches(right).equals(RequirementComparision.EQUAL_TO)) {
+        if (left.matches(right).equals(RequirementComparison.EQUAL_TO)) {
             return parseNOT(left);
         }
         return new NORRequirement(left, right);
@@ -165,7 +165,7 @@ public class LogicParser {
             return left;
         }
 
-        if (left.matches(right).equals(RequirementComparision.EQUAL_TO)) {
+        if (left.matches(right).equals(RequirementComparison.EQUAL_TO)) {
             return FALSE;
         }
         return new XORRequirement(left, right);
@@ -186,7 +186,7 @@ public class LogicParser {
             return parseNOT(left);
         }
 
-        if (left.matches(right).equals(RequirementComparision.EQUAL_TO)) {
+        if (left.matches(right).equals(RequirementComparison.EQUAL_TO)) {
             return TRUE;
         }
         return new XNORRequirement(left, right);

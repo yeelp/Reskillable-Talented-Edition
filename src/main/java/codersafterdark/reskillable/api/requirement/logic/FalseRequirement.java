@@ -2,7 +2,7 @@ package codersafterdark.reskillable.api.requirement.logic;
 
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.requirement.Requirement;
-import codersafterdark.reskillable.api.requirement.RequirementComparision;
+import codersafterdark.reskillable.api.requirement.RequirementComparison;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
@@ -23,8 +23,8 @@ public class FalseRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
-        return other instanceof FalseRequirement ? RequirementComparision.EQUAL_TO : RequirementComparision.NOT_EQUAL;
+    public RequirementComparison matches(Requirement other) {
+        return other instanceof FalseRequirement ? RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL;
     }
 
     @Override

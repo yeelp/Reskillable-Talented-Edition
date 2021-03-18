@@ -5,6 +5,8 @@ import codersafterdark.reskillable.base.ToolTipHandler;
 import codersafterdark.reskillable.client.gui.compat.SeasonsOverlay;
 import codersafterdark.reskillable.client.gui.handler.InventoryTabHandler;
 import codersafterdark.reskillable.client.gui.handler.KeyBindings;
+import codersafterdark.reskillable.item.ReskillableItems;
+import codersafterdark.reskillable.lib.LibMisc;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
@@ -12,15 +14,19 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.network.NetHandlerPlayClient;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
 
+@Mod.EventBusSubscriber(modid = LibMisc.MOD_ID)
 public class ClientProxy extends CommonProxy {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
@@ -61,5 +67,10 @@ public class ClientProxy extends CommonProxy {
     @Override
     public String getLocalizedString(String string) {
         return I18n.format(string);
+    }
+
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        ReskillableItems.initModels();
     }
 }

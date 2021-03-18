@@ -66,7 +66,10 @@ dependencies {
     deobfCompile("curse.maven:baubles-227083:2518667")
     deobfCompile("curse.maven:jei-238222:3040523")
     deobfCompile("curse.maven:serene-seasons-291874:2799213")
+    deobfCompile("curse.maven:tipthescales-282313:2689835")
     //deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
+    compile files('lib/DynamicSwordSkills-1.12.2-6.2.1.jar')
+    compile files('lib/SwordSkillsApi-1.12.2-1.5.1.jar')
 }
 
 uploadArchives {

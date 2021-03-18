@@ -5,24 +5,30 @@ import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import codersafterdark.reskillable.api.unlockable.AutoUnlocker;
 import codersafterdark.reskillable.commands.ReskillableCmd;
+import codersafterdark.reskillable.item.ItemScrollRespec;
+import codersafterdark.reskillable.item.ReskillableItems;
 import codersafterdark.reskillable.loot.LootConditionRequirement;
 import codersafterdark.reskillable.network.PacketHandler;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.item.Item;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(PlayerDataHandler.EventHandler.class);
         MinecraftForge.EVENT_BUS.register(LevelLockHandler.class);
         MinecraftForge.EVENT_BUS.register(RequirementCache.class);
+        ReskillableSounds.preInit();
         ConfigHandler.init(event.getSuggestedConfigurationFile());
         PacketHandler.preInit();
         LootConditionManager.registerCondition(new LootConditionRequirement.Serializer());

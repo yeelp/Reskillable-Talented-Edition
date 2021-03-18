@@ -14,6 +14,5 @@ public class ProfessionWarrior extends Profession {
         addSubProfession("warden", 0);
         addSubProfession("gladiator", 1);
         addSubProfession("berserker", 2);
-
     }
 }

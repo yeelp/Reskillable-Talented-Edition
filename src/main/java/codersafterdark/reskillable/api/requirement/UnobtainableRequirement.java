@@ -22,8 +22,8 @@ public class UnobtainableRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
-        return other instanceof UnobtainableRequirement ? RequirementComparision.EQUAL_TO : RequirementComparision.NOT_EQUAL;
+    public RequirementComparison matches(Requirement other) {
+        return other instanceof UnobtainableRequirement ? RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL;
     }
 
     @Override

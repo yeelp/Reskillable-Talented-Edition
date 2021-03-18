@@ -33,21 +33,21 @@ public class ProfessionRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
+    public RequirementComparison matches(Requirement other) {
         if (other instanceof ProfessionRequirement) {
             ProfessionRequirement professionRequirement = (ProfessionRequirement) other;
             if (profession == null || professionRequirement.profession == null) {
                 //If they are both invalid don't bother checking the level.
-                return RequirementComparision.NOT_EQUAL;
+                return RequirementComparison.NOT_EQUAL;
             }
             if (profession.getKey().equals(professionRequirement.profession.getKey())) {
                 if (level == professionRequirement.level) {
-                    return RequirementComparision.EQUAL_TO;
+                    return RequirementComparison.EQUAL_TO;
                 }
-                return level > professionRequirement.level ? RequirementComparision.GREATER_THAN : RequirementComparision.LESS_THAN;
+                return level > professionRequirement.level ? RequirementComparison.GREATER_THAN : RequirementComparison.LESS_THAN;
             }
         }
-        return RequirementComparision.NOT_EQUAL;
+        return RequirementComparison.NOT_EQUAL;
     }
 
     @Override

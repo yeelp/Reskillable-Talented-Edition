@@ -32,9 +32,9 @@ public class TraitRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
+    public RequirementComparison matches(Requirement other) {
         return other instanceof TraitRequirement ? unlockable.getKey().equals(((TraitRequirement) other).unlockable.getKey()) ?
-                RequirementComparision.EQUAL_TO : RequirementComparision.NOT_EQUAL : RequirementComparision.NOT_EQUAL;
+                RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL : RequirementComparison.NOT_EQUAL;
     }
 
     @Override

@@ -46,7 +46,6 @@ public class GuiProfessions extends GuiScreen {
 
     public GuiProfessions() {
         ReskillableRegistries.PROFESSIONS.getValuesCollection().stream().filter(Profession::isEnabled).forEach(enabledProfession -> enabledProfessions.put(enabledProfession.getGuiIndex(), enabledProfession));
-        //ReskillableRegistries.PROFESSIONS.getValuesCollection().stream().filter(Profession::isEnabled).forEach(enabledProfessions::add);
     }
 
     public static void drawProfession(int x, int y, Profession profession) {

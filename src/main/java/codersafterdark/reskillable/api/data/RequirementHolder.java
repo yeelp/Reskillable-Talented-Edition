@@ -3,7 +3,7 @@ package codersafterdark.reskillable.api.data;
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.requirement.NoneRequirement;
 import codersafterdark.reskillable.api.requirement.Requirement;
-import codersafterdark.reskillable.api.requirement.RequirementComparision;
+import codersafterdark.reskillable.api.requirement.RequirementComparison;
 import codersafterdark.reskillable.api.requirement.logic.TrueRequirement;
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.lib.LibObfuscation;
@@ -91,10 +91,10 @@ public class RequirementHolder {
             return;
         }
         for (int i = 0; i < requirements.size(); i++) {
-            RequirementComparision match = requirements.get(i).matches(requirement);
-            if (match.equals(RequirementComparision.EQUAL_TO) || match.equals(RequirementComparision.GREATER_THAN)) {
+            RequirementComparison match = requirements.get(i).matches(requirement);
+            if (match.equals(RequirementComparison.EQUAL_TO) || match.equals(RequirementComparison.GREATER_THAN)) {
                 return;
-            } else if (match.equals(RequirementComparision.LESS_THAN)) {
+            } else if (match.equals(RequirementComparison.LESS_THAN)) {
                 requirements.remove(i);
                 break;
             }

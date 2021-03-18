@@ -22,8 +22,8 @@ public final class NoneRequirement extends Requirement {
     }
 
     @Override
-    public RequirementComparision matches(Requirement other) {
-        return other instanceof NoneRequirement ? RequirementComparision.EQUAL_TO : RequirementComparision.NOT_EQUAL;
+    public RequirementComparison matches(Requirement other) {
+        return other instanceof NoneRequirement ? RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL;
     }
 
     @Override
