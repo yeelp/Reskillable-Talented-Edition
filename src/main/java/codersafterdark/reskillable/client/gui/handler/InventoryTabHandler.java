@@ -1,7 +1,7 @@
 package codersafterdark.reskillable.client.gui.handler;
 
-import codersafterdark.reskillable.base.ConfigHandler;
-import codersafterdark.reskillable.client.base.RenderHelper;
+import codersafterdark.reskillable.common.core.handler.ConfigHandler;
+import codersafterdark.reskillable.client.core.RenderHelper;
 import codersafterdark.reskillable.client.gui.GuiProfessionInfo;
 import codersafterdark.reskillable.client.gui.GuiProfessions;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;

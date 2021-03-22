@@ -1,6 +1,6 @@
 package codersafterdark.reskillable.api.requirement;
 
-import codersafterdark.reskillable.Reskillable;
+import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.skill.Skill;
 import com.google.common.collect.Maps;

@@ -1,6 +1,6 @@
 package codersafterdark.reskillable.api.talent;
 
-import codersafterdark.reskillable.Reskillable;
+import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.RequirementHolder;

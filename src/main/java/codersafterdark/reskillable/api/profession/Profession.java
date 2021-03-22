@@ -2,7 +2,7 @@ package codersafterdark.reskillable.api.profession;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.talent.Talent;
-import codersafterdark.reskillable.lib.LibMisc;
+import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
@@ -11,7 +11,6 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> implements Comparable<Profession> {
     private final Map<Integer, ResourceLocation> customSprites = new HashMap<>();

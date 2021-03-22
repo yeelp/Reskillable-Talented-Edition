@@ -1,9 +1,9 @@
 package codersafterdark.reskillable.client.gui.handler;
 
-import codersafterdark.reskillable.Reskillable;
+import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.client.gui.GuiProfessions;
 import codersafterdark.reskillable.client.gui.GuiSkills;
-import codersafterdark.reskillable.lib.LibMisc;
+import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraftforge.fml.client.FMLClientHandler;

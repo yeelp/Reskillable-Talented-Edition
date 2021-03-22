@@ -1,20 +1,20 @@
 package codersafterdark.reskillable.client.gui;
 
-import static codersafterdark.reskillable.client.base.RenderHelper.renderTooltip;
+import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
 
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
-import codersafterdark.reskillable.base.ConfigHandler;
+import codersafterdark.reskillable.common.core.handler.ConfigHandler;
 import codersafterdark.reskillable.client.gui.button.GuiButtonLevelUp;
 import codersafterdark.reskillable.client.gui.handler.InventoryTabHandler;
 import codersafterdark.reskillable.client.gui.handler.KeyBindings;
-import codersafterdark.reskillable.lib.LibMisc;
-import codersafterdark.reskillable.network.MessageLevelUp;
-import codersafterdark.reskillable.network.MessageUnlockUnlockable;
-import codersafterdark.reskillable.network.PacketHandler;
+import codersafterdark.reskillable.common.lib.LibMisc;
+import codersafterdark.reskillable.common.network.MessageLevelUp;
+import codersafterdark.reskillable.common.network.MessageUnlockUnlockable;
+import codersafterdark.reskillable.common.network.PacketHandler;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;

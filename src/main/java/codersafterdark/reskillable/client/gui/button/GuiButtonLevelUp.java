@@ -1,13 +1,12 @@
 package codersafterdark.reskillable.client.gui.button;
 
-import static codersafterdark.reskillable.client.base.RenderHelper.renderTooltip;
+import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
 
-import codersafterdark.reskillable.base.ConfigHandler;
+import codersafterdark.reskillable.common.core.handler.ConfigHandler;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;

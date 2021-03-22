@@ -1,11 +1,9 @@
 package codersafterdark.reskillable.client.gui.compat;
 
-import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
-import codersafterdark.reskillable.client.gui.GuiSkills;
 import codersafterdark.reskillable.client.gui.handler.KeyBindings;
-import codersafterdark.reskillable.lib.LibMisc;
-import codersafterdark.reskillable.lib.LibSkills;
+import codersafterdark.reskillable.common.lib.LibMisc;
+import codersafterdark.reskillable.common.lib.LibSkills;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;

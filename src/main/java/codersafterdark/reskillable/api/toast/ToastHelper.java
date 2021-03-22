@@ -4,7 +4,7 @@ import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
-import codersafterdark.reskillable.network.*;
+import codersafterdark.reskillable.common.network.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.relauncher.Side;

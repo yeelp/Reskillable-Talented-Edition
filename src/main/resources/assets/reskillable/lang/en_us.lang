@@ -35,7 +35,16 @@ reskillable.requirements.format.xor=XOR
 reskillable.requirements.format.xnor=XNOR
 
 # ITEMS
-item.reskillable.scroll_respec.name=Writ of Renewal
+item.scroll_respec.name=Writ of Renewal
+effect.damage_resist=Damage Resistance
+
+# ATTRIBUTES
+attribute.name.reskillable.damageResistance=Damage Resistance
+
+# EFFECTS
+potion.effect.damage_resist=Potion of Damage Resist
+splash_potion.effect.damage_resist=Splash Potion of Damage Resist
+lingering_potion.effect.damage_resist=Lingering Potion of Damage Resist
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
@@ -117,7 +126,9 @@ reskillable.unlock.reskillable.hillwalker=Hill Walker
 reskillable.unlock.reskillable.hillwalker.desc=After many a long journey, and steep-climb, you've reached a state of perpetual stepping-up to any occasion. You now have step-assist!
 
 reskillable.unlock.reskillable.lucky_strikes=Lucky Strikes
-reskillable.unlock.reskillable.lucky_strikes.desc=
+reskillable.unlock.reskillable.lucky_strikes.desc=Increases Critical Chance per level of Finesse.
+reskillable.unlock.reskillable.mighty_strikes=Mighty Strikes
+reskillable.unlock.reskillable.mighty_strikes.desc=Increases Critical Damage per level of Finesse.
 reskillable.unlock.reskillable.seasonal_greetings=Seasonal Greetings
 reskillable.unlock.reskillable.seasonal_greetings.desc=Provides a visual indicator of the current season. Press [H] (by default) to toggle.
 

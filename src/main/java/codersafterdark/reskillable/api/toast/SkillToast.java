@@ -1,7 +1,7 @@
 package codersafterdark.reskillable.api.toast;
 
 import codersafterdark.reskillable.api.skill.Skill;
-import codersafterdark.reskillable.client.base.RenderHelper;
+import codersafterdark.reskillable.client.core.RenderHelper;
 import net.minecraft.client.gui.Gui;
 import net.minecraft.client.gui.toasts.GuiToast;
 import net.minecraft.util.ResourceLocation;
