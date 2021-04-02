@@ -42,20 +42,7 @@ public class TraitLuckyStrikes extends Trait {
             float amount = calcCritChance(player);
             AttributeModifier newModifier = new AttributeModifier("reskillable.critChance", amount, 0);
             unlockableInfo.addAttributeModifier(AttributeCrit, newModifier);
-        }
-    }
-
-    @SubscribeEvent
-    public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
-        EntityPlayer player = event.player;
-        PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
-        PlayerUnlockableInfo unlockableInfo = PlayerDataHandler.get(player).getUnlockableInfo(this);
-        if (info.isUnlocked(this)) {
-            if (unlockableInfo.getUnlockableAttributes().isEmpty()) {
-                System.out.println("Attribute List is Empty");
-            } else {
-                System.out.println("Attribute List is not Empty");
-            }
+            PlayerDataHandler.get(player).saveAndSync();
         }
     }
 
@@ -70,6 +57,7 @@ public class TraitLuckyStrikes extends Trait {
                 AttributeModifier modifier = new AttributeModifier("reskillable.critChance", amount, 0);
                 info.addAttributeModifier(AttributeCrit, modifier);
                 player.sendMessage(new TextComponentString(info.getUnlockableAttributes().toString()));
+                PlayerDataHandler.get(player).saveAndSync();
             }
         }
     }
@@ -81,9 +69,7 @@ public class TraitLuckyStrikes extends Trait {
             IAttributeInstance AttributeCrit = player.getEntityAttribute(critChance);
             PlayerUnlockableInfo info = PlayerDataHandler.get(player).getUnlockableInfo(this);
             info.removeUnlockableAttribute(AttributeCrit);
-            if (player.world.isRemote) {
-                System.out.println("Lucky Strikes Locked");
-            }
+            PlayerDataHandler.get(player).saveAndSync();
         }
     }
 

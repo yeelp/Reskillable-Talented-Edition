@@ -30,46 +30,21 @@ public class PlayerUnlockableInfo extends PlayerSkillInfo {
         unlockableAttributes.clear();
         NBTTagList modifiersCmp = cmp.getTagList(TAG_MODIFIERS, 10);
 
-        if (this.unlockable.getKey().equals("reskillable.lucky_strikes")) {
-            System.out.println("loaded info data for Lucky Strikes");
-        }
-        if (!modifiersCmp.isEmpty()) {
-            System.out.println("Modifier List is Not Empty");
-            debugReadModifier(modifiersCmp);
-            System.out.println(modifiersCmp.getCompoundTagAt(0).getString("Name"));
-        }
-
         for (int i = 0; i < modifiersCmp.tagCount(); i++) {
             NBTTagCompound attributeCmp = modifiersCmp.getCompoundTagAt(i);
-            AttributeModifier modifier = SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp);
-            System.out.println("Retrieved attribute " + modifier.getName() + " from NBT Tag");
             unlockableAttributes.add(SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp));
-            System.out.println("Added attribute " + modifier.getName() + " to unlockable attribute list");
         }
-
     }
 
     public void saveToNBT(NBTTagCompound cmp) {
         cmp.setInteger(TAG_RANK, rank);
 
-        if (this.unlockable.getKey().equals("reskillable.lucky_strikes")) {
-            System.out.println("saving nbt data for lucky_strikes");
-        }
         NBTTagList modifiersCmp = new NBTTagList();
-        if (unlockableAttributes.isEmpty()) {System.out.println("Attribute List was deemed empty first during saving NBT");
         for (AttributeModifier a : unlockableAttributes) {
             modifiersCmp.appendTag(SharedMonsterAttributes.writeAttributeModifierToNBT(a));
         }
-        cmp.setTag(TAG_MODIFIERS, modifiersCmp);
 
-        // Debugging
-        if (this.unlockable.getKey().equals("reskillable.lucky_strikes")
-            && !cmp.getTagList(TAG_MODIFIERS, 10).getCompoundTagAt(0).isEmpty()) {
-                NBTTagCompound debugTag = cmp.getTagList(TAG_MODIFIERS, 10).getCompoundTagAt(0);
-                AttributeModifier debugModifier = SharedMonsterAttributes.readAttributeModifierFromNBT(debugTag);
-                System.out.println("Successfully saved " + debugModifier.getName() + " to nbt");
-            }
-        }
+        cmp.setTag(TAG_MODIFIERS, modifiersCmp);
     }
 
     public int getRank() {
@@ -107,29 +82,12 @@ public class PlayerUnlockableInfo extends PlayerSkillInfo {
     }
 
     public void removeUnlockableAttribute(IAttributeInstance attributeInstance) {
-        if (unlockableAttributes.isEmpty()) {
-            System.out.println("Unlockable Attribute List is Empty");
-        }
         for (AttributeModifier modifier : unlockableAttributes) {
-            System.out.println(modifier.getName());
-            System.out.println(attributeInstance.getAttribute().getName());
             if (modifier.getName().equals(attributeInstance.getAttribute().getName())) {
                 attributeInstance.removeModifier(modifier);
-                System.out.println("Modifier removed");
             }
         }
         unlockableAttributes.clear();
-    }
-
-    public void debugReadModifier(NBTTagList tagList) {
-        if (!tagList.getCompoundTagAt(0).isEmpty()) {
-            for (int i = 0; i < tagList.tagCount(); i++) {
-                Set<String> stringSet = tagList.getCompoundTagAt(i).getKeySet();
-                for (String s : stringSet) {
-                    System.out.println(s);
-                }
-            }
-        }
     }
 
 }
