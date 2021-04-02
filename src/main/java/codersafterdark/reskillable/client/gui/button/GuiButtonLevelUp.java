@@ -2,7 +2,7 @@ package codersafterdark.reskillable.client.gui.button;
 
 import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
 
-import codersafterdark.reskillable.common.core.handler.ConfigHandler;
+import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiButton;

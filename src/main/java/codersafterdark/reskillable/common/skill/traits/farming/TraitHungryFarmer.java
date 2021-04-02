@@ -3,7 +3,7 @@ package codersafterdark.reskillable.common.skill.traits.farming;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.unlockable.Trait;
-import codersafterdark.reskillable.common.core.handler.LevelLockHandler;
+import codersafterdark.reskillable.base.LevelLockHandler;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemFood;

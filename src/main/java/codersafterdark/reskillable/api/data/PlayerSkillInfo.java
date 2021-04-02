@@ -81,6 +81,10 @@ public class PlayerSkillInfo {
         return skillPoints;
     }
 
+    public void spendSkillPoints(int amount) {
+        skillPoints -= amount;
+    }
+
     public boolean isCapped() {
         return level >= skill.getCap();
     }

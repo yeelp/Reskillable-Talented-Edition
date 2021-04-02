@@ -8,7 +8,7 @@ import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.event.CacheInvalidatedEvent;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.toast.ToastHelper;
-import codersafterdark.reskillable.common.core.handler.LevelLockHandler;
+import codersafterdark.reskillable.base.LevelLockHandler;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

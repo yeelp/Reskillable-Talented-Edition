@@ -12,7 +12,7 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;
-import java.util.Objects;
+import java.util.*;
 
 public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> implements Comparable<Unlockable> {
     private final String name;
@@ -68,6 +68,10 @@ public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> im
     public String getDescription() {
         return new TextComponentTranslation("reskillable.unlock." + getKey() + ".desc").getUnformattedComponentText();
     }
+
+    public void setCap(int cap) {unlockableConfig.setRankCap(cap);}
+
+    public int getCap() {return unlockableConfig.getRankCap();}
 
     public ResourceLocation getIcon() {
         return icon;

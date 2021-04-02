@@ -1,6 +1,6 @@
 package codersafterdark.reskillable.client.gui;
 
-import codersafterdark.reskillable.common.core.handler.ConfigHandler;
+import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;

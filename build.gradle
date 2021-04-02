@@ -70,10 +70,12 @@ dependencies {
     deobfCompile("curse.maven:dynamic-stealth-309344:3127982")
     deobfCompile("curse.maven:fantastic-lib-315773:3138902")
     deobfCompile("curse.maven:potion-core-242872:2905184")
+    //deobfCompile("curse.maven:compatskills-290541:2815688")
 
     //deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
     compile files('lib/DynamicSwordSkills-1.12.2-6.2.1.jar')
     compile files('lib/SwordSkillsApi-1.12.2-1.5.1.jar')
+    compile files ('lib/CompatSkills-1.12.2-1.17.0.jar')
 }
 
 uploadArchives {

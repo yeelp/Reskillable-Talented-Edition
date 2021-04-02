@@ -1,7 +1,8 @@
-package codersafterdark.reskillable.common.core.handler;
+package codersafterdark.reskillable.base;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.data.*;
+import codersafterdark.reskillable.common.core.handler.ToolTipHandler;
 import codersafterdark.reskillable.common.network.MessageLockedItem;
 import codersafterdark.reskillable.common.network.PacketHandler;
 import net.minecraft.block.Block;

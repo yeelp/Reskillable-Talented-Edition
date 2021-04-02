@@ -6,7 +6,7 @@ import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.requirement.AdvancementRequirement;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.SkillRequirement;
-import codersafterdark.reskillable.common.core.handler.LevelLockHandler;
+import codersafterdark.reskillable.base.LevelLockHandler;
 import codersafterdark.reskillable.client.core.RenderHelper;
 import codersafterdark.reskillable.client.gui.GuiSkills;
 import codersafterdark.reskillable.common.network.MessageLockedItem;

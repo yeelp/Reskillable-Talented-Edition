@@ -17,7 +17,8 @@ import java.util.UUID;
 import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentAura extends Talent {
-    private UUID modifierID = null;
+    private UUID modifierSightID = null;
+    private UUID modifierThreatID = null;
 
     public TalentAura() {
         super(new ResourceLocation(MOD_ID, "aura"), 0, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
@@ -34,9 +35,13 @@ public class TalentAura extends Talent {
             player.sendMessage(new TextComponentString("Unlocked " + event.getTalent().getName()));
 
             IAttributeInstance threatFromAttacks = player.getEntityAttribute(Attributes.THREATGEN_ATTACK);
-            AttributeModifier modifier = new AttributeModifier("reskillable.damageResistance", 25.0, 0);
-            modifierID = modifier.getID();
-            threatFromAttacks.applyModifier(modifier);
+            IAttributeInstance visionCone = player.getEntityAttribute(Attributes.SIGHT);
+            AttributeModifier modifierSight = new AttributeModifier("dynamicstealth.sight", 500.0, 0);
+            AttributeModifier modifierThreat = new AttributeModifier("dynamicstealth.threatGenAttackedBySame", 100.0, 0);
+            modifierSightID = modifierSight.getID();
+            modifierThreatID = modifierThreat.getID();
+            threatFromAttacks.applyModifier(modifierThreat);
+            visionCone.applyModifier(modifierSight);
         }
     }
 
@@ -46,7 +51,9 @@ public class TalentAura extends Talent {
         if (event.getTalent() instanceof TalentAura) {
             player.sendMessage(new TextComponentString("Unlocked " + event.getTalent().getName()));
             IAttributeInstance threatFromAttacks = player.getEntityAttribute(Attributes.THREATGEN_ATTACK);
-            threatFromAttacks.removeModifier(modifierID);
+            IAttributeInstance visionCone = player.getEntityAttribute(Attributes.SIGHT);
+            threatFromAttacks.removeModifier(modifierThreatID);
+            visionCone.removeModifier(modifierSightID);
         }
     }
 }

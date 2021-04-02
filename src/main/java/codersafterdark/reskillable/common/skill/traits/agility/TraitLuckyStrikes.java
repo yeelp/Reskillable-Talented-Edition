@@ -2,6 +2,7 @@ package codersafterdark.reskillable.common.skill.traits.agility;
 
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
+import codersafterdark.reskillable.api.data.PlayerUnlockableInfo;
 import codersafterdark.reskillable.api.event.LevelUpEvent;
 import codersafterdark.reskillable.api.event.LockUnlockableEvent;
 import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
@@ -17,14 +18,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.UUID;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 public class TraitLuckyStrikes extends Trait {
     IAttribute critChance = ReskillableAttributes.CRIT_CHANCE;
-    private UUID modifierID = null;
-
 
     public TraitLuckyStrikes() {
         super(new ResourceLocation(LibMisc.MOD_ID, "lucky_strikes"), 1, 3, new ResourceLocation("reskillable", "agility"), 1, "");
@@ -36,13 +35,27 @@ public class TraitLuckyStrikes extends Trait {
         EntityPlayer player = event.getEntityPlayer();
         if (event.getSkill() instanceof SkillAgility && !player.world.isRemote) {
             PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
+            PlayerUnlockableInfo unlockableInfo = PlayerDataHandler.get(player).getUnlockableInfo(this);
             if (!info.isUnlocked(this)) {return;}
             IAttributeInstance AttributeCrit = player.getEntityAttribute(critChance);
-            AttributeCrit.removeModifier(modifierID);
-            AttributeModifier newModifier = new AttributeModifier("reskillable.critChance", calcCritChance(player), 0);
-            modifierID = newModifier.getID();
-            AttributeCrit.applyModifier(newModifier);
-            AttributeCrit.getModifiers().forEach(modifiers -> player.sendMessage(new TextComponentString(modifiers.toString())));
+            unlockableInfo.removeUnlockableAttribute(AttributeCrit);
+            float amount = calcCritChance(player);
+            AttributeModifier newModifier = new AttributeModifier("reskillable.critChance", amount, 0);
+            unlockableInfo.addAttributeModifier(AttributeCrit, newModifier);
+        }
+    }
+
+    @SubscribeEvent
+    public void onJoin(PlayerEvent.PlayerLoggedInEvent event) {
+        EntityPlayer player = event.player;
+        PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
+        PlayerUnlockableInfo unlockableInfo = PlayerDataHandler.get(player).getUnlockableInfo(this);
+        if (info.isUnlocked(this)) {
+            if (unlockableInfo.getUnlockableAttributes().isEmpty()) {
+                System.out.println("Attribute List is Empty");
+            } else {
+                System.out.println("Attribute List is not Empty");
+            }
         }
     }
 
@@ -51,11 +64,12 @@ public class TraitLuckyStrikes extends Trait {
         if (event.getUnlockable() instanceof TraitLuckyStrikes) {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.world.isRemote) {
-                IAttributeInstance AttributeCrit = player.getEntityAttribute(this.critChance);
+                PlayerUnlockableInfo info = PlayerDataHandler.get(player).getUnlockableInfo(this);
+                IAttributeInstance AttributeCrit = player.getEntityAttribute(critChance);
                 float amount = calcCritChance(player);
                 AttributeModifier modifier = new AttributeModifier("reskillable.critChance", amount, 0);
-                AttributeCrit.applyModifier(modifier);
-                modifierID = modifier.getID();
+                info.addAttributeModifier(AttributeCrit, modifier);
+                player.sendMessage(new TextComponentString(info.getUnlockableAttributes().toString()));
             }
         }
     }
@@ -64,8 +78,12 @@ public class TraitLuckyStrikes extends Trait {
     public void onLock (LockUnlockableEvent event){
         if (event.getUnlockable() instanceof TraitLuckyStrikes) {
             EntityPlayer player = event.getEntityPlayer();
-            IAttributeInstance AttributeCrit = player.getEntityAttribute(this.critChance);
-            AttributeCrit.removeModifier(modifierID);
+            IAttributeInstance AttributeCrit = player.getEntityAttribute(critChance);
+            PlayerUnlockableInfo info = PlayerDataHandler.get(player).getUnlockableInfo(this);
+            info.removeUnlockableAttribute(AttributeCrit);
+            if (player.world.isRemote) {
+                System.out.println("Lucky Strikes Locked");
+            }
         }
     }
 

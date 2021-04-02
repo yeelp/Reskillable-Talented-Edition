@@ -44,40 +44,6 @@ public class PlayerProfessionInfo {
         }
     }
 
-    /*
-    public void saveToNBT(NBTTagCompound cmp) {
-        cmp.setInteger(TAG_LEVEL, level);
-        cmp.setInteger(TAG_SKILL_POINTS, skillPoints);
-
-        NBTTagCompound talentCmp = new NBTTagCompound();
-
-        NBTTagList talents = new NBTTagList();
-
-        NBTTagCompound name = new NBTTagCompound();
-        NBTTagCompound enabled = new NBTTagCompound();
-        NBTTagCompound rank = new NBTTagCompound();
-
-        for (Talent t: this.talents.keySet()) {
-            name.setString(t.getKey(), t.getName());
-        };
-
-        for (Talent t: this.talents.keySet()) {
-            enabled.setBoolean(t.getKey(), true);
-        }
-
-        for (Map.Entry<Talent, Integer> t: this.talents.entrySet()) {
-            rank.setInteger(String.valueOf(t.getKey()), t.getValue());
-        }
-
-        talents.appendTag(name);
-        talents.appendTag(enabled);
-        talents.appendTag(rank);
-
-        talentCmp.setTag("talents", talents);
-        cmp.setTag(TAG_TALENTS, talentCmp);
-    }
-    */
-
     public void saveToNBT(NBTTagCompound cmp) {
         cmp.setInteger(TAG_LEVEL, level);
         cmp.setInteger(TAG_SKILL_POINTS, skillPoints);
@@ -90,11 +56,6 @@ public class PlayerProfessionInfo {
     }
 
     public int getLevel() {
-        /*
-        if (level <= 0) {
-            level = 1;
-        }
-        */
         if (level > profession.getCap()) {
             level = profession.getCap();
         }
@@ -131,16 +92,6 @@ public class PlayerProfessionInfo {
     }
 
     public boolean isUnlocked(Talent t) {return talents.contains(t);}
-
-    /*
-    public void addAbilities(Set<Ability> abilities) {
-        for (Talent u : talents) {
-            if (u instanceof Ability) {
-                abilities.add((Ability) u);
-            }
-        }
-    }
-    */
 
     //TODO decide if this should just call setLevel(level + 1);
     public void levelUp() {

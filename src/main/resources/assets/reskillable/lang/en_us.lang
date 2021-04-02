@@ -36,7 +36,6 @@ reskillable.requirements.format.xnor=XNOR
 
 # ITEMS
 item.scroll_respec.name=Writ of Renewal
-effect.damage_resist=Damage Resistance
 
 # ATTRIBUTES
 attribute.name.reskillable.damageResistance=Damage Resistance
@@ -45,6 +44,12 @@ attribute.name.reskillable.damageResistance=Damage Resistance
 potion.effect.damage_resist=Potion of Damage Resist
 splash_potion.effect.damage_resist=Splash Potion of Damage Resist
 lingering_potion.effect.damage_resist=Lingering Potion of Damage Resist
+potion.effect.darkness=Potion of Darkness
+splash_potion.effect.darkness=Splash Potion of Darkness
+lingering_potion.effect.darkness=Lingering Potion of Darkness
+
+effect.damage_resist=Damage Resistance
+effect.darkness=Darkness
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
@@ -144,7 +149,7 @@ reskillable.talent.reskillable.blocking.desc=Successfully blocking an attack gra
 reskillable.talent.reskillable.mantra=Unifying Mantra
 reskillable.talent.reskillable.mantra.desc=Holding a shield in the offhand will absorb 50%% of the received damage from nearby players within 8.0 blocks.
 reskillable.talent.reskillable.aura=A Warrior's Aura
-reskillable.talent.reskillable.aura.desc=Every 10 seconds, you pull all entities towards you.
+reskillable.talent.reskillable.aura.desc=You generate far more threat when fighting entities. Significantly increased vision cone radius.
 reskillable.talent.reskillable.warden_novice=Novice Warden Training
 reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%% (Total: 5%%)
 reskillable.talent.reskillable.warden_advanced=Advanced Warden Training
@@ -168,6 +173,10 @@ reskillable.talent.reskillable.fear=Fear Into Thy Enemy
 reskillable.talent.reskillable.fear.desc=Attacks have a 10%% to apply Fear status effect on majority of enemies while below 50%% maximum health.
 reskillable.talent.reskillable.jump=Into The Fire
 reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%.
+
+reskillable.talent.reskillable.darkness=Into Darkness
+reskillable.talent.reskillable.darkness.desc=While under cover of darkness (below light level 8), Increase crit damage by 50%% and stealth melee damage by 25%%
+
 
 # RANK NAMES
 reskillable.rank.0=Novice

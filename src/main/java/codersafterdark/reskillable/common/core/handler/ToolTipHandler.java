@@ -4,6 +4,8 @@ import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.event.CacheInvalidatedEvent;
+import codersafterdark.reskillable.base.ConfigHandler;
+import codersafterdark.reskillable.base.LevelLockHandler;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.item.ItemStack;

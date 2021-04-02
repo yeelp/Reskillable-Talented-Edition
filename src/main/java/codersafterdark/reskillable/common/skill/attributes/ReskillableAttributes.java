@@ -17,11 +17,11 @@ public class ReskillableAttributes {
 
     public static IAttribute CRIT_DAMAGE = new RangedAttribute(null,
             LibMisc.MOD_ID + ".critDamage",
-            125.0, 100.0, 200.0). setShouldWatch(true);
+            125.0, 100.0, 200.0).setShouldWatch(true);
 
     public static IAttribute DAMAGE_RESIST = new RangedAttribute(null,
             LibMisc.MOD_ID + ".damageResistance",
-            0.0, 0.0, 100.0). setShouldWatch(true);
+            0.0, 0.0, 100.0).setShouldWatch(true);
 
     @SubscribeEvent
     public void onPlayerConstruction(EntityEvent.EntityConstructing event) {

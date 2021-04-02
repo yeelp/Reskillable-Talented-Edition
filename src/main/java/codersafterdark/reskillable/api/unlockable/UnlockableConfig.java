@@ -7,6 +7,7 @@ public class UnlockableConfig {
     private int x = 1;
     private int y = 1;
     private int cost = 1;
+    private int rankCap = 1;
     private RequirementHolder requirementHolder = RequirementHolder.realEmpty();
 
     public int getCost() {
@@ -49,4 +50,9 @@ public class UnlockableConfig {
     public void setY(int y) {
         this.y = y;
     }
+
+    public void setRankCap(int cap) {this.rankCap = cap;}
+
+    public int getRankCap() {return rankCap;}
+
 }

@@ -12,5 +12,4 @@ public class TalentEdge extends Talent {
         setCap(5);
         this.setIcon(new ResourceLocation("textures/items/iron_sword.png"));
     }
-
 }
