@@ -24,7 +24,6 @@ public class TalentAura extends Talent {
         super(new ResourceLocation(MOD_ID, "aura"), 0, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
                 3, "reskillable:attack 10", "reskillable:defense 8");
         setCap(5);
-        this.setIcon(new ResourceLocation("textures/items/iron_sword.png"));
         MinecraftForge.EVENT_BUS.register(this);
     }
 
