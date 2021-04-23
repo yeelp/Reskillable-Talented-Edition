@@ -9,7 +9,6 @@ public class TalentAdrenaline extends Talent {
     public TalentAdrenaline() {
         super(new ResourceLocation(MOD_ID, "adrenaline"), 2, 1, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "berserker"),
                 3, "reskillable:attack 10", "reskillable:defense 8");
-        this.setIcon(new ResourceLocation("reskillable/textures/talents/adrenaline.png"));
         setCap(5);
     }
 }
