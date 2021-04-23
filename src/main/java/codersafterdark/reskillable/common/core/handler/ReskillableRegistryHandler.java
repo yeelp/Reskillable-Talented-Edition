@@ -15,12 +15,10 @@ import codersafterdark.reskillable.common.profession.warrior.berserker.*;
 import codersafterdark.reskillable.common.profession.warrior.warden.*;
 import codersafterdark.reskillable.common.skill.*;
 import codersafterdark.reskillable.common.skill.traits.agility.*;
-import codersafterdark.reskillable.common.skill.traits.attack.TraitBattleSpirit;
-import codersafterdark.reskillable.common.skill.traits.attack.TraitNeutralissse;
+import codersafterdark.reskillable.common.skill.traits.attack.*;
 import codersafterdark.reskillable.common.skill.traits.building.TraitPerfectRecover;
 import codersafterdark.reskillable.common.skill.traits.building.TraitTransmutation;
-import codersafterdark.reskillable.common.skill.traits.defense.TraitEffectTwist;
-import codersafterdark.reskillable.common.skill.traits.defense.TraitUndershirt;
+import codersafterdark.reskillable.common.skill.traits.defense.*;
 import codersafterdark.reskillable.common.skill.traits.farming.TraitGreenThumb;
 import codersafterdark.reskillable.common.skill.traits.farming.TraitHungryFarmer;
 import codersafterdark.reskillable.common.skill.traits.farming.TraitMoreWheat;
@@ -106,6 +104,24 @@ public class ReskillableRegistryHandler {
 
         if (Loader.isModLoaded("sereneseasons")) {
             unlockablesRegister.getRegistry().register(new TraitSeasons());
+        }
+
+        if (Loader.isModLoaded("dynamicswordskills")) {
+            unlockablesRegister.getRegistry().registerAll(
+                    new TraitCharge(),
+                    new TraitEviscerate(),
+                    new TraitFocus(),
+                    new TraitLeapingStrike(),
+                    new TraitSunder(),
+                    new TraitPirouette(),
+                    new TraitRisingCut(),
+                    new TraitWhirlwind(),
+                    new TraitShadowrush(),
+                    new TraitDeflect(),
+                    new TraitKamaitachi(),
+                    new TraitMortalDraw(),
+                    new TraitParry()
+            );
         }
     }
 

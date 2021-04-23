@@ -5,12 +5,12 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
-public class LevelUpTalentEvent extends PlayerEvent {
+public class UpgradeTalentEvent extends PlayerEvent {
     private Talent talent;
     private int rank;
     private int oldRank;
 
-    protected LevelUpTalentEvent(EntityPlayer player, Talent talent, int rank, int oldRank) {
+    protected UpgradeTalentEvent(EntityPlayer player, Talent talent, int rank, int oldRank) {
         super(player);
         this.talent = talent;
         this.rank = rank;
@@ -28,7 +28,7 @@ public class LevelUpTalentEvent extends PlayerEvent {
     }
 
     @Cancelable
-    public static class Pre extends LevelUpTalentEvent {
+    public static class Pre extends UpgradeTalentEvent {
         public Pre(EntityPlayer player, Talent talent, int rank) {
             this(player, talent, rank, rank - 1);
         }
@@ -38,7 +38,7 @@ public class LevelUpTalentEvent extends PlayerEvent {
         }
     }
 
-    public static class Post extends LevelUpTalentEvent {
+    public static class Post extends UpgradeTalentEvent {
         public Post(EntityPlayer player, Talent talent, int rank) {
             this(player, talent, rank, rank - 1);
         }

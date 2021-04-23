@@ -20,6 +20,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     protected ResourceLocation background;
     protected ProfessionConfig professionConfig;
     private List<SubProfession> subProfessions = new ArrayList<>();
+    private boolean offense;
     private boolean hidden;
     private int guiIndex;
     private int color;
@@ -30,6 +31,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         this.spriteLocation = new ResourceLocation(name.getNamespace(), "textures/professions/" + name.getPath() + ".png");
         this.setRegistryName(name);
         this.professionConfig = ReskillableAPI.getInstance().getProfessionConfig(name);
+        this.offense = true;
     }
 
     public void addSubProfession(String subProfession, int guiIndex) {
@@ -40,19 +42,6 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         return subProfessions;
     }
 
-    /*
-    public void addSubProfession(String[] subProfessions) {
-        for (String subProfession : subProfessions) {
-            this.subProfessions.add(new ResourceLocation(LibMisc.MOD_ID, subProfession));
-        }
-        //this.subProfessionMap.entrySet().add(subProfession, );
-    }
-
-    public List<ResourceLocation> getSubProfessions() {
-        return subProfessions;
-    }
-    */
-
     public void addTalent(Talent talent) {talents.add(talent);}
 
     public List<Talent> getTalents() {return talents;}
@@ -62,20 +51,6 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     public String getName() {
         return new TextComponentTranslation("reskillable.profession." + getKey()).getUnformattedComponentText();
     }
-
-    /*
-    public List<String> getSubProfessionNames() {
-        List<String> subProfessionNames = new ArrayList<>();
-        for (ResourceLocation subProfessions : getSubProfessions()) {
-            subProfessionNames.add("reskillable.subprofession.reskillable." + subProfessions.getPath());
-        }
-        List<String> translatedNames = new ArrayList<>();
-        for (String name : subProfessionNames) {
-            translatedNames.add(new TextComponentTranslation(name).getUnformattedComponentText());
-        }
-        return translatedNames;
-    }
-    */
 
     public ResourceLocation getBackground() {
         return background;
@@ -103,6 +78,14 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
 
     public ResourceLocation getSpriteLocation() {
         return spriteLocation;
+    }
+
+    public void setOffense(boolean bool) {
+        this.offense = bool;
+    }
+
+    public boolean isOffense() {
+        return this.offense;
     }
 
     public Pair<Integer, Integer> getSpriteFromRank(int rank) {

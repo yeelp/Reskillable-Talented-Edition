@@ -5,7 +5,7 @@ import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerProfessionInfo;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
-import codersafterdark.reskillable.api.event.LevelUpTalentEvent;
+import codersafterdark.reskillable.api.event.UpgradeTalentEvent;
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.talent.Talent;
 import io.netty.buffer.ByteBuf;
@@ -20,14 +20,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.Objects;
 
-public class MessageLevelUpTalent implements IMessage, IMessageHandler<MessageLevelUpTalent, IMessage> {
+public class MessageUpgradeTalent implements IMessage, IMessageHandler<MessageUpgradeTalent, IMessage> {
     private ResourceLocation profession;
     private ResourceLocation talent;
 
-    public MessageLevelUpTalent() {
+    public MessageUpgradeTalent() {
     }
 
-    public MessageLevelUpTalent(ResourceLocation profession, ResourceLocation talent) {
+    public MessageUpgradeTalent(ResourceLocation profession, ResourceLocation talent) {
         this.profession = profession;
         this.talent = talent;
     }
@@ -45,12 +45,12 @@ public class MessageLevelUpTalent implements IMessage, IMessageHandler<MessageLe
     }
 
     @Override
-    public IMessage onMessage(MessageLevelUpTalent message, MessageContext ctx) {
+    public IMessage onMessage(MessageUpgradeTalent message, MessageContext ctx) {
         FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(() -> handleMessage(message, ctx));
         return null;
     }
 
-    public IMessage handleMessage(MessageLevelUpTalent message, MessageContext context) {
+    public IMessage handleMessage(MessageUpgradeTalent message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Profession profession = ReskillableRegistries.PROFESSIONS.getValue(message.profession);
         Talent talent = Objects.requireNonNull(ReskillableRegistries.TALENTS.getValue(message.talent));
@@ -59,11 +59,11 @@ public class MessageLevelUpTalent implements IMessage, IMessageHandler<MessageLe
         PlayerTalentInfo talentInfo = data.getTalentInfo(talent);
         if (!talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost()) {
             int oldRank = talentInfo.getLevel();
-            if (!MinecraftForge.EVENT_BUS.post(new LevelUpTalentEvent.Pre(player, talent, oldRank + 1, oldRank))) {
+            if (!MinecraftForge.EVENT_BUS.post(new UpgradeTalentEvent.Pre(player, talent, oldRank + 1, oldRank))) {
                 talentInfo.levelUp();
                 info.spendSkillPoints(talentInfo.getLevelUpCost());
                 data.saveAndSync();
-                MinecraftForge.EVENT_BUS.post(new LevelUpTalentEvent.Post(player, talent, talentInfo.getLevel(), oldRank));
+                MinecraftForge.EVENT_BUS.post(new UpgradeTalentEvent.Post(player, talent, talentInfo.getLevel(), oldRank));
             }
         }
         return null;

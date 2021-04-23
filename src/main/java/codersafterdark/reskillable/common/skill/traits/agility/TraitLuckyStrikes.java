@@ -56,7 +56,6 @@ public class TraitLuckyStrikes extends Trait {
                 float amount = calcCritChance(player);
                 AttributeModifier modifier = new AttributeModifier("reskillable.critChance", amount, 0);
                 info.addAttributeModifier(AttributeCrit, modifier);
-                player.sendMessage(new TextComponentString(info.getUnlockableAttributes().toString()));
                 PlayerDataHandler.get(player).saveAndSync();
             }
         }

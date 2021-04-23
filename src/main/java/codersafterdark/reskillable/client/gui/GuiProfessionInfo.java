@@ -332,7 +332,7 @@ public class GuiProfessionInfo extends GuiScreen {
             PacketHandler.INSTANCE.sendToServer(message);
         } else if (mouseButton == 0 && hoveredTalent != null && canUpgrade) {
             mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-            MessageLevelUpTalent message = new MessageLevelUpTalent(profession.getRegistryName(), hoveredTalent.getRegistryName());
+            MessageUpgradeTalent message = new MessageUpgradeTalent(profession.getRegistryName(), hoveredTalent.getRegistryName());
             PacketHandler.INSTANCE.sendToServer(message);
         } else if (mouseButton == 1 || mouseButton == 3) {
             mc.displayGuiScreen(new GuiProfessions());

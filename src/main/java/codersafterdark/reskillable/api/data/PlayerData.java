@@ -2,6 +2,9 @@ package codersafterdark.reskillable.api.data;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.ReskillableRegistries;
+import codersafterdark.reskillable.api.event.LevelUpEvent;
+import codersafterdark.reskillable.api.event.LockUnlockableEvent;
+import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
@@ -12,6 +15,7 @@ import codersafterdark.reskillable.api.unlockable.IAbilityEventHandler;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -30,6 +34,7 @@ public class PlayerData {
     private static final String TAG_PROFESSIONS_CMP = "ProfessionLevels";
     private static final String TAG_TALENTS_CMP = "TalentRanks";
     private static final String TAG_UNLOCKABLES_CMP = "UnlockableRanks";
+    private static final String TAG_UNLOCKED_PROFESSIONS = "Professions";
     private final boolean client;
     private final RequirementCache requirementCache;
     public WeakReference<EntityPlayer> playerWR;
@@ -37,6 +42,7 @@ public class PlayerData {
     private Map<Skill, PlayerSkillInfo> skillInfo = new HashMap<>();
     private Map<Talent, PlayerTalentInfo> talentInfo = new HashMap<>();
     private Map<Unlockable, PlayerUnlockableInfo> unlockableInfo = new HashMap<>();
+    private List<Profession> unlockedProfessions = new ArrayList<>();
 
     public PlayerData(EntityPlayer player) {
         playerWR = new WeakReference<>(player);
@@ -50,6 +56,10 @@ public class PlayerData {
 
         load();
     }
+
+    public void unlockProfession(Profession p) {unlockedProfessions.add(p);}
+
+    public List<Profession> getUnlockedProfessions() {return this.unlockedProfessions;}
 
     public PlayerProfessionInfo getProfessionInfo(Profession p) {return professionInfo.get(p);}
 
@@ -133,6 +143,7 @@ public class PlayerData {
         NBTTagCompound profsCmp = cmp.getCompoundTag(TAG_PROFESSIONS_CMP);
         NBTTagCompound talentsCmp = cmp.getCompoundTag(TAG_TALENTS_CMP);
         NBTTagCompound unlockablesCmp = cmp.getCompoundTag(TAG_UNLOCKABLES_CMP);
+        NBTTagCompound unlockedProfessions = cmp.getCompoundTag(TAG_UNLOCKED_PROFESSIONS);
         for (PlayerSkillInfo info : skillInfo.values()) {
             String key = info.skill.getKey();
             if (skillsCmp.hasKey(key)) {
@@ -161,6 +172,13 @@ public class PlayerData {
                 info.loadFromNBT(infoCmp);
             }
         }
+
+        this.unlockedProfessions.clear();
+        for (String s : unlockedProfessions.getKeySet()) {
+            Optional.ofNullable(ReskillableRegistries.PROFESSIONS.getValue(new ResourceLocation(s.replace(".", ":"))))
+                    .ifPresent(this.unlockedProfessions::add);
+        }
+
     }
 
     public void saveToNBT(NBTTagCompound cmp) {
@@ -168,6 +186,7 @@ public class PlayerData {
         NBTTagCompound profsCmp = new NBTTagCompound();
         NBTTagCompound talentsCmp = new NBTTagCompound();
         NBTTagCompound unlockablesCmp = new NBTTagCompound();
+        NBTTagCompound unlockedProfessions = new NBTTagCompound();
 
         for (PlayerSkillInfo info : skillInfo.values()) {
             String key = info.skill.getKey();
@@ -197,10 +216,16 @@ public class PlayerData {
             unlockablesCmp.setTag(key, infoCmp);
         }
 
+        for (Profession p : this.unlockedProfessions) {
+            String key = p.getKey();
+            unlockedProfessions.setBoolean(key, true);
+        }
+
         cmp.setTag(TAG_PROFESSIONS_CMP, profsCmp);
         cmp.setTag(TAG_SKILLS_CMP, skillsCmp);
         cmp.setTag(TAG_TALENTS_CMP, talentsCmp);
         cmp.setTag(TAG_UNLOCKABLES_CMP, unlockablesCmp);
+        cmp.setTag(TAG_UNLOCKED_PROFESSIONS, unlockedProfessions);
     }
 
     // Event Handlers

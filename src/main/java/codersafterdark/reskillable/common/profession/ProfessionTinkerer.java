@@ -12,5 +12,6 @@ public class ProfessionTinkerer extends Profession {
         setColor(14053905);
         addSubProfession("engineer", 0);
         addSubProfession("blacksmith", 2);
+        setOffense(false);
     }
 }

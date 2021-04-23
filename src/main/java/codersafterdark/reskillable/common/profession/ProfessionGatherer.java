@@ -13,5 +13,6 @@ public class ProfessionGatherer extends Profession {
         addSubProfession("miner", 0);
         addSubProfession("seafarer", 1);
         addSubProfession("forager", 2);
+        setOffense(false);
     }
 }

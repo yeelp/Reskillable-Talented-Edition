@@ -16,6 +16,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.GL11;
@@ -141,46 +142,9 @@ public class GuiProfessions extends GuiScreen {
             drawTexturedModalRect(x, y, u, v, w, h);
             drawProfession(x + 5, y + 9, profession);
 
-            mc.fontRenderer.drawString(profession.getName(), x + 26, y + 6, 0xFFFFFF);
-            mc.fontRenderer.drawString(professionInfo.getLevel() + "/" + profession.getCap(), x + 26, y + 17, 0x888888);
+            mc.fontRenderer.drawString(profession.getName(), x + 26, y + 12, 0xFFFFFF);
+            //mc.fontRenderer.drawString(professionInfo.getLevel() + "/" + profession.getCap(), x + 26, y + 17, 0x888888);
         }
-
-        /*
-        professions = new ArrayList<>();
-        enabledProfessions.stream().filter(enabledProfession -> !enabledProfession.isHidden()).forEach(professions::add);
-
-        int index = 0;
-        for (int j = offset; j < professions.size() && index < 2; j++) {
-            Profession profession = professions.get(j);
-            PlayerProfessionInfo professionInfo = data.getProfessionInfo(profession);
-
-            int i = index++;
-            int w = 79;
-            int h = 32;
-            int x = left + (i % 2) * (w + 3) + 8;
-            int y = top + (i / 2) * (h + 3) + 18;
-
-            lastY = y;
-            int u = 0;
-            int v = guiHeight;
-
-            if (mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + h) {
-                u += w;
-                hoveredProfession = profession;
-            }
-            if (professionInfo.isCapped()) {
-                v += h;
-            }
-
-            mc.renderEngine.bindTexture(SKILLS_RES);
-            GlStateManager.color(1F, 1F, 1F);
-            drawTexturedModalRect(x, y, u, v, w, h);
-            drawProfession(x + 5, y + 9, profession);
-
-            mc.fontRenderer.drawString(profession.getName(), x + 26, y + 6, 0xFFFFFF);
-            mc.fontRenderer.drawString(professionInfo.getLevel() + "/" + profession.getCap(), x + 26, y + 17, 0x888888);
-        }
-        */
 
         GL11.glColor4f(1, 1, 1, 1);
         drawScrollButtonsTop(left + 49, top + 14);

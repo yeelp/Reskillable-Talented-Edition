@@ -1,126 +1,109 @@
 buildscript {
     repositories {
+        maven { url = 'https://files.minecraftforge.net/maven' }
+        jcenter()
         mavenCentral()
-        maven {
-            name = "forge"
-            url = "http://files.minecraftforge.net/maven"
-        }
-        maven {
-            name = "sonatype"
-            url = "https://oss.sonatype.org/content/repositories/snapshots/"
-        }
     }
     dependencies {
-        classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
-        //classpath 'com.matthewprenger:CurseGradle:1.0-SNAPSHOT'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:3.+'
     }
 }
-
-apply plugin: "maven"
-apply plugin: 'net.minecraftforge.gradle.forge'
-//apply plugin: 'com.matthewprenger.cursegradle'
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8
+        
+apply plugin: 'net.minecraftforge.gradle'
+// Only edit below this line, the above code adds and enables the necessary things for Forge to be setup.
+apply plugin: 'eclipse'
+apply plugin: 'maven-publish'
 
 version = "${mc_version}-" + getVersion()
 group = "codersafterdark.reskillable" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = "${mod_name}"
+archivesBaseName = 'reskillable'
+
+sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8' // Need this here so eclipse task generates correctly.
 
 minecraft {
-    version = "${mc_version}-${forge_version}"
-    runDir = "run"
+    mappings channel: 'stable', version: '39-1.12'
+    accessTransformer = file('src/main/resources/META-INF/reskillable_at.cfg')
 
-    coreMod = "codersafterdark.reskillable.common.core.asm.LoadingPlugin"
+    runs {
+        client {
+            workingDirectory project.file('run')
 
-    mappings = "${mc_mappings}"
-    replace 'GRADLE:VERSION', "${mc_version}"
-    replace 'GRADLE:BUILD', "${mod_version}"
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
 
-    // Scala: not even once
-    replace 'scala.actors.threadpool.Arrays', 'java.util.Arrays'
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
 
-    makeObfSourceJar = false
+            mods {
+                reskillable {
+                    sources = [sourceSets.main]
+                }
+            }
+        }
+
+        server {
+
+            // Recommended logging data for a userdev environment
+            property 'forge.logging.markers', 'SCAN,REGISTRIES,REGISTRYDUMP'
+
+            // Recommended logging level for the console
+            property 'forge.logging.console.level', 'debug'
+        }
+    }
 }
 
-repositories{
-    maven{
-        name 'CraftTweaker'
-        url 'http://maven.blamejared.com'
+sourceSets {
+    main {
+        resources {
+            srcDirs += 'resources'
+        }
     }
+}
+
+repositories {
     maven {
         url "https://www.cursemaven.com"
-    }
-    maven {
-        url = "http://minecraft.curseforge.com/api/maven/"
-    }
-    maven {
-        name = "thiakil"
-        url = "http://maven.thiakil.com"
     }
 }
 
 dependencies {
-    //implementation("curse.maven:jei-238222:3040523")
-    deobfCompile("curse.maven:baubles-227083:2518667")
-    deobfCompile("curse.maven:jei-238222:3040523")
-    deobfCompile("curse.maven:serene-seasons-291874:2799213")
-    deobfCompile("curse.maven:tipthescales-282313:2689835")
-    deobfCompile("curse.maven:spartan-weaponry-278141:2830166")
-    deobfCompile("curse.maven:dynamic-stealth-309344:3127982")
-    deobfCompile("curse.maven:fantastic-lib-315773:3138902")
-    deobfCompile("curse.maven:potion-core-242872:2905184")
-    //deobfCompile("curse.maven:compatskills-290541:2815688")
+    minecraft 'net.minecraftforge:forge:1.12.2-14.23.5.2854'
 
-    //deobfCompile "mezz.jei:jei_1.12.2:4.13.1.220"
+    apiElements fg.deobf("curse.maven:baubles-227083:2518667")
+    compileOnly fg.deobf("curse.maven:jei-238222:3040523")
+    compileOnly fg.deobf("curse.maven:serene-seasons-291874:2799213")
+    compileOnly fg.deobf("curse.maven:tipthescales-282313:2689835")
+    compileOnly fg.deobf("curse.maven:dynamic-stealth-309344:3127982")
+    compileOnly fg.deobf("curse.maven:fantastic-lib-315773:3138902")
+    compileOnly fg.deobf("curse.maven:potion-core-242872:2905184")
+    compileOnly fg.deobf("curse.maven:spartan-weaponry-278141:2830166")
+
     compile files('lib/DynamicSwordSkills-1.12.2-6.2.1.jar')
     compile files('lib/SwordSkillsApi-1.12.2-1.5.1.jar')
     compile files ('lib/CompatSkills-1.12.2-1.17.0.jar')
-}
 
-uploadArchives {
-    repositories {
-        mavenDeployer {
-            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
-        }
-    }
 }
 
 jar {
-    exclude "**/*.bat"
-    exclude "**/*.psd"
-    exclude "**/*.exe"
-    exclude "**/unused"
-
     manifest {
         attributes("FMLCorePluginContainsFMLMod": "true", "FMLCorePlugin": "codersafterdark.reskillable.base.asm.LoadingPlugin")
         attributes "FMLAT": "reskillable_at.cfg"
     }
-
 }
 
-processResources {
-    // replace stuff in mcmod.info, nothing else
-    from(sourceSets.main.resources.srcDirs) {
-        include 'mcmod.info'
+jar.finalizedBy('reobfJar')
 
-        // replace version and mcversion
-        expand 'version': project.version, 'mcversion': "${mc_version}"
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
     }
-
-    // copy everything else, thats not the mcmod.info
-    from(sourceSets.main.resources.srcDirs) {
-        exclude 'mcmod.info', '**/psd/**'
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
     }
-}
-
-task srcJar(type: Jar) {
-    from sourceSets.main.allSource
-    classifier = 'sources'
-}
-
-artifacts {
-    archives srcJar
 }
 
 String getVersion() {
@@ -146,5 +129,4 @@ static String getBuildNumber() {
     }
     return buildNumber
 }
-
 

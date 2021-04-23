@@ -16,7 +16,8 @@ public class PacketHandler {
         INSTANCE.registerMessage(MessageLockedItem.class, MessageLockedItem.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(MessageUnlockUnlockable.class, MessageUnlockUnlockable.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(MessageUnlockTalent.class, MessageUnlockTalent.class, ID++, Side.SERVER);
-        INSTANCE.registerMessage(MessageLevelUpTalent.class, MessageLevelUpTalent.class, ID++, Side.SERVER);
+        INSTANCE.registerMessage(MessageUpgradeTalent.class, MessageUpgradeTalent.class, ID++, Side.SERVER);
+        INSTANCE.registerMessage(MessageUpgradeUnlockable.class, MessageUpgradeUnlockable.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(InvalidateRequirementPacket.class, InvalidateRequirementPacket.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(InvalidateRequirementPacket.class, InvalidateRequirementPacket.class, ID++, Side.SERVER);
         INSTANCE.registerMessage(UnlockableToastPacket.class, UnlockableToastPacket.class, ID++, Side.CLIENT);

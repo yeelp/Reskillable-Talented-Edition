@@ -137,6 +137,33 @@ reskillable.unlock.reskillable.mighty_strikes.desc=Increases Critical Damage per
 reskillable.unlock.reskillable.seasonal_greetings=Seasonal Greetings
 reskillable.unlock.reskillable.seasonal_greetings.desc=Provides a visual indicator of the current season. Press [H] (by default) to toggle.
 
+reskillable.unlock.reskillable.focus=Focus
+reskillable.unlock.reskillable.focus.desc=Focus on a single target, opening them up to a chain of consecutive strikes.
+reskillable.unlock.reskillable.eviscerate=Eviscerate
+reskillable.unlock.reskillable.eviscerate.desc=
+reskillable.unlock.reskillable.leaping_strike=Leaping Strike
+reskillable.unlock.reskillable.leaping_strike.desc=
+reskillable.unlock.reskillable.sunder=Sunder
+reskillable.unlock.reskillable.sunder.desc=
+reskillable.unlock.reskillable.charge=Charge
+reskillable.unlock.reskillable.charge.desc=
+reskillable.unlock.reskillable.pirouette=Pirouette
+reskillable.unlock.reskillable.pirouette.desc=
+reskillable.unlock.reskillable.rising_cut=Rising Cut
+reskillable.unlock.reskillable.rising_cut.desc=
+reskillable.unlock.reskillable.shadowrush=Shadowrush
+reskillable.unlock.reskillable.shadowrush.desc=
+reskillable.unlock.reskillable.whirlwind=Whirlwind
+reskillable.unlock.reskillable.whirlwind.desc=
+reskillable.unlock.reskillable.deflect=Deflect
+reskillable.unlock.reskillable.deflect.desc=
+reskillable.unlock.reskillable.kamaitachi=Kamaitachi
+reskillable.unlock.reskillable.kamaitachi.desc=
+reskillable.unlock.reskillable.mortal_draw=Mortal Draw
+reskillable.unlock.reskillable.mortal_draw.desc=
+reskillable.unlock.reskillable.parry=Parry
+reskillable.unlock.reskillable.parry.desc=
+
 # TALENT NAMES
 reskillable.talent.reskillable.rally=In War, Victory
 reskillable.talent.reskillable.rally.desc=Killing an enemy gives nearby allies (including yourself) buffs within 12.0 blocks. Strength I and Resistance I for 5 seconds. Continued kills refresh duration

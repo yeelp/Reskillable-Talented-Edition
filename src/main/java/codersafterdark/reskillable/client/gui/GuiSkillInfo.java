@@ -14,6 +14,7 @@ import codersafterdark.reskillable.client.gui.handler.KeyBindings;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import codersafterdark.reskillable.common.network.MessageLevelUp;
 import codersafterdark.reskillable.common.network.MessageUnlockUnlockable;
+import codersafterdark.reskillable.common.network.MessageUpgradeUnlockable;
 import codersafterdark.reskillable.common.network.PacketHandler;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -44,6 +45,7 @@ public class GuiSkillInfo extends GuiScreen {
     private GuiButtonLevelUp levelUpButton;
     private Unlockable hoveredUnlockable;
     private boolean canPurchase;
+    private boolean canUpgrade;
 
     public GuiSkillInfo(Skill skill) {
         this.skill = skill;
@@ -150,6 +152,8 @@ public class GuiSkillInfo extends GuiScreen {
     }
 
     private void drawUnlockable(PlayerData data, PlayerSkillInfo info, Unlockable unlockable, int mx, int my) {
+        PlayerSkillInfo unlockableInfo = PlayerDataHandler.get(Minecraft.getMinecraft().player).getUnlockableInfo(unlockable);
+
         int x = width / 2 - guiWidth / 2 + 20 + unlockable.getX() * 28;
         int y = height / 2 - guiHeight / 2 + 37 + unlockable.getY() * 28;
         mc.renderEngine.bindTexture(SKILL_INFO_RES);
@@ -172,6 +176,7 @@ public class GuiSkillInfo extends GuiScreen {
 
         if (mx >= x && my >= y && mx < x + 26 && my < y + 26) {
             canPurchase = !unlocked && info.getSkillPoints() >= unlockable.getCost();
+            canUpgrade = !unlockableInfo.isCapped() && info.getSkillPoints() >= unlockable.getCost();
             hoveredUnlockable = unlockable;
         }
     }
@@ -195,7 +200,10 @@ public class GuiSkillInfo extends GuiScreen {
             tooltip.add(TextFormatting.GREEN + new TextComponentTranslation("reskillable.misc.unlocked").getUnformattedComponentText());
         }
 
+        int rank = data.getUnlockableInfo(hoveredUnlockable).getRank();
+
         tooltip.add(TextFormatting.GRAY + new TextComponentTranslation("reskillable.misc.skill_points", hoveredUnlockable.getCost()).getUnformattedComponentText());
+        tooltip.add(TextFormatting.GRAY + new TextComponentTranslation("reskillable.misc.talent_rank", rank, hoveredUnlockable.getCap()).getUnformattedComponentText());
 
         renderTooltip(mouseX, mouseY, tooltip);
     }
@@ -224,6 +232,7 @@ public class GuiSkillInfo extends GuiScreen {
         }
     }
 
+    /** Called when the mouse is clicked to supply sounds, detect when a talent is unlocked, and return to the previous menu */
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
@@ -231,6 +240,10 @@ public class GuiSkillInfo extends GuiScreen {
         if (mouseButton == 0 && hoveredUnlockable != null && canPurchase) {
             mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
             MessageUnlockUnlockable message = new MessageUnlockUnlockable(skill.getRegistryName(), hoveredUnlockable.getRegistryName());
+            PacketHandler.INSTANCE.sendToServer(message);
+        } else if (mouseButton == 0 && hoveredUnlockable != null && canUpgrade) {
+            mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            MessageUpgradeUnlockable message = new MessageUpgradeUnlockable(skill.getRegistryName(), hoveredUnlockable.getRegistryName());
             PacketHandler.INSTANCE.sendToServer(message);
         } else if (mouseButton == 1 || mouseButton == 3) {
             mc.displayGuiScreen(new GuiSkills());

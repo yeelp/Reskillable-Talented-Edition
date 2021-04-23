@@ -47,6 +47,7 @@ public class MessageLevelUpProfession implements IMessage, IMessageHandler<Messa
         EntityPlayer player = context.getServerHandler().player;
         Profession profession = ReskillableRegistries.PROFESSIONS.getValue(message.professionName);
         PlayerData data = PlayerDataHandler.get(player);
+        if (!data.getUnlockedProfessions().contains(profession)) {data.unlockProfession(profession);}
         PlayerProfessionInfo info = data.getProfessionInfo(profession);
         if (!info.isCapped()) {
             int cost = info.getLevelUpCost();

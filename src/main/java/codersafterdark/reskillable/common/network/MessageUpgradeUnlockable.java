@@ -1,11 +1,9 @@
 package codersafterdark.reskillable.common.network;
 
 import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.data.PlayerData;
-import codersafterdark.reskillable.api.data.PlayerDataHandler;
-import codersafterdark.reskillable.api.data.PlayerSkillInfo;
-import codersafterdark.reskillable.api.data.PlayerUnlockableInfo;
-import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
+import codersafterdark.reskillable.api.data.*;
+import codersafterdark.reskillable.api.event.UpgradeTalentEvent;
+import codersafterdark.reskillable.api.event.UpgradeUnlockableEvent;
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import io.netty.buffer.ByteBuf;
@@ -20,14 +18,14 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.Objects;
 
-public class MessageUnlockUnlockable implements IMessage, IMessageHandler<MessageUnlockUnlockable, IMessage> {
+public class MessageUpgradeUnlockable implements IMessage, IMessageHandler<MessageUpgradeUnlockable, IMessage> {
     private ResourceLocation skill;
     private ResourceLocation unlockable;
 
-    public MessageUnlockUnlockable() {
+    public MessageUpgradeUnlockable() {
     }
 
-    public MessageUnlockUnlockable(ResourceLocation skill, ResourceLocation unlockable) {
+    public MessageUpgradeUnlockable(ResourceLocation skill, ResourceLocation unlockable) {
         this.skill = skill;
         this.unlockable = unlockable;
     }
@@ -45,26 +43,28 @@ public class MessageUnlockUnlockable implements IMessage, IMessageHandler<Messag
     }
 
     @Override
-    public IMessage onMessage(MessageUnlockUnlockable message, MessageContext ctx) {
+    public IMessage onMessage(MessageUpgradeUnlockable message, MessageContext ctx) {
         FMLCommonHandler.instance().getMinecraftServerInstance().addScheduledTask(() -> handleMessage(message, ctx));
         return null;
     }
 
-    public IMessage handleMessage(MessageUnlockUnlockable message, MessageContext context) {
+    public IMessage handleMessage(MessageUpgradeUnlockable message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Skill skill = ReskillableRegistries.SKILLS.getValue(message.skill);
         Unlockable unlockable = Objects.requireNonNull(ReskillableRegistries.UNLOCKABLES.getValue(message.unlockable));
         PlayerData data = PlayerDataHandler.get(player);
         PlayerSkillInfo info = data.getSkillInfo(skill);
         PlayerUnlockableInfo unlockableInfo = data.getUnlockableInfo(unlockable);
-
-        if (!info.isUnlocked(unlockable) && info.getSkillPoints() >= unlockable.getCost() && data.matchStats(unlockable.getRequirements())
-                && !MinecraftForge.EVENT_BUS.post(new UnlockUnlockableEvent.Pre(player, unlockable))) {
-            info.unlock(unlockable, player);
-            unlockableInfo.levelUp();
-            data.saveAndSync();
-            MinecraftForge.EVENT_BUS.post(new UnlockUnlockableEvent.Post(player, unlockable));
+        if (!unlockableInfo.isCapped() && info.getSkillPoints() >= unlockable.getCost()) {
+            int oldRank = unlockableInfo.getLevel();
+            if (!MinecraftForge.EVENT_BUS.post(new UpgradeUnlockableEvent.Pre(player, unlockable, oldRank + 1, oldRank))) {
+                unlockableInfo.levelUp();
+                info.spendSkillPoints(unlockableInfo.getLevelUpCost());
+                data.saveAndSync();
+                MinecraftForge.EVENT_BUS.post(new UpgradeUnlockableEvent.Post(player, unlockable, unlockableInfo.getLevel(), oldRank));
+            }
         }
         return null;
     }
+
 }

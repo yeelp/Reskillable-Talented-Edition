@@ -12,6 +12,6 @@ public class ProfessionFarmer extends Profession {
         setColor(12213007);
         addSubProfession("rancher", 0);
         addSubProfession("chef", 2);
-
+        setOffense(false);
     }
 }
