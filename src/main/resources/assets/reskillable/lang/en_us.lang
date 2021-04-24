@@ -61,7 +61,7 @@ reskillable.profession.reskillable.gatherer=Gatherer
 
 # SUBPROFESSION NAMES
 reskillable.subprofession.reskillable.warden=Warden
-reskillable.subprofession.reskillable.gladiator=Gladiator
+reskillable.subprofession.reskillable.gladiator=LOCKED
 reskillable.subprofession.reskillable.berserker=Berserker
 
 reskillable.subprofession.reskillable.assassin=Assassin
