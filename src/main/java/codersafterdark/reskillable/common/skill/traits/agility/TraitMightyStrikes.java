@@ -26,7 +26,7 @@ public class TraitMightyStrikes extends Trait {
     private UUID modifierID = null;
 
     public TraitMightyStrikes() {
-        super(new ResourceLocation(LibMisc.MOD_ID, "mighty_strikes"), 3, 3, new ResourceLocation("reskillable", "agility"), 1, "");
+        super(new ResourceLocation(LibMisc.MOD_ID, "mighty_strikes"), 3, 3, new ResourceLocation("reskillable", "agility"), 1, "reskillable:agility|10", "reskillable:attack|12");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

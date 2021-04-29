@@ -22,7 +22,7 @@ public class TalentAura extends Talent {
 
     public TalentAura() {
         super(new ResourceLocation(MOD_ID, "aura"), 0, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
-                3, "reskillable:attack 10", "reskillable:defense 8");
+                3, "profession|reskillable:warrior|6", "reskillable:defense|12");
         setCap(5);
         MinecraftForge.EVENT_BUS.register(this);
     }

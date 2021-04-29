@@ -199,7 +199,7 @@ reskillable.talent.reskillable.absorption.desc=Slaying a foe will grant 3 second
 reskillable.talent.reskillable.edge=On The Edge
 reskillable.talent.reskillable.edge.desc=Increase attack damage by 50%%, attack speed by 20%%, and movement speed by 10%% while below 50%% maximum health.
 reskillable.talent.reskillable.fear=Fear Into Thy Enemy
-reskillable.talent.reskillable.fear.desc=Attacks have a 10%% to apply Fear status effect on majority of enemies while below 50%% maximum health.
+reskillable.talent.reskillable.fear.desc=Attacks have a %d chance to apply Fear on the majority of enemies while below 50%% maximum health.
 reskillable.talent.reskillable.jump=Into The Fire
 reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%.
 

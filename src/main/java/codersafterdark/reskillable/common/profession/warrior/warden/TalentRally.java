@@ -19,7 +19,7 @@ public class TalentRally extends Talent {
 
    public TalentRally() {
        super(new ResourceLocation(MOD_ID, "rally"), 1, 3, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
-               3, "reskillable:attack 10", "reskillable:defense 8");
+               3, "profession|reskillable:warrior|13");
        setCap(5);
        MinecraftForge.EVENT_BUS.register(this);
    }

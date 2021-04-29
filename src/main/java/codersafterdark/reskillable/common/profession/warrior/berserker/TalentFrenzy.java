@@ -27,7 +27,7 @@ public class TalentFrenzy extends Talent {
 
     public TalentFrenzy() {
         super(new ResourceLocation(MOD_ID, "frenzy"), 1, 3, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "berserker"),
-                3, "reskillable:attack 10", "reskillable:defense 8");
+                3, "profession|reskillable:warrior|13");
         setCap(5);
         MinecraftForge.EVENT_BUS.register(this);
     }

@@ -23,7 +23,7 @@ import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 public class TalentBlocking extends Talent {
     public TalentBlocking() {
         super(new ResourceLocation(MOD_ID, "blocking"), 1, 1, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
-                3, "reskillable:attack 10", "reskillable:defense 8");
+                3, "profession|reskillable:warrior|26");
         setCap(5);
         MinecraftForge.EVENT_BUS.register(this);
     }

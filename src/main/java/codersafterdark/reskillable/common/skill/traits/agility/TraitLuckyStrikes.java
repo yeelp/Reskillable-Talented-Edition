@@ -26,7 +26,7 @@ public class TraitLuckyStrikes extends Trait {
     IAttribute critChance = ReskillableAttributes.CRIT_CHANCE;
 
     public TraitLuckyStrikes() {
-        super(new ResourceLocation(LibMisc.MOD_ID, "lucky_strikes"), 1, 3, new ResourceLocation("reskillable", "agility"), 1, "");
+        super(new ResourceLocation(LibMisc.MOD_ID, "lucky_strikes"), 1, 3, new ResourceLocation("reskillable", "agility"), 1, "reskillable:agility|10");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

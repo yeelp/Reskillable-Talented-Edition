@@ -22,7 +22,7 @@ public class TalentWardenNovice extends Talent {
 
     public TalentWardenNovice() {
         super(new ResourceLocation(MOD_ID, "warden_novice"), 1, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
-                3, "reskillable:attack 10", "reskillable:defense 8");
+                3, "profession|reskillable:warrior|6");
         setCap(1);
         MinecraftForge.EVENT_BUS.register(this);
     }
