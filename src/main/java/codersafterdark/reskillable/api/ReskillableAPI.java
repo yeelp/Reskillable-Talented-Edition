@@ -1,6 +1,7 @@
 package codersafterdark.reskillable.api;
 
 import codersafterdark.reskillable.api.data.PlayerData;
+import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.profession.ProfessionConfig;
 import codersafterdark.reskillable.api.requirement.*;
 import codersafterdark.reskillable.api.requirement.logic.LogicParser;
@@ -32,6 +33,29 @@ public class ReskillableAPI {
                 throw new RequirementException("Unlockable '" + input + "' not found.");
             }
             return new TraitRequirement(unlockable);
+        });
+        requirementRegistry.addRequirementHandler("profession", input -> {
+            String[] requirements = input.split("\\|");
+            if (requirements.length == 2) {
+                Profession profession = ReskillableRegistries.PROFESSIONS.getValue(new ResourceLocation(requirements[0]));
+                String requirementInputs = requirements[1];
+
+                if (profession == null) {
+                    throw new RequirementException("Profession '" + input + "' not found.");
+                }
+
+                try {
+                    int level = Integer.parseInt(requirementInputs);
+                    if (level > 1) {
+                        return new ProfessionRequirement(profession, level);
+                    } else {
+                        throw new RequirementException("Level must be greater than 1. Found: '" + level + "'.");
+                    }
+                } catch (NumberFormatException e) {
+                    throw new RequirementException("Invalid level '" + requirementInputs + "' for profession '" + profession.getName() + "'.");
+                }
+            }
+            return null;
         });
         requirementRegistry.addRequirementHandler("talent", input -> {
             Talent talent = ReskillableRegistries.TALENTS.getValue(new ResourceLocation(input));
