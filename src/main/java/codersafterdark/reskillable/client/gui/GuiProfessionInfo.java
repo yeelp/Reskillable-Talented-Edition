@@ -174,33 +174,33 @@ public class GuiProfessionInfo extends GuiScreen {
         PlayerTalentInfo talentInfo = PlayerDataHandler.get(Minecraft.getMinecraft().player).getTalentInfo(talent);
 
         int x = width / 2 - guiWidth / 2 - 5 + 93 * talent.getSubProfession().getGuiIndex() + talent.getX() * 27;
-        int y = height / 2 - guiHeight / 2 + 7 + talent.getY() * 37;
+        int y = height / 2 - guiHeight / 2 + 10 + talent.getY() * 37;
         mc.renderEngine.bindTexture(PROFESSION_INFO_RES3);
         boolean unlocked = info.isUnlocked(talent);
 
-        int u = 83;
-        int v = 130;
+        int u = 84;
+        int v = 133;
         if (talent.hasSpikes()) {
             u += 26;
         }
         // Unlocked, but cannot purchase
         if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() < talent.getCost()) {
-            v += 26;
+            v += 22;
         }
         // Unlocked, but can purchase
         if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost()) {
-            v += 26 * 2;
+            v += 22 * 2;
         }
         // Unlocked, cannot purchase, and talent is max rank
         if (talentInfo.isCapped()) {
-            v += 26 * 3;
+            v += 22 * 3;
         }
 
         GlStateManager.color(1F, 1F, 1F);
-        drawTexturedModalRect(x, y, u, v, 24, 24);
+        drawTexturedModalRect(x, y, u, v, 22, 22);
 
         mc.renderEngine.bindTexture(talent.getIcon());
-        drawModalRectWithCustomSizedTexture(x + 1, y + 1, 0, 0, 22, 22, 22, 22);
+        drawModalRectWithCustomSizedTexture(x + 1, y + 1, 0, 0, 20, 20, 20, 20);
 
         if (mx >= x && my >= y && mx < x + 24 && my < y + 24) {
             canPurchase = !unlocked && info.getProfessionPoints() >= talent.getCost();
