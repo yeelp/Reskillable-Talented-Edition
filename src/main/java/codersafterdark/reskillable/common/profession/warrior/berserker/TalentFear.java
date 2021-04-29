@@ -1,6 +1,8 @@
 package codersafterdark.reskillable.common.profession.warrior.berserker;
 
+import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.PlayerProfessionInfo;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
@@ -38,7 +40,7 @@ public class TalentFear extends Talent {
         if ((event.getSource().getTrueSource() instanceof EntityPlayer)) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this) && player.getHealth() <= player.getMaxHealth() * 0.5) {
-                float fearChance = 20.0F * PlayerDataHandler.get(player).getTalentInfo(this).getRank();
+                float fearChance = 5.0F * PlayerDataHandler.get(player).getTalentInfo(this).getRank();
                 fearChance /= 100.0F;
                 if (fearChance >= rand.nextFloat()) {
                     event.getEntityLiving().addPotionEffect(new PotionEffect(WizardryPotions.fear, 120));
@@ -51,11 +53,16 @@ public class TalentFear extends Talent {
     @Override
     public String getDescription() {
         EntityPlayer player = Minecraft.getMinecraft().player;
-        PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
-        StringBuilder builder = new StringBuilder(new TextComponentTranslation("reskillable.talent." + getKey() + ".desc").getUnformattedComponentText());
-        int start = builder.indexOf("%d");
-        int chance = builder.indexOf("Fear");
-        builder.replace(start, 15, 20.0F * info.getRank() + "%");
-        return builder.toString();
+        PlayerProfessionInfo professionInfo = PlayerDataHandler.get(player).getProfessionInfo(this.getParentProfession());
+        PlayerTalentInfo talentInfo = PlayerDataHandler.get(player).getTalentInfo(this);
+        float fearChance = talentInfo.getRank() * 5.0F;
+        TextFormatting formatting = TextFormatting.GRAY;
+        if (professionInfo.isUnlocked(this)) {
+            formatting = TextFormatting.GREEN;
+        }
+        if (talentInfo.isCapped()) {
+            formatting = TextFormatting.GOLD;
+        }
+        return new TextComponentTranslation("reskillable.talent." + getKey() + ".desc", formatting.toString(), fearChance).getUnformattedComponentText();
     }
 }
