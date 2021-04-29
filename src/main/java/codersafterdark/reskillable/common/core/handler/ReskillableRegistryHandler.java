@@ -144,7 +144,8 @@ public class ReskillableRegistryHandler {
                 new TalentEdge(),
                 new TalentFear(),
                 new TalentFrenzy(),
-                new TalentJump()
+                new TalentJump(),
+                new TalentAbsorption()
 
         );
 

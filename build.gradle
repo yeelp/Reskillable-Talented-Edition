@@ -66,7 +66,8 @@ dependencies {
     compileOnly fg.deobf("curse.maven:dynamic-stealth-309344:3127982")
     compileOnly fg.deobf("curse.maven:fantastic-lib-315773:3138902")
     compileOnly fg.deobf("curse.maven:potion-core-242872:2905184")
-    compileOnly fg.deobf("curse.maven:spartan-weaponry-278141:2830166")
+    compile fg.deobf("curse.maven:spartan-weaponry-278141:2830166")
+    compile fg.deobf("curse.maven:spartan-shields-252239:2712229")
 
     compileOnly files('lib/DynamicSwordSkills-1.12.2-6.2.1.jar')
     compileOnly files('lib/SwordSkillsApi-1.12.2-1.5.1.jar')
