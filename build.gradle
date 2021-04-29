@@ -65,7 +65,8 @@ dependencies {
     //compile fg.deobf("curse.maven:tipthescales-282313:2689835")
     compileOnly fg.deobf("curse.maven:dynamic-stealth-309344:3127982")
     compileOnly fg.deobf("curse.maven:fantastic-lib-315773:3138902")
-    compileOnly fg.deobf("curse.maven:potion-core-242872:2905184")
+    compile fg.deobf("curse.maven:electroblobs-wizardry-265642:2929294")
+    compile fg.deobf("curse.maven:potion-core-242872:2905184")
     compile fg.deobf("curse.maven:spartan-weaponry-278141:2830166")
     compile fg.deobf("curse.maven:spartan-shields-252239:2712229")
 
