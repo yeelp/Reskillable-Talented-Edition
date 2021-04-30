@@ -218,7 +218,10 @@ reskillable.talent.reskillable.jump=Into The Fire
 reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%
 
 reskillable.talent.reskillable.darkness=Into Darkness
-reskillable.talent.reskillable.darkness.desc=While under cover of darkness (below light level 8), Increase crit damage by 50%% and stealth melee damage by 25%%
+reskillable.talent.reskillable.darkness.desc=While under cover of darkness (below light level 8), critical damage is increased by 50%% and stealth melee damage by 25%%
+reskillable.talent.reskillable.shadow=Dusk and Shadow
+reskillable.talent.reskillable.shadow.desc=Increases your stealth capabilities. Entities will also lower their threat level with you faster. Increases movement speed by 5%%
+
 
 reskillable.talent.reskillable.gladiator=Are you not entertained?
 reskillable.talent.reskillable.gladiator.desc=Coming soon™

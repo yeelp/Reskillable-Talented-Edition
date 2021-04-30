@@ -18,8 +18,7 @@ import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 public class TalentDarkness extends Talent {
     public TalentDarkness() {
         super(new ResourceLocation(MOD_ID, "darkness"), 1, 3, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"),
-                3, "reskillable:attack 10", "reskillable:agility 8");
-        setCap(1);
+                3, "profession|reskillable:rogue|13");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

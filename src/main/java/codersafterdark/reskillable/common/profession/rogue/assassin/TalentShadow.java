@@ -1,11 +1,14 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.event.LockTalentEvent;
 import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
 import com.fantasticsource.dynamicstealth.server.Attributes;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
@@ -17,49 +20,48 @@ import java.util.UUID;
 import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentShadow extends Talent {
-    private UUID speedID = null;
-    private UUID threatID = null;
-    private UUID stealthID = null;
+    IAttribute speed = SharedMonsterAttributes.MOVEMENT_SPEED;
+    IAttribute threat = Attributes.THREATGEN_ATTACK;
+    IAttribute stealth = Attributes.VISIBILITY_REDUCTION;
 
     public TalentShadow() {
         super(new ResourceLocation(MOD_ID, "shadow"), 1, 4, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"),
-                3, "reskillable:attack 10", "reskillable:agility 8");
-        setCap(1);
+                3, "profession|reskillable:rogue|6");
         MinecraftForge.EVENT_BUS.register(this);
     }
 
     @SubscribeEvent
-    public void onUnlock(UnlockTalentEvent event) {
+    public void onUnlock(UnlockTalentEvent.Post event) {
         if (event.getTalent() instanceof TalentShadow) {
             EntityPlayer player = event.getEntityPlayer();
-
-            IAttributeInstance speed = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-            AttributeModifier modifierSpeed = new AttributeModifier("generic.movementSpeed", 0.05, 1);
-            speedID = modifierSpeed.getID();
-            speed.applyModifier(modifierSpeed);
-
-            IAttributeInstance threat = player.getEntityAttribute(Attributes.THREATGEN);
-            AttributeModifier modifierThreat = new AttributeModifier("dynamicstealth.threatGen", -100.0, 0);
-            threatID = modifierThreat.getID();
-            threat.applyModifier(modifierThreat);
-
-            IAttributeInstance stealth = player.getEntityAttribute(Attributes.VISIBILITY_REDUCTION);
-            AttributeModifier modifierStealth = new AttributeModifier("dynamicstealth.visibilityReduction", 250.0, 0);
-            stealthID = modifierStealth.getID();
-            stealth.applyModifier(modifierStealth);
+            if (!player.world.isRemote) {
+                PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
+                IAttributeInstance AttributeSpeed = player.getEntityAttribute(speed);
+                AttributeModifier modifierSpeed = new AttributeModifier("generic.movementSpeed", 5.0, 2);
+                info.addAttributeModifier(AttributeSpeed, modifierSpeed);
+                IAttributeInstance AttributeThreat = player.getEntityAttribute(threat);
+                AttributeModifier modifierThreat = new AttributeModifier("dynamicstealth.threatGenAttackedBySame", -100.0, 0);
+                info.addAttributeModifier(AttributeThreat, modifierThreat);
+                IAttributeInstance AttributeStealth = player.getEntityAttribute(stealth);
+                AttributeModifier modifierStealth = new AttributeModifier("dynamicstealth.visibilityReduction", 500, 0);
+                info.addAttributeModifier(AttributeStealth, modifierStealth);
+                PlayerDataHandler.get(player).saveAndSync();
+            }
         }
     }
 
     @SubscribeEvent
-    public void onLock(LockTalentEvent event) {
+    public void onLock(LockTalentEvent.Post event) {
         if (event.getTalent() instanceof TalentShadow) {
             EntityPlayer player = event.getEntityPlayer();
-            IAttributeInstance speed = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-            IAttributeInstance threat = player.getEntityAttribute(Attributes.THREATGEN);
-            IAttributeInstance stealth = player.getEntityAttribute(Attributes.VISIBILITY_REDUCTION);
-            speed.removeModifier(speedID);
-            threat.removeModifier(threatID);
-            stealth.removeModifier(stealthID);
+            IAttributeInstance AttributeSpeed = player.getEntityAttribute(speed);
+            IAttributeInstance AttributeThreat = player.getEntityAttribute(threat);
+            IAttributeInstance AttributeStealth = player.getEntityAttribute(stealth);
+            PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
+            info.removeTalentAttribute(AttributeSpeed);
+            info.removeTalentAttribute(AttributeThreat);
+            info.removeTalentAttribute(AttributeStealth);
+            PlayerDataHandler.get(player).saveAndSync();
         }
     }
 }
