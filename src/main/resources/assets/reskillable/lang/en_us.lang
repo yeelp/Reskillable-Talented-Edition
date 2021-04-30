@@ -47,9 +47,13 @@ lingering_potion.effect.damage_resist=Lingering Potion of Damage Resist
 potion.effect.darkness=Potion of Darkness
 splash_potion.effect.darkness=Splash Potion of Darkness
 lingering_potion.effect.darkness=Lingering Potion of Darkness
+potion.effect.edge=Potion of Edge
+splash_potion.effect.edge=Splash Potion of Edge
+lingering_potion.effect.edge=Lingering Potion of Edge
 
 effect.damage_resist=Damage Resistance
-effect.darkness=Darkness
+effect.darkness=Into Darkness
+effect.edge=On The Edge
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
@@ -174,15 +178,15 @@ reskillable.talent.reskillable.sacrifice.desc=When killed, all nearby players wi
 reskillable.talent.reskillable.blocking=The First Thirty Heartbeats
 reskillable.talent.reskillable.blocking.desc=Successfully blocking an attack grants you 10%% Damage Resistance for 3 seconds. Continued blocks refreshes duration.
 reskillable.talent.reskillable.mantra=Unifying Mantra
-reskillable.talent.reskillable.mantra.desc=Holding a shield in the offhand will absorb 50%% of the received damage from nearby players within 8.0 blocks.
+reskillable.talent.reskillable.mantra.desc=Holding a shield in the offhand will absorb 50%% of the incoming damage from nearby players within 8.0 blocks.
 reskillable.talent.reskillable.aura=A Warrior's Aura
 reskillable.talent.reskillable.aura.desc=You generate far more threat when fighting entities. Significantly increased vision cone radius.
 reskillable.talent.reskillable.warden_novice=Novice Warden Training
-reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%% (Total: 5%%)
+reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%%.
 reskillable.talent.reskillable.warden_advanced=Advanced Warden Training
-reskillable.talent.reskillable.warden_advanced.desc=Allows usage of Mid-Tier Shields/Sabers. Increase damage resistance by another 5%% (Total: 10%%)
+reskillable.talent.reskillable.warden_advanced.desc=Allows usage of Mid-Tier Shields/Sabers. Increase damage resistance by 5%%.
 reskillable.talent.reskillable.warden_master=Master Warden Training
-reskillable.talent.reskillable.warden_master.desc=Allows usage of High-Tier Shields/Sabers. Increase damage resistance by another 5%% (Total: 15%%)
+reskillable.talent.reskillable.warden_master.desc=Allows usage of High-Tier Shields/Sabers. Increase damage resistance by 5%%.
 
 reskillable.talent.reskillable.frenzy=Blood Frenzy
 reskillable.talent.reskillable.frenzy.desc=Dealing damage now heals you for a small amount, but the continued frenzy for blood lowers your damage resistance by 15%%

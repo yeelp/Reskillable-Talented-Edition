@@ -28,7 +28,6 @@ public class TalentAbsorption extends Talent {
             EntityPlayer pl = (EntityPlayer)event.getSource().getTrueSource();
             if (PlayerDataHandler.get(pl).getProfessionInfo(getParentProfession()).isUnlocked(this)) {
                 pl.addPotionEffect(new PotionEffect(MobEffects.ABSORPTION, 60));
-                pl.sendMessage(new TextComponentString("Testing"));
             }
         }
     }

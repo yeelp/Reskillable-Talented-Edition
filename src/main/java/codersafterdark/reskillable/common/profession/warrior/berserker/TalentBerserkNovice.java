@@ -9,7 +9,6 @@ public class TalentBerserkNovice extends Talent {
     public TalentBerserkNovice() {
         super(new ResourceLocation(MOD_ID, "berserk_novice"), 1, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "berserker"),
                 3, "profession|reskillable:warrior|6", "reskillable:attack|8");
-        setCap(1);
     }
 
 }

@@ -110,6 +110,7 @@ public class PlayerProfessionInfo {
     public void unlock(Talent u, EntityPlayer p) {
         skillPoints -= u.getCost();
         talents.add(u);
+        PlayerDataHandler.get(p).getTalentInfo(u).levelUp();
         u.onUnlock(p);
     }
 
