@@ -72,6 +72,10 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         return professionConfig.hasLevelButton();
     }
 
+    public String getDescription() {
+        return new TextComponentTranslation("reskillable.profession." + getKey() + ".desc").getUnformattedComponentText();
+    }
+
     public int getColor() { return this.color;}
 
     public void setColor(int color) {this.color = color;}

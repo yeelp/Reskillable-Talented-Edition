@@ -2,6 +2,7 @@ package codersafterdark.reskillable.common.profession.warrior.warden;
 
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
+import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
 import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
 import net.minecraft.entity.EntityLivingBase;
@@ -39,9 +40,10 @@ public class TalentBlocking extends Talent {
                 if (item.getItemUseAction(entity.getActiveItemStack()) == EnumAction.BLOCK) {
                     EntityPlayer pl = (EntityPlayer)event.getEntityLiving();
                     pl.addPotionEffect(new PotionEffect(ReskillablePotion.POTION_RESIST_EFFECT, 60));
-                    pl.sendMessage(new TextComponentString("You blocked!"));
-                    pl.sendMessage(new TextComponentString("Damage Resistance: " + Math.round(pl.getEntityAttribute(ReskillableAttributes.DAMAGE_RESIST).getAttributeValue()) + "%"));
-                    //pl.sendMessage(new TextComponentString(String.valueOf(pl.getEntityAttribute(TalentedAttributes.DAMAGE_REDUCTION).getAttributeValue())));
+                    if (ConfigHandler.enableDebug) {
+                        pl.sendMessage(new TextComponentString("You blocked!"));
+                        pl.sendMessage(new TextComponentString("Damage Resistance: " + Math.round(pl.getEntityAttribute(ReskillableAttributes.DAMAGE_RESIST).getAttributeValue()) + "%"));
+                    }
                 }
             }
         }

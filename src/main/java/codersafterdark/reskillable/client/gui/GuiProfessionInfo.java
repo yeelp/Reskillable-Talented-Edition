@@ -43,11 +43,13 @@ public class GuiProfessionInfo extends GuiScreen {
     private GuiButtonLevelUp levelUpButton;
     private Talent hoveredTalent;
     private boolean hoveredLevelButton;
+    private boolean hoveredSwapButton;
     private boolean canPurchase;
     private boolean canUpgrade;
     private int color;
+    private int professionIndex;
 
-    public GuiProfessionInfo(Profession profession) { this.profession = profession; }
+    public GuiProfessionInfo(Profession profession) {this.profession = profession;}
 
     /** Called to load the basic GUI parameters */
     @Override
@@ -62,6 +64,7 @@ public class GuiProfessionInfo extends GuiScreen {
         if (ConfigHandler.enableLevelUp && profession.hasLevelButton()) {
             buttonList.add(levelUpButton = new GuiButtonLevelUp(left - 32, top + 196));
         }
+
         InventoryTabHandler.addTabs(this, buttonList);
         sprite = profession.getBackground();
     }
@@ -207,43 +210,6 @@ public class GuiProfessionInfo extends GuiScreen {
             canUpgrade = !talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost();
             hoveredTalent = talent;
         }
-
-        /*
-        int x = width / 2 - guiWidth / 2 - 5 + 93 * talent.getSubProfession().getGuiIndex() + talent.getX() * 27;
-        int y = height / 2 - guiHeight / 2 + 7 + talent.getY() * 37;
-        mc.renderEngine.bindTexture(PROFESSION_INFO_RES3);
-        boolean unlocked = info.isUnlocked(talent);
-
-        int u = 82;
-        int v = 129;
-        if (talent.hasSpikes()) {
-            u += 26;
-        }
-        // Unlocked, but cannot purchase
-        if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() < talent.getCost()) {
-            v += 26;
-        }
-        // Unlocked, but can purchase
-        if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost()) {
-            v += 26 * 2;
-        }
-        // Unlocked, cannot purchase, and talent is max rank
-        if (talentInfo.isCapped()) {
-            v += 26 * 3;
-        }
-
-        GlStateManager.color(1F, 1F, 1F);
-        drawTexturedModalRect(x, y, u, v, 26, 26);
-
-        mc.renderEngine.bindTexture(talent.getIcon());
-        drawModalRectWithCustomSizedTexture(x + 5, y + 5, 0, 0, 16, 16, 16, 16);
-
-        if (mx >= x && my >= y && mx < x + 26 && my < y + 26) {
-            canPurchase = !unlocked && info.getProfessionPoints() >= talent.getCost();
-            canUpgrade = !talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost();
-            hoveredTalent = talent;
-        }
-        */
     }
 
     /** Draws the Talent tooltip */
@@ -302,13 +268,21 @@ public class GuiProfessionInfo extends GuiScreen {
         }
 
         String costStr = String.format("%s %d %s", new TextComponentTranslation("reskillable.misc.cost").getUnformattedComponentText(), info.getLevelUpCost(), new TextComponentTranslation("reskillable.misc.levels").getUnformattedComponentText());
+        String desc;
+
+        if (info.getLevel() < 1) {
+            desc = new TextComponentTranslation("reskillable.misc.profession_button", profession.getName()).getUnformattedComponentText();
+        } else {
+            desc = null;
+        }
+
         if (info.isCapped()) {
             costStr = new TextComponentTranslation("reskillable.misc.capped").getUnformattedComponentText();
         }
 
         GlStateManager.color(1F, 1F, 1F);
         if (hoveredLevelButton) {
-            levelUpButton.drawLevelButtonTooltip(costStr, mx, my);
+            levelUpButton.drawLevelButtonTooltip(desc, costStr, mx, my);
         }
     }
 

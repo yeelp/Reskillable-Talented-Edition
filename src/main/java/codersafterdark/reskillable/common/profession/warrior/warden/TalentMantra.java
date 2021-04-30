@@ -26,7 +26,6 @@ public class TalentMantra extends Talent {
     public TalentMantra() {
         super(new ResourceLocation(MOD_ID, "mantra"), 2, 4, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "warden"),
                 3, "profession|reskillable:warrior|6", "reskillable:defense|8");
-        setCap(1);
         MinecraftForge.EVENT_BUS.register(this);
     }
 

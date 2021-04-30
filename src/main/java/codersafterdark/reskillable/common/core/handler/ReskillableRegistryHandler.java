@@ -12,6 +12,7 @@ import codersafterdark.reskillable.common.profession.*;
 import codersafterdark.reskillable.common.profession.rogue.assassin.TalentDarkness;
 import codersafterdark.reskillable.common.profession.rogue.assassin.TalentShadow;
 import codersafterdark.reskillable.common.profession.warrior.berserker.*;
+import codersafterdark.reskillable.common.profession.warrior.gladiator.TalentGladiator;
 import codersafterdark.reskillable.common.profession.warrior.warden.*;
 import codersafterdark.reskillable.common.skill.*;
 import codersafterdark.reskillable.common.skill.traits.agility.*;
@@ -137,16 +138,16 @@ public class ReskillableRegistryHandler {
                 new TalentSacrifice(),
                 new TalentVigilance(),
 
-                new TalentAdrenaline(),
                 new TalentBerserkAdvanced(),
                 new TalentBerserkMaster(),
                 new TalentBerserkNovice(),
-                new TalentEdge(),
                 new TalentFear(),
+                new TalentEdge(),
                 new TalentFrenzy(),
                 new TalentJump(),
-                new TalentAbsorption()
+                new TalentAbsorption(),
 
+                new TalentGladiator()
         );
 
         if (Loader.isModLoaded("dynamicstealth")) {
@@ -154,6 +155,12 @@ public class ReskillableRegistryHandler {
                     new TalentAura(),
                     new TalentDarkness(),
                     new TalentShadow()
+            );
+        }
+
+        if (Loader.isModLoaded("extraalchemy")) {
+            talentRegister.getRegistry().registerAll(
+                    new TalentAdrenaline()
             );
         }
     }

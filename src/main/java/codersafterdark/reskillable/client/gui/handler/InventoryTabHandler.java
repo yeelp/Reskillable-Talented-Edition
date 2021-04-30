@@ -1,5 +1,8 @@
 package codersafterdark.reskillable.client.gui.handler;
 
+import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.PlayerProfessionInfo;
+import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.client.core.RenderHelper;
 import codersafterdark.reskillable.client.gui.GuiProfessionInfo;
@@ -12,6 +15,7 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.gui.inventory.GuiInventory;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.client.event.GuiScreenEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
@@ -19,6 +23,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.RenderTickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -71,6 +77,7 @@ public class InventoryTabHandler {
                     break;
                 case PROFESSIONS:
                     mc.displayGuiScreen(new GuiProfessions());
+                    break;
             }
         }
     }

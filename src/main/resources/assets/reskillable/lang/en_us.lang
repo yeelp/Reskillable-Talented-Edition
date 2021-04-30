@@ -2,6 +2,8 @@
 reskillable.misc.capped=MAX
 reskillable.misc.skills=Skills
 reskillable.misc.professions=Professions
+reskillable.misc.profession_info=Choose up to two professions to develop your talents. Choose wisely as you may not be able change these until much later.
+reskillable.misc.profession_button=Develop the %s profession?
 reskillable.misc.requirements=Requirements:
 reskillable.misc.requirements_shift=Hold SHIFT for requirements
 reskillable.misc.skill_points=%d Skill Points
@@ -11,6 +13,8 @@ reskillable.misc.level=Level
 reskillable.misc.levels=Levels
 reskillable.misc.cost=Cost:
 reskillable.misc.talent_rank=Rank: %d / %d
+
+reskillable.misc.profession_swap_button=View secondary profession
 
 reskillable.misc.locked.item=You don't meet the requirements to use this item
 reskillable.misc.locked.block_break=You don't meet the requirements to break this block
@@ -57,11 +61,17 @@ effect.edge=On The Edge
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
+reskillable.profession.reskillable.warrior.desc=
 reskillable.profession.reskillable.rogue=Rogue
+reskillable.profession.reskillable.rogue.desc=
 reskillable.profession.reskillable.mage=Mage
+reskillable.profession.reskillable.mage.desc=
 reskillable.profession.reskillable.tinkerer=Tinkerer
+reskillable.profession.reskillable.tinkerer.desc=
 reskillable.profession.reskillable.farmer=Farmer
+reskillable.profession.reskillable.farmer.desc=
 reskillable.profession.reskillable.gatherer=Gatherer
+reskillable.profession.reskillable.gatherer.desc=
 
 # SUBPROFESSION NAMES
 reskillable.subprofession.reskillable.warden=Warden
@@ -182,22 +192,22 @@ reskillable.talent.reskillable.mantra.desc=Holding a shield in the offhand will 
 reskillable.talent.reskillable.aura=A Warrior's Aura
 reskillable.talent.reskillable.aura.desc=You generate far more threat when fighting entities. Significantly increased vision cone radius.
 reskillable.talent.reskillable.warden_novice=Novice Warden Training
-reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%%.
+reskillable.talent.reskillable.warden_novice.desc=Allows usage of Low-Tier Shields/Sabers. Increase damage resistance by 5%%
 reskillable.talent.reskillable.warden_advanced=Advanced Warden Training
-reskillable.talent.reskillable.warden_advanced.desc=Allows usage of Mid-Tier Shields/Sabers. Increase damage resistance by 5%%.
+reskillable.talent.reskillable.warden_advanced.desc=Allows usage of Mid-Tier Shields/Sabers. Increase damage resistance by 5%%
 reskillable.talent.reskillable.warden_master=Master Warden Training
-reskillable.talent.reskillable.warden_master.desc=Allows usage of High-Tier Shields/Sabers. Increase damage resistance by 5%%.
+reskillable.talent.reskillable.warden_master.desc=Allows usage of High-Tier Shields/Sabers. Increase damage resistance by 5%%
 
 reskillable.talent.reskillable.frenzy=Blood Frenzy
 reskillable.talent.reskillable.frenzy.desc=Dealing damage now heals you for a small amount, but the continued frenzy for blood lowers your damage resistance by 15%%
 reskillable.talent.reskillable.adrenaline=Adrenaline
-reskillable.talent.reskillable.adrenaline.desc=Receive a permanent potion effect of Delay Death. Trait activates when you first reach 0 health. The active effect will still protect you from death, but the closer you get to 0 the higher the chance of instantly dying randomly and dropping all your items.
+reskillable.talent.reskillable.adrenaline.desc=Receive a permanent potion effect of §eDelay Death§7. The effect activates when you first reach 0 health. The active effect will still protect you from death, but the closer you get to 0 the higher the chance of instantly dying randomly and dropping all your items.
 reskillable.talent.reskillable.berserk_advanced=Advanced Berserker Training
-reskillable.talent.reskillable.berserk_advanced.desc=Allows usage of Mid-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by another 10%% (Total: 15%%)
+reskillable.talent.reskillable.berserk_advanced.desc=Allows usage of Mid-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by 10%%
 reskillable.talent.reskillable.berserk_master=Master Berserker Training
-reskillable.talent.reskillable.berserk_master.desc=Allows usage of High-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by another 10%% (Total: 25%%)
+reskillable.talent.reskillable.berserk_master.desc=Allows usage of High-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by 10%%
 reskillable.talent.reskillable.berserk_novice=Novice Berserker Training
-reskillable.talent.reskillable.berserk_novice.desc=Allows usage of Low-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by 5%% (Total: 5%%)
+reskillable.talent.reskillable.berserk_novice.desc=Allows usage of Low-Tier Battleaxes/Throwing Axes. Dual-wielding no longer gives attack speed penalty. Increase damage by 5%%
 reskillable.talent.reskillable.absorption=Absorption
 reskillable.talent.reskillable.absorption.desc=Slaying a foe will grant 3 seconds of §eAbsorption§7.
 reskillable.talent.reskillable.edge=On The Edge
@@ -205,11 +215,13 @@ reskillable.talent.reskillable.edge.desc=Increase attack damage by 50%%, attack 
 reskillable.talent.reskillable.fear=Fear Into Thy Enemy
 reskillable.talent.reskillable.fear.desc=Attacks have a %s%d%% §7chance to apply §4Fear §7on the majority of enemies while below 50%% maximum health.
 reskillable.talent.reskillable.jump=Into The Fire
-reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%.
+reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%
 
 reskillable.talent.reskillable.darkness=Into Darkness
 reskillable.talent.reskillable.darkness.desc=While under cover of darkness (below light level 8), Increase crit damage by 50%% and stealth melee damage by 25%%
 
+reskillable.talent.reskillable.gladiator=Are you not entertained?
+reskillable.talent.reskillable.gladiator.desc=Coming soon™
 
 # RANK NAMES
 reskillable.rank.0=Novice

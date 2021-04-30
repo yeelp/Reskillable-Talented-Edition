@@ -1,5 +1,6 @@
 package codersafterdark.reskillable.common.skill.attributes;
 
+import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.core.handler.MathHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -32,7 +33,7 @@ public class AttributeCritDamage {
         if (event.getResult() == Event.Result.ALLOW) {
             EntityPlayer player = event.getEntityPlayer();
             float critDamageMult = (float) player.getEntityAttribute(ReskillableAttributes.CRIT_DAMAGE).getAttributeValue();
-            if (!player.world.isRemote) {
+            if (ConfigHandler.enableDebug && !player.world.isRemote) {
                 player.sendMessage(new TextComponentString("Critical Damage Multiplier: " + MathHelper.round(critDamageMult, 2) + "%"));
             }
             float modifier = critDamageMult / 100F;

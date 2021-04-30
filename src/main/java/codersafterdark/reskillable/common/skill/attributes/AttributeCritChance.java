@@ -1,5 +1,6 @@
 package codersafterdark.reskillable.common.skill.attributes;
 
+import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.core.handler.MathHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -41,7 +42,7 @@ public class AttributeCritChance {
         critChance /= 100.0F;
         if (critChance >= rand.nextFloat()) {
             event.setResult(Event.Result.ALLOW);
-            if (!player.world.isRemote) {
+            if (ConfigHandler.enableDebug && !player.world.isRemote) {
                 player.sendMessage(new TextComponentString("Critical Chance: " + MathHelper.round(critChance * 100, 2) + "%"));
             }
         }

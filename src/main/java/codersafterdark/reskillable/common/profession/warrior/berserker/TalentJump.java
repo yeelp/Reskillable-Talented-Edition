@@ -31,7 +31,7 @@ public class TalentJump extends Talent {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 
             if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this)) {
-                player.motionY += 1.0D;
+                player.motionY += 0.2F;
             }
         }
     }

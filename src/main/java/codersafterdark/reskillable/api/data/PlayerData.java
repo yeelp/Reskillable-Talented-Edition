@@ -85,6 +85,8 @@ public class PlayerData {
         return !getAllAbilities().isEmpty();
     }
 
+    public boolean hasSecondaryProfession() {return !(getUnlockedProfessions().size() <= 1);}
+
     public Set<Ability> getAllAbilities() {
         Set<Ability> set = new TreeSet<>();
         skillInfo.values().forEach(info -> info.addAbilities(set));

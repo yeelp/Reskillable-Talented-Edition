@@ -17,7 +17,6 @@ public class TalentAbsorption extends Talent {
     public TalentAbsorption() {
         super(new ResourceLocation(MOD_ID, "absorption"), 1, 1, new ResourceLocation(MOD_ID, "warrior"), new ResourceLocation(MOD_ID, "berserker"),
                 3, "profession|reskillable:warrior|26");
-        setCap(1);
         MinecraftForge.EVENT_BUS.register(this);
     }
 
