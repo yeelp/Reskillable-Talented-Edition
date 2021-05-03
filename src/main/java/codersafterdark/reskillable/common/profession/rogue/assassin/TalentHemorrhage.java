@@ -29,7 +29,7 @@ public class TalentHemorrhage extends Talent {
     public void onAttack(LivingDamageEvent event) {
         if ((event.getSource().getTrueSource() instanceof EntityPlayer)) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-            if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this) && player.getHeldItemMainhand().getItem() instanceof ItemDagger || player.getHeldItemOffhand().getItem() instanceof ItemDagger) {
+            if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this) && player.getHeldEquipment().iterator().next().getItem() instanceof ItemDagger) {
                 float bleedChance = 15.0F * PlayerDataHandler.get(player).getTalentInfo(this).getRank();
                 bleedChance /= 100.0F;
                 if (!player.onGround && player.fallDistance > 0.0 && bleedChance >= rand.nextFloat()) {

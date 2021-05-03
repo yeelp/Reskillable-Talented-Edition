@@ -9,6 +9,7 @@ import codersafterdark.reskillable.common.network.BlinkPacket;
 import codersafterdark.reskillable.common.network.PacketHandler;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
 import codersafterdark.reskillable.common.util.Utils;
+import com.oblivioussp.spartanweaponry.item.ItemDagger;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.util.RayTracer;
 import net.minecraft.block.Block;
@@ -128,7 +129,8 @@ public class TalentBlink extends TalentActive {
                 IAttributeInstance damageAttribute = player.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
                 double amount = damageAttribute.getAttributeValue();
                 entity.attackEntityFrom(playerDamage, (float) (amount * 0.5));
-                if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(hemorrhage)) {
+                if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(hemorrhage) &&
+                player.getHeldEquipment().iterator().next().getItem() instanceof ItemDagger) {
                     entity.addPotionEffect(new PotionEffect(ReskillablePotion.POTION_BLEED_EFFECT, 120));
                 }
             }
