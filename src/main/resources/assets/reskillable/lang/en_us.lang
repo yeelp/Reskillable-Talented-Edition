@@ -71,11 +71,11 @@ reskillable.subprofession.reskillable.gladiator=LOCKED
 reskillable.subprofession.reskillable.berserker=Berserker
 
 reskillable.subprofession.reskillable.assassin=Assassin
-reskillable.subprofession.reskillable.trickster=Trickster
+reskillable.subprofession.reskillable.trickster=LOCKED
 reskillable.subprofession.reskillable.archer=Archer
 
 reskillable.subprofession.reskillable.wizard=Wizard
-reskillable.subprofession.reskillable.monk=Monk
+reskillable.subprofession.reskillable.monk=LOCKED
 reskillable.subprofession.reskillable.alchemist=Alchemist
 
 reskillable.subprofession.reskillable.miner=Miner
@@ -230,10 +230,36 @@ reskillable.talent.reskillable.crit_slayer.desc=Critical Hits increase attack sp
 reskillable.talent.reskillable.spring_heel=Spring-Heeled Assassin
 reskillable.talent.reskillable.spring_heel.desc=Killing an enemy will give 10%% speed boost for 3 seconds. Continued kills refresh duration.
 reskillable.talent.reskillable.blink=Blink
-reskillable.talent.reskillable.blink.desc=
+reskillable.talent.reskillable.blink.desc=Phase through a short distance, striking targets for 50% of your damage. If unlocked, the target can be §4hemorrhaged§7 as well.
+
+reskillable.talent.reskillable.archer_novice=Novice Archer Training
+reskillable.talent.reskillable.archer_novice.desc=
+reskillable.talent.reskillable.archer_advanced=Advanced Archer Training
+reskillable.talent.reskillable.archer_advanced.desc=
+reskillable.talent.reskillable.archer_master=Master Archer Training
+reskillable.talent.reskillable.archer_master.desc=
+reskillable.talent.reskillable.penetrate=Penetrating Shot
+reskillable.talent.reskillable.penetrate.desc=Arrows now ignore all armor. Deal 10% more bow damage.
+reskillable.talent.reskillable.resourceful=Resourceful Sharpshooter
+reskillable.talent.reskillable.resourceful.desc=
+reskillable.talent.reskillable.vantage=Vantage Point
+reskillable.talent.reskillable.vantage.desc=
+reskillable.talent.reskillable.trueshot=Trueshot Volley
+reskillable.talent.reskillable.trueshot.desc=
+reskillable.talent.reskillable.truthseeker=Truthseeker
+reskillable.talent.reskillable.truthseeker.desc=
+reskillable.talent.reskillable.sniper=Silent Sniper
+reskillable.talent.reskillable.sniper.desc=
+
+
+reskillable.talent.reskillable.trickster=Mesmerizing
+reskillable.talent.reskillable.trickster.desc=Every guild needs one.
 
 reskillable.talent.reskillable.gladiator=Are you not entertained?
 reskillable.talent.reskillable.gladiator.desc=Coming soon™
+
+reskillable.talent.reskillable.monk=Break Beneath the Endless Tide!
+reskillable.talent.reskillable.monk.desc=Shen Gong Wu need not apply.
 
 # RANK NAMES
 reskillable.rank.0=Novice

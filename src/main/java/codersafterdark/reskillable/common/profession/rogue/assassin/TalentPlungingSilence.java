@@ -27,7 +27,7 @@ import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 public class TalentPlungingSilence extends Talent {
 
     public TalentPlungingSilence() {
-        super(new ResourceLocation(MOD_ID, "plunging_silence"), 2, 2, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|6");
+        super(new ResourceLocation(MOD_ID, "plunging_silence"), 1, 3, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|6");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

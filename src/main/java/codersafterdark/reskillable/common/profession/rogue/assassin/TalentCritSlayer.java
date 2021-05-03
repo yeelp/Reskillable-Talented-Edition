@@ -17,7 +17,7 @@ import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 public class TalentCritSlayer extends Talent {
 
     public TalentCritSlayer() {
-        super(new ResourceLocation(MOD_ID, "crit_slayer"), 1, 3, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|13");
+        super(new ResourceLocation(MOD_ID, "crit_slayer"), 2, 4, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|13");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

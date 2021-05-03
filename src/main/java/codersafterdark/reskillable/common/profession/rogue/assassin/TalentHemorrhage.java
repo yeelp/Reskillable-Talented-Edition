@@ -20,7 +20,7 @@ public class TalentHemorrhage extends Talent {
     Random rand = new Random();
 
     public TalentHemorrhage() {
-        super(new ResourceLocation(MOD_ID, "hemorrhage"), 0, 3, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|6");
+        super(new ResourceLocation(MOD_ID, "hemorrhage"), 2, 2, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|6");
         MinecraftForge.EVENT_BUS.register(this);
         setCap(3);
     }

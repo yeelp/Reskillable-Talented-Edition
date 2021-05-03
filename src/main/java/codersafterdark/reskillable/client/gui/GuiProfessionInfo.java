@@ -183,20 +183,22 @@ public class GuiProfessionInfo extends GuiScreen {
 
         int u = 84;
         int v = 133;
+
+        /*
         if (talent.hasSpikes()) {
             u += 26;
         }
+        */
+
         // Unlocked, but cannot purchase
-        if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() < talent.getCost()) {
-            v += 22;
-        }
-        // Unlocked, but can purchase
-        if (unlocked && !talentInfo.isCapped() && info.getProfessionPoints() >= talent.getCost()) {
-            v += 22 * 2;
-        }
-        // Unlocked, cannot purchase, and talent is max rank
-        if (talentInfo.isCapped()) {
-            v += 22 * 3;
+        if (unlocked) {
+            if (talentInfo.isCapped()) {
+                v += 22 * 3;
+            } else if (info.getProfessionPoints() >= talent.getCost()) {
+                v += 22 * 2;
+            } else if (info.getProfessionPoints() < talent.getCost()) {
+                v += 22;
+            }
         }
 
         GlStateManager.color(1F, 1F, 1F);
