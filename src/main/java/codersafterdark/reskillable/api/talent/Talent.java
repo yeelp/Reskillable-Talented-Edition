@@ -5,14 +5,22 @@ import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.profession.Profession;
+import codersafterdark.reskillable.common.registry.ReskillableSounds;
+import electroblob.wizardry.registry.WizardrySounds;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.logging.log4j.Level;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements Comparable<Talent> {
     private final String name;
@@ -24,10 +32,11 @@ public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements
     public Talent(ResourceLocation name, int x, int y, ResourceLocation professionName, ResourceLocation subProfessionName, int cost, String... defaultRequirements) {
         this.name = name.toString().replace(":", ".");
         setRegistryName(name);
-        setIcon(new ResourceLocation(name.getNamespace(), "textures/talents/" + name.getPath() + ".png"));
         this.talentConfig = ReskillableAPI.getInstance().getTalentConfig(name, x, y, cost, defaultRequirements);
         setParentProfession(professionName);
         setSubProfession(subProfessionName);
+        setIcon(new ResourceLocation(name.getNamespace(), "textures/talents/" + getSubProfession().getUnformattedName() + "/" + name.getPath() + ".png"));
+        //setIcon(new ResourceLocation(name.getNamespace(), "textures/talents/" + name.getPath() + ".png"));
     }
 
     public Profession.SubProfession getSubProfession() {

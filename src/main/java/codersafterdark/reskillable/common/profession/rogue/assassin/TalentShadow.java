@@ -25,8 +25,7 @@ public class TalentShadow extends Talent {
     IAttribute stealth = Attributes.VISIBILITY_REDUCTION;
 
     public TalentShadow() {
-        super(new ResourceLocation(MOD_ID, "shadow"), 1, 4, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"),
-                3, "profession|reskillable:rogue|6");
+        super(new ResourceLocation(MOD_ID, "shadow"), 1, 1, new ResourceLocation(MOD_ID, "rogue"), new ResourceLocation(MOD_ID, "assassin"), 3, "profession|reskillable:rogue|6");
         MinecraftForge.EVENT_BUS.register(this);
     }
 

@@ -14,10 +14,13 @@ import codersafterdark.reskillable.common.skill.attributes.AttributeCritChance;
 import codersafterdark.reskillable.common.skill.attributes.AttributeCritDamage;
 import codersafterdark.reskillable.common.skill.attributes.AttributeDamageResist;
 import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
+import codersafterdark.reskillable.common.util.DamageSourceUtil;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.util.DamageSource;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.world.storage.loot.conditions.LootConditionManager;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -26,6 +29,9 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 public class CommonProxy {
+
+    public static DamageSource dmgSourceBleed = DamageSourceUtil.newType("reskillable.bleed").setDamageBypassesArmor();
+
     public void preInit(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(PlayerDataHandler.EventHandler.class);
         MinecraftForge.EVENT_BUS.register(LevelLockHandler.class);

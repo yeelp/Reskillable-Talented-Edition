@@ -11,6 +11,7 @@ public class ProfessionRogue extends Profession {
         this.setGuiIndex(2);
         setColor(15456528);
         addSubProfession("assassin", 0);
+        addSubProfession("trickster", 1);
         addSubProfession("archer", 2);
     }
 }

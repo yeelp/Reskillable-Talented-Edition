@@ -9,11 +9,12 @@ import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import codersafterdark.reskillable.common.profession.*;
-import codersafterdark.reskillable.common.profession.rogue.assassin.TalentDarkness;
-import codersafterdark.reskillable.common.profession.rogue.assassin.TalentShadow;
+import codersafterdark.reskillable.common.profession.rogue.assassin.*;
+import codersafterdark.reskillable.common.profession.rogue.trickster.TalentTrickster;
 import codersafterdark.reskillable.common.profession.warrior.berserker.*;
 import codersafterdark.reskillable.common.profession.warrior.gladiator.TalentGladiator;
 import codersafterdark.reskillable.common.profession.warrior.warden.*;
+import codersafterdark.reskillable.common.profession.mage.monk.TalentMonk;
 import codersafterdark.reskillable.common.skill.*;
 import codersafterdark.reskillable.common.skill.traits.agility.*;
 import codersafterdark.reskillable.common.skill.traits.attack.*;
@@ -147,14 +148,27 @@ public class ReskillableRegistryHandler {
                 new TalentJump(),
                 new TalentAbsorption(),
 
-                new TalentGladiator()
+                new TalentGladiator(),
+
+                new TalentHemorrhage(),
+                new TalentPlungingSilence(),
+                new TalentSpringHeel(),
+                new TalentCritSlayer(),
+                new TalentBlink(),
+
+                new TalentTrickster(),
+
+                new TalentMonk()
         );
 
         if (Loader.isModLoaded("dynamicstealth")) {
             talentRegister.getRegistry().registerAll(
                     new TalentAura(),
                     new TalentDarkness(),
-                    new TalentShadow()
+                    new TalentShadow(),
+                    new TalentAssassinNovice(),
+                    new TalentAssassinAdvanced(),
+                    new TalentAssassinMaster()
             );
         }
 

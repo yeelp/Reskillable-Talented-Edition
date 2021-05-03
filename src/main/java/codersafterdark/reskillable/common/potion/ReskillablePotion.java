@@ -17,25 +17,20 @@ public class ReskillablePotion {
             .registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_SPEED, MathHelper.getRandomUUID().toString(), 0.2D, 2)
             .registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_DAMAGE, MathHelper.getRandomUUID().toString(), 0.5D, 2)
             .registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, MathHelper.getRandomUUID().toString(), 0.1D, 2);
-
-
-    public static final PotionType POTION_RESIST = new PotionType("damage_resist", new PotionEffect[] {new PotionEffect(POTION_RESIST_EFFECT, 2400)}).setRegistryName("damageResist");
-    public static final PotionType LONG_POTION_RESIST = new PotionType("damage_resist", new PotionEffect[] {new PotionEffect(POTION_RESIST_EFFECT, 4800)}).setRegistryName("long_damageResist");
-    public static final PotionType POTION_DARKNESS = new PotionType("darkness", new PotionEffect[] {new PotionEffect(POTION_DARKNESS_EFFECT, 2400)}).setRegistryName("darkness");
-    public static final PotionType LONG_POTION_DARKNESS = new PotionType("darkness", new PotionEffect[] {new PotionEffect(POTION_DARKNESS_EFFECT, 4800)}).setRegistryName("long_darkness");
-    public static final PotionType POTION_EDGE = new PotionType("edge", new PotionEffect[] {new PotionEffect(POTION_EDGE_EFFECT, 2400)}).setRegistryName("edge");
-    public static final PotionType LONG_POTION_EDGE = new PotionType("edge", new PotionEffect[] {new PotionEffect(POTION_EDGE_EFFECT, 4800)}).setRegistryName("long_edge");
-
+    public static final Potion POTION_BLEED_EFFECT = new PotionBleed("bleed", true, 16711680, 3, 0);
+    public static final Potion POTION_CRIT_SLAYER_EFFECT = new PotionCritSlayer("crit_slayer", false, 16711680, 4, 0)
+            .registerPotionAttributeModifier(SharedMonsterAttributes.ATTACK_SPEED, MathHelper.getRandomUUID().toString(), 0.20D, 2);
+    public static final Potion POTION_SPRING_HEEL_EFFECT = new PotionSpringHeel("spring_heel", false, 16711680, 5, 0)
+            .registerPotionAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, MathHelper.getRandomUUID().toString(), 0.1D, 2);
 
     public static void registerPotions() {
-        registerPotion(POTION_DARKNESS, LONG_POTION_DARKNESS, POTION_DARKNESS_EFFECT);
-        registerPotion(POTION_RESIST, LONG_POTION_RESIST, POTION_RESIST_EFFECT);
-        registerPotion(POTION_EDGE, LONG_POTION_EDGE, POTION_EDGE_EFFECT);
+        registerPotion(POTION_DARKNESS_EFFECT);
+        registerPotion(POTION_BLEED_EFFECT);
+        registerPotion(POTION_CRIT_SLAYER_EFFECT);
     }
 
-    public static void registerPotion(PotionType defaultPotion, PotionType longPotion, Potion effect) {
+    public static void registerPotion(Potion effect) {
         ForgeRegistries.POTIONS.register(effect);
-        ForgeRegistries.POTION_TYPES.register(defaultPotion);
-        ForgeRegistries.POTION_TYPES.register(longPotion);
     }
+
 }

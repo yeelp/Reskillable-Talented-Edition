@@ -24,6 +24,8 @@ public class PacketHandler {
         INSTANCE.registerMessage(TalentToastPacket.class, TalentToastPacket.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(SkillToastPacket.class, SkillToastPacket.class, ID++, Side.CLIENT);
         INSTANCE.registerMessage(ProfessionToastPacket.class, ProfessionToastPacket.class, ID++, Side.CLIENT);
+        INSTANCE.registerMessage(JumpPacket.class, JumpPacket.class, ID++, Side.SERVER);
+        INSTANCE.registerMessage(BlinkPacket.class, BlinkPacket.class, ID++, Side.SERVER);
         //TODO: Figure out if lockunlockable should also have a message sent. It probably should at least once we support relocking them manually
     }
 }

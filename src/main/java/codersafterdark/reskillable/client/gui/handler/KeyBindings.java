@@ -19,12 +19,13 @@ public class KeyBindings {
     public static KeyBinding openGUI = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_skills_gui"), Keyboard.KEY_Y, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
     public static KeyBinding keyProfessionGui = new KeyBinding(Reskillable.proxy.getLocalizedString("key.open_professions_gui"), Keyboard.KEY_P, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
     public static KeyBinding keySeasonsHUD = new KeyBinding(Reskillable.proxy.getLocalizedString("key.toggle_seasons_hud"), Keyboard.KEY_H, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
-
+    public static KeyBinding keyClassSpell = new KeyBinding(Reskillable.proxy.getLocalizedString("key.activate.ability"), Keyboard.KEY_F, Reskillable.proxy.getLocalizedString("key.controls." + LibMisc.MOD_ID));
 
     public static void init() {
         ClientRegistry.registerKeyBinding(openGUI);
         ClientRegistry.registerKeyBinding(keyProfessionGui);
         ClientRegistry.registerKeyBinding(keySeasonsHUD);
+        ClientRegistry.registerKeyBinding(keyClassSpell);
     }
 
     @SubscribeEvent

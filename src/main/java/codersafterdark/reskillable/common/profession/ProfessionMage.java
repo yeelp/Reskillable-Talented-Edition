@@ -11,6 +11,7 @@ public class ProfessionMage extends Profession {
         this.setGuiIndex(4);
         setColor(1143510);
         addSubProfession("wizard", 0);
+        addSubProfession("monk", 1);
         addSubProfession("alchemist", 2);
     }
 }

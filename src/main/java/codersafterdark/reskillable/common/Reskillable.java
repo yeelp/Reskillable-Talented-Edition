@@ -4,6 +4,8 @@ import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.common.core.CommonProxy;
 import codersafterdark.reskillable.common.core.ReskillableModAccess;
 import codersafterdark.reskillable.common.lib.LibMisc;
+import codersafterdark.reskillable.common.registry.ReskillableSounds;
+import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -28,6 +30,7 @@ public class Reskillable {
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         proxy.preInit(event);
+        ReskillableSounds.TALENTS = SoundCategory.PLAYERS;
     }
 
     @EventHandler

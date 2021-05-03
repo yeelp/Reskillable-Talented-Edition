@@ -3,15 +3,16 @@ package codersafterdark.reskillable.api.data;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.talent.Talent;
-import codersafterdark.reskillable.api.unlockable.Ability;
+import codersafterdark.reskillable.api.talent.TalentActive;
 import codersafterdark.reskillable.api.unlockable.IAbilityEventHandler;
-import codersafterdark.reskillable.api.unlockable.Unlockable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.ResourceLocation;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.Consumer;
 
 public class PlayerProfessionInfo {
@@ -98,6 +99,14 @@ public class PlayerProfessionInfo {
         level++;
         if (level % profession.getSkillPointInterval() == 0) {
             skillPoints++;
+        }
+    }
+
+    public void addActiveTalents(Set<TalentActive> activeTalents) {
+        for (Talent t : talents) {
+            if (t instanceof TalentActive) {
+                activeTalents.add((TalentActive) t);
+            }
         }
     }
 

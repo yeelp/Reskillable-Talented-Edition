@@ -45,19 +45,11 @@ item.scroll_respec.name=Writ of Renewal
 attribute.name.reskillable.damageResistance=Damage Resistance
 
 # EFFECTS
-potion.effect.damage_resist=Potion of Damage Resist
-splash_potion.effect.damage_resist=Splash Potion of Damage Resist
-lingering_potion.effect.damage_resist=Lingering Potion of Damage Resist
-potion.effect.darkness=Potion of Darkness
-splash_potion.effect.darkness=Splash Potion of Darkness
-lingering_potion.effect.darkness=Lingering Potion of Darkness
-potion.effect.edge=Potion of Edge
-splash_potion.effect.edge=Splash Potion of Edge
-lingering_potion.effect.edge=Lingering Potion of Edge
 
 effect.damage_resist=Damage Resistance
 effect.darkness=Into Darkness
 effect.edge=On The Edge
+effects.bleed=Hemorrhage
 
 # PROFESSION NAMES
 reskillable.profession.reskillable.warrior=Warrior
@@ -79,9 +71,11 @@ reskillable.subprofession.reskillable.gladiator=LOCKED
 reskillable.subprofession.reskillable.berserker=Berserker
 
 reskillable.subprofession.reskillable.assassin=Assassin
+reskillable.subprofession.reskillable.trickster=Trickster
 reskillable.subprofession.reskillable.archer=Archer
 
 reskillable.subprofession.reskillable.wizard=Wizard
+reskillable.subprofession.reskillable.monk=Monk
 reskillable.subprofession.reskillable.alchemist=Alchemist
 
 reskillable.subprofession.reskillable.miner=Miner
@@ -217,11 +211,26 @@ reskillable.talent.reskillable.fear.desc=Attacks have a %s%d%% §7chance to appl
 reskillable.talent.reskillable.jump=Into The Fire
 reskillable.talent.reskillable.jump.desc=Increase jump height by 1.0 block. Decreases fall damage by 20%%
 
+reskillable.talent.reskillable.assassin_novice=Novice Assassin Training
+reskillable.talent.reskillable.assassin_novice.desc=Allows usage of Low-Tier Daggers/Katanas. Increases stealth damage by 10%% for both melee & range.
+reskillable.talent.reskillable.assassin_advanced=Advanced Assassin Training
+reskillable.talent.reskillable.assassin_advanced.desc=Allows usage of Mid-Tier Daggers/Katanas. Increases stealth damage 15%% for both melee & range.
+reskillable.talent.reskillable.assassin_master=Master Assassin Training
+reskillable.talent.reskillable.assassin_master.desc=Allows usage of High-Tier Daggers/Katanas. Increases stealth damage by another 25%% for both melee & range.
 reskillable.talent.reskillable.darkness=Into Darkness
 reskillable.talent.reskillable.darkness.desc=While under cover of darkness (below light level 8), critical damage is increased by 50%% and stealth melee damage by 25%%
 reskillable.talent.reskillable.shadow=Dusk and Shadow
 reskillable.talent.reskillable.shadow.desc=Increases your stealth capabilities. Entities will also lower their threat level with you faster. Increases movement speed by 5%%
-
+reskillable.talent.reskillable.hemorrhage=Hemorrhage
+reskillable.talent.reskillable.hemorrhage.desc=Jump attacks with daggers have a chance to lacerate and §4hemorrhage§7 your target. §4Hemorrhaged§7 targets bleed continuously for 10 seconds.
+reskillable.talent.reskillable.plunging_silence=Plunging Silence
+reskillable.talent.reskillable.plunging_silence.desc=Your superior agility permits you to briefly break the laws of gravity in favour of a stylish 'double-jump'. Your advanced conditioning lowers the fall damage you may incur by 20%%. Lastly, you've mastered the art of gracefully plummeting from precarious heights into bales of hay, negating an otherwise fatal injury.
+reskillable.talent.reskillable.crit_slayer=Crit-Slayer
+reskillable.talent.reskillable.crit_slayer.desc=Critical Hits increase attack speed by 20%% for 3 seconds. Additional critical hits refresh duration.
+reskillable.talent.reskillable.spring_heel=Spring-Heeled Assassin
+reskillable.talent.reskillable.spring_heel.desc=Killing an enemy will give 10%% speed boost for 3 seconds. Continued kills refresh duration.
+reskillable.talent.reskillable.blink=Blink
+reskillable.talent.reskillable.blink.desc=
 
 reskillable.talent.reskillable.gladiator=Are you not entertained?
 reskillable.talent.reskillable.gladiator.desc=Coming soon™

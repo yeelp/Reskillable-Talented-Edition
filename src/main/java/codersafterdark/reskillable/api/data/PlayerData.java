@@ -10,6 +10,7 @@ import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.talent.Talent;
+import codersafterdark.reskillable.api.talent.TalentActive;
 import codersafterdark.reskillable.api.unlockable.Ability;
 import codersafterdark.reskillable.api.unlockable.IAbilityEventHandler;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
@@ -85,11 +86,21 @@ public class PlayerData {
         return !getAllAbilities().isEmpty();
     }
 
+    public boolean hasActiveTalents() {
+        return !getAllActiveTalents().isEmpty();
+    }
+
     public boolean hasSecondaryProfession() {return !(getUnlockedProfessions().size() <= 1);}
 
     public Set<Ability> getAllAbilities() {
         Set<Ability> set = new TreeSet<>();
         skillInfo.values().forEach(info -> info.addAbilities(set));
+        return set;
+    }
+
+    public Set<TalentActive> getAllActiveTalents() {
+        Set<TalentActive> set = new TreeSet<>();
+        professionInfo.values().forEach(info -> info.addActiveTalents(set));
         return set;
     }
 
