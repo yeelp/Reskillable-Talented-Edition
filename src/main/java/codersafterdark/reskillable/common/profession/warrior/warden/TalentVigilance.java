@@ -26,7 +26,7 @@ public class TalentVigilance extends Talent {
         if (player.getHealth() >= player.getMaxHealth()) {return;}
 
         // block healing for 30 seconds after the player attacks;
-        int seconds = 30;
+        int seconds = 20;
         int nextHealingTime = player.getLastAttackedEntityTime() + 20*seconds;
         int sessionGameTime = player.ticksExisted;
         if (sessionGameTime < nextHealingTime) {return;}

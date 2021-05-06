@@ -36,7 +36,6 @@ public class TalentWardenMaster extends Talent {
                 info.addAttributeModifier(AttributeResist, modifier);
                 PlayerDataHandler.get(player).saveAndSync();
             }
-
         }
     }
 

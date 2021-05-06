@@ -9,6 +9,7 @@ import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import codersafterdark.reskillable.common.profession.*;
+import codersafterdark.reskillable.common.profession.gatherer.seafarer.TalentNeptunium;
 import codersafterdark.reskillable.common.profession.rogue.archer.*;
 import codersafterdark.reskillable.common.profession.rogue.assassin.*;
 import codersafterdark.reskillable.common.profession.rogue.trickster.TalentTrickster;
@@ -169,7 +170,9 @@ public class ReskillableRegistryHandler {
                 new TalentTrueShot(),
                 new TalentVantage(),
 
-                new TalentMonk()
+                new TalentMonk(),
+
+                new TalentNeptunium()
         );
 
         if (Loader.isModLoaded("dynamicstealth")) {

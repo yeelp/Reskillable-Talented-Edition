@@ -30,7 +30,7 @@ public class TalentRally extends Talent {
         if (event.getSource().getTrueSource() instanceof EntityPlayer) {
             EntityPlayer pl = (EntityPlayer)event.getSource().getTrueSource();
             if (PlayerDataHandler.get(pl).getProfessionInfo(getParentProfession()).isUnlocked(this)) {
-                AxisAlignedBB playerRange = new AxisAlignedBB(pl.posX - 6, pl.posY - 6, pl.posZ + 6, pl.posX + 6, pl.posY + 6, pl.posZ - 6);
+                AxisAlignedBB playerRange = new AxisAlignedBB(pl.posX - 8, pl.posY - 8, pl.posZ - 8, pl.posX + 8, pl.posY + 8, pl.posZ + 8);
                 List<EntityPlayer> party = pl.world.getEntitiesWithinAABB(EntityPlayer.class, playerRange);
                 for (EntityPlayer entity: party) {
                     entity.addPotionEffect(new PotionEffect(MobEffects.STRENGTH, 100));

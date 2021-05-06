@@ -34,7 +34,7 @@ public class TalentMantra extends Talent {
         if (event.isCanceled()) return;
         if (event.getEntity() instanceof EntityPlayer) {
             EntityPlayer pl = (EntityPlayer)event.getEntity();
-            AxisAlignedBB playerRange = new AxisAlignedBB(pl.posX - 4, pl.posY - 4, pl.posZ + 4, pl.posX + 4, pl.posY + 4, pl.posZ - 4);
+            AxisAlignedBB playerRange = new AxisAlignedBB(pl.posX - 6, pl.posY - 6, pl.posZ - 6, pl.posX + 6, pl.posY + 6, pl.posZ + 6);
             List<EntityPlayer> party = pl.world.getEntitiesWithinAABB(EntityPlayer.class, playerRange);
             if (party.size() < 1) {return;}
             for (EntityPlayer entity: party) {

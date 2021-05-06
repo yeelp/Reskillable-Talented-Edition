@@ -39,7 +39,7 @@ public class TalentBlocking extends Talent {
                 Item item = entity.getActiveItemStack().getItem();
                 if (item.getItemUseAction(entity.getActiveItemStack()) == EnumAction.BLOCK) {
                     EntityPlayer pl = (EntityPlayer)event.getEntityLiving();
-                    pl.addPotionEffect(new PotionEffect(ReskillablePotion.POTION_RESIST_EFFECT, 60));
+                    pl.addPotionEffect(new PotionEffect(ReskillablePotion.POTION_RESIST_EFFECT, 80));
                     if (ConfigHandler.enableDebug) {
                         pl.sendMessage(new TextComponentString("You blocked!"));
                         pl.sendMessage(new TextComponentString("Damage Resistance: " + Math.round(pl.getEntityAttribute(ReskillableAttributes.DAMAGE_RESIST).getAttributeValue()) + "%"));
