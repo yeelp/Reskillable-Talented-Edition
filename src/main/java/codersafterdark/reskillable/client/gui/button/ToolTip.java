@@ -35,7 +35,7 @@ public class ToolTip {
         return lines.add(formatting != null ? formatting + line : line);
     }
 
-    public boolean add(List lines) {
+    public boolean add(List<Object> lines) {
         boolean changed = false;
         for (Object line : lines) {
             if (line instanceof String) {

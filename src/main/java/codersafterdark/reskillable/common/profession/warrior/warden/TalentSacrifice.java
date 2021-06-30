@@ -53,7 +53,7 @@ public class TalentSacrifice extends Talent {
     private void cleanseNegativePotions(EntityLivingBase entity) {
         Collection<PotionEffect> effects = entity.getActivePotionEffects();
         ArrayList<Potion> potionsToRemove = new ArrayList<>();
-        Iterator it = effects.iterator();
+        Iterator<PotionEffect> it = effects.iterator();
 
         while (it.hasNext()) {
             PotionEffect effect = (PotionEffect) it.next();
@@ -62,7 +62,7 @@ public class TalentSacrifice extends Talent {
             }
         }
 
-        Iterator var7 = potionsToRemove.iterator();
+        Iterator<Potion> var7 = potionsToRemove.iterator();
 
         while (var7.hasNext()) {
             Potion potion = (Potion)var7.next();

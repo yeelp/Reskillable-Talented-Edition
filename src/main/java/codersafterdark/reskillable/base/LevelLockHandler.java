@@ -96,7 +96,8 @@ public class LevelLockHandler {
      * @param lockTypeClass A class that represents the type of object that the given keyClasses can be built from.
      * @param keyClasses    A list of Classes that implement LockKey, and have a constructor with the parameter with of the type lockTypeClass
      */
-    public static void registerLockKey(Class<?> lockTypeClass, Class<? extends LockKey>... keyClasses) {
+    @SafeVarargs
+	public static void registerLockKey(Class<?> lockTypeClass, Class<? extends LockKey>... keyClasses) {
         for (Class<? extends LockKey> keyClass : keyClasses) {
             try {
                 //Should work, it "may" need to attempt to create a "new instance" to make sure it is properly accessible

@@ -20,12 +20,14 @@ public class InvalidateRequirementPacket implements IMessage, IMessageHandler<In
 
     }
 
-    public InvalidateRequirementPacket(UUID uuid, Class<? extends Requirement>... cacheTypes) {
+    @SafeVarargs
+	public InvalidateRequirementPacket(UUID uuid, Class<? extends Requirement>... cacheTypes) {
         this.uuid = uuid;
         this.cacheTypes = cacheTypes;
     }
 
-    @Override
+    @SuppressWarnings("unchecked")
+	@Override
     public void fromBytes(ByteBuf buf) {
         uuid = new UUID(buf.readLong(), buf.readLong());
         cacheTypes = new Class[buf.readInt()];

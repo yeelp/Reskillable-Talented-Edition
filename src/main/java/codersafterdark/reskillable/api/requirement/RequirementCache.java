@@ -77,11 +77,13 @@ public class RequirementCache {
     }
 
     //A method to allow adding of requirements that should always be invalidated if other requirements get invalidated
-    public static void registerRequirementType(Class<? extends Requirement>... requirementClasses) {
+    @SafeVarargs
+	public static void registerRequirementType(Class<? extends Requirement>... requirementClasses) {
         dirtyCacheTypes.addAll(Arrays.asList(requirementClasses));
     }
 
-    public static void invalidateCache(EntityPlayer player, Class<? extends Requirement>... cacheTypes) {
+    @SafeVarargs
+	public static void invalidateCache(EntityPlayer player, Class<? extends Requirement>... cacheTypes) {
         if (player != null) {
             invalidateCache(player.getUniqueID(), cacheTypes);
         }
@@ -90,7 +92,8 @@ public class RequirementCache {
     //This method signature cannot be changed or it would cause crashes with some addons
     //TODO: Maybe make a method that allows for the sidedness to be stated that you want the cache invalidated for?
     //TODO Cont: invalidateCacheNoPacket may cover that already
-    public static void invalidateCache(UUID uuid, Class<? extends Requirement>... cacheTypes) {
+    @SafeVarargs
+	public static void invalidateCache(UUID uuid, Class<? extends Requirement>... cacheTypes) {
         boolean hasServer = hasCache(uuid, false);
         boolean hasClient = hasCache(uuid, true);
         if (hasServer) {
@@ -118,13 +121,15 @@ public class RequirementCache {
     /**
      * @deprecated I don't believe this is used by any external addons, but just in case only deprecating it for now.
      */
-    @Deprecated
+    @SafeVarargs
+	@Deprecated
     public static void invalidateCacheNoPacket(UUID uuid, Class<? extends Requirement>... cacheTypes) {
         invalidateCacheNoPacket(uuid, true, cacheTypes);
         invalidateCacheNoPacket(uuid, false, cacheTypes);
     }
 
-    public static void invalidateCacheNoPacket(UUID uuid, boolean isRemote, Class<? extends Requirement>... cacheTypes) {
+    @SafeVarargs
+	public static void invalidateCacheNoPacket(UUID uuid, boolean isRemote, Class<? extends Requirement>... cacheTypes) {
         getCache(uuid, isRemote).invalidateCache(cacheTypes);
     }
 
@@ -282,7 +287,7 @@ public class RequirementCache {
         return achieved;
     }
 
-    public void invalidateCache(Class<? extends Requirement>... cacheType) {
+    public void invalidateCache(@SuppressWarnings("unchecked") Class<? extends Requirement>... cacheType) {
         EntityPlayer player = getPlayer();
         if (player == null) {
             //Do not fire off a cache invalidated event, as we do not know what player to fire it with

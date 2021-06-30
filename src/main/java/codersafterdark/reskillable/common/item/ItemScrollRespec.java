@@ -33,7 +33,7 @@ public class ItemScrollRespec extends ReskillableItem {
         PlayerData data = PlayerDataHandler.get(player);
         Collection<PlayerSkillInfo> allSkills = data.getAllSkillInfo();
         StringBuilder failedSkills = new StringBuilder();
-        Iterator var8 = allSkills.iterator();
+        Iterator<PlayerSkillInfo> var8 = allSkills.iterator();
 
         if (world.isRemote) {
             while (var8.hasNext()) {
