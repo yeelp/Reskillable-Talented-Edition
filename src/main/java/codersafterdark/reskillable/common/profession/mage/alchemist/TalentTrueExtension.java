@@ -55,7 +55,6 @@ public class TalentTrueExtension extends Talent {
 			Optional<Timer> optTimer = Optional.ofNullable(counters.putIfAbsent(uuid, new Timer()));
 			boolean shouldApplyPotion = optTimer.map((t) -> t.getTimeDiffInSeconds() % 10 == 0).orElse(false);		
 			if(shouldApplyPotion && !player.isPotionActive(PotionExtension.INSTANCE)) {
-				Reskillable.logger.info("Applying potion extension");
 				optTimer.get().restart(); //get() always safe here, no check needed.
 				player.addPotionEffect(new PotionEffect(PotionExtension.INSTANCE, 100, 1, false, false));
 			}
