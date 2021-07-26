@@ -16,6 +16,7 @@ import codersafterdark.reskillable.common.profession.rogue.trickster.TalentTrick
 import codersafterdark.reskillable.common.profession.warrior.berserker.*;
 import codersafterdark.reskillable.common.profession.warrior.gladiator.TalentGladiator;
 import codersafterdark.reskillable.common.profession.warrior.warden.*;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentTrueExtension;
 import codersafterdark.reskillable.common.profession.mage.monk.TalentMonk;
 import codersafterdark.reskillable.common.skill.*;
 import codersafterdark.reskillable.common.skill.traits.agility.*;
@@ -171,6 +172,8 @@ public class ReskillableRegistryHandler {
                 new TalentVantage(),
 
                 new TalentMonk(),
+                
+                new TalentTrueExtension(),
 
                 new TalentNeptunium()
         );
