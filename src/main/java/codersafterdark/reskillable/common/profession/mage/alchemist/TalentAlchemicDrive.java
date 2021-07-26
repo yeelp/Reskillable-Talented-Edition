@@ -13,8 +13,7 @@ import net.minecraft.util.ResourceLocation;
 public class TalentAlchemicDrive extends AbstractPotionEffectBasedTalent {
 
 	static Set<PotionEffectBasedAttributeModifier> mods = new HashSet<PotionEffectBasedAttributeModifier>();
-	static
-	{
+	static {
 		mods.add(new PotionEffectBasedAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, "AlchemicDrive Speed Boost", PotionMagicShield.INSTANCE, 10.0, 2));
 		mods.add(new PotionEffectBasedAttributeModifier(SharedMonsterAttributes.ATTACK_SPEED, "AlchemicDrive Attack Speed Boost", PotionMagicShield.INSTANCE, 25.0, 2));
 	}
