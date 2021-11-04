@@ -71,7 +71,9 @@ dependencies {
     compile fg.deobf("curse.maven:spartan-shields-252239:2712229")
     compile fg.deobf("curse.maven:extra-alchemy-247357:2937550")
     compile fg.deobf("curse.maven:minerva-library-311561:2728693")
-    compile fg.deobf("curse.maven:scaling-feast-370995:3213262")
+    compile fg.deobf("curse.maven:scaling-feast-370995:3460677")
+    compile fg.deobf("curse.maven:scaling-health-248027:2816920")
+    compile fg.deobf("curse.maven:hunger-overhaul-224476:2565122")
     
     compileOnly files('lib/DynamicSwordSkills-1.12.2-6.2.1.jar')
     compileOnly files('lib/SwordSkillsApi-1.12.2-1.5.1.jar')

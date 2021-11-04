@@ -27,11 +27,11 @@ public abstract class TimeBasedTalent extends Talent {
 		}
 		
 		public long getTimeDiffInSeconds() {
-			return (System.nanoTime() - reference)/1_000_000_000;
+			return (System.nanoTime() - this.reference)/1_000_000_000;
 		}
 		
 		public void restart() {
-			reference = System.nanoTime();
+			this.reference = System.nanoTime();
 		}
 	}
 	
@@ -40,7 +40,7 @@ public abstract class TimeBasedTalent extends Talent {
 	
 	public TimeBasedTalent(int intervalLengthInSeconds, ResourceLocation name, int x, int y, ResourceLocation professionName, ResourceLocation subProfessionName, int cost, String... defaultRequirements) {
 		super(name, x, y, professionName, subProfessionName, cost, defaultRequirements);
-		length = intervalLengthInSeconds;
+		this.length = intervalLengthInSeconds;
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 	
@@ -49,7 +49,7 @@ public abstract class TimeBasedTalent extends Talent {
 		if(event.getEntityLiving() instanceof EntityPlayerMP) {
 			EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
 			if(PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this)) {
-				Optional<Timer> optTimer = Optional.ofNullable(timers.putIfAbsent(player.getUniqueID(), new Timer()));
+				Optional<Timer> optTimer = Optional.ofNullable(this.timers.putIfAbsent(player.getUniqueID(), new Timer()));
 				if(optTimer.map((t) -> shouldPeformAction(player, t)).orElse(false)) {
 					processPlayer((EntityPlayerMP) event.getEntityLiving());
 					optTimer.get().restart();
@@ -67,12 +67,12 @@ public abstract class TimeBasedTalent extends Talent {
 	 * Extenders need only override this method if they want to check additional conditions on top of the timer length check. 
 	 */
 	protected boolean shouldPeformAction(EntityPlayerMP player, Timer t) {
-		return t.getTimeDiffInSeconds() % length == 0;
+		return t.getTimeDiffInSeconds() % this.length == 0;
 	}
 	
 	
 	protected int getTimerInterval() {
-		return length;
+		return this.length;
 	}
 	/**
 	 * Process a player after this Talent's specified time interval

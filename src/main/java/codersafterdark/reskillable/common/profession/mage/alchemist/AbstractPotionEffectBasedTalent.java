@@ -1,8 +1,13 @@
 package codersafterdark.reskillable.common.profession.mage.alchemist;
 
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 
+import com.google.common.collect.ImmutableSet;
+
+import codersafterdark.reskillable.api.event.LockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
@@ -20,36 +25,44 @@ public abstract class AbstractPotionEffectBasedTalent extends Talent {
 	protected static class PotionEffectBasedAttributeModifier {
 		private IAttribute attribute;
 		private AttributeModifier modifier;
-		private Potion potionTrigger;
+		private final Set<Potion> triggers;
 
-		PotionEffectBasedAttributeModifier(IAttribute affectAttribute, String name, Potion applicableEffect, double amount, int operation) {
-			attribute = affectAttribute;
-			potionTrigger = applicableEffect;
-			modifier = new AttributeModifier(name, amount, operation);
+		PotionEffectBasedAttributeModifier(IAttribute affectedAttribute, String name, Potion applicableEffect, double amount, int operation) {
+			this(affectedAttribute, name, ImmutableSet.of(applicableEffect), amount, operation);
+		}
+		
+		PotionEffectBasedAttributeModifier(IAttribute affectedAttribute, String name, Set<Potion> applicableEffects, double amount, int operation) {
+			this.attribute = affectedAttribute;
+			this.triggers = applicableEffects;
+			this.modifier = new AttributeModifier(name, amount, operation);
+			MinecraftForge.EVENT_BUS.register(this);
 		}
 
 		public void setModifierIfEffectActive(EntityPlayerMP player) {
-			if(player.isPotionActive(potionTrigger)) {
-				IAttributeInstance instance = player.getEntityAttribute(attribute);
-				AttributeModifier mod = instance.getModifier(modifier.getID());
-				if(mod == null) {
-					instance.applyModifier(modifier);
-				}
+			if(this.triggers.stream().anyMatch(player::isPotionActive)) {
+				alterModifier(player, IAttributeInstance::applyModifier, Objects::isNull);
 			}
 		}
 
 		public void removeModifierIfEffectIsNotActive(EntityPlayerMP player) {
-			if(!player.isPotionActive(potionTrigger)) {
-				IAttributeInstance instance = player.getEntityAttribute(attribute);
-				AttributeModifier mod = instance.getModifier(modifier.getID());
-				if(mod != null) {
-					instance.removeModifier(modifier);
-				}
+			if(this.triggers.stream().noneMatch(player::isPotionActive)) {
+				forceRemoveModifier(player);
+			}
+		}
+		
+		public void forceRemoveModifier(EntityPlayerMP player) {
+			alterModifier(player, IAttributeInstance::removeModifier, Objects::nonNull);
+		}
+		
+		private void alterModifier(EntityPlayerMP player, BiConsumer<IAttributeInstance, AttributeModifier> action, Predicate<AttributeModifier> pred) {
+			IAttributeInstance instance = player.getEntityAttribute(this.attribute);
+			if(pred.test(instance.getModifier(this.modifier.getID()))) {
+				action.accept(instance, this.modifier);
 			}
 		}
 	}
 
-	private Set<PotionEffectBasedAttributeModifier> mods = new HashSet<PotionEffectBasedAttributeModifier>();
+	private final Set<PotionEffectBasedAttributeModifier> mods;
 
 	protected AbstractPotionEffectBasedTalent(Set<PotionEffectBasedAttributeModifier> mods, ResourceLocation name, int x, int y, ResourceLocation professionName, ResourceLocation subProfessionName, int cost, String... defaultRequirements) {
 		super(name, x, y, professionName, subProfessionName, cost, defaultRequirements);
@@ -60,14 +73,21 @@ public abstract class AbstractPotionEffectBasedTalent extends Talent {
 	@SubscribeEvent
 	public void onPotionApply(PotionAddedEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayerMP) {
-			mods.forEach((pmod) -> pmod.setModifierIfEffectActive((EntityPlayerMP)event.getEntityLiving()));
+			this.mods.forEach((pmod) -> pmod.setModifierIfEffectActive((EntityPlayerMP)event.getEntityLiving()));
 		}
 	}
 	
 	@SubscribeEvent
 	public void onPotionExpiry(PotionExpiryEvent event) {
 		if(event.getEntityLiving() instanceof EntityPlayerMP) {
-			mods.forEach((pmod) -> pmod.removeModifierIfEffectIsNotActive((EntityPlayerMP)event.getEntityLiving()));
+			this.mods.forEach((pmod) -> pmod.removeModifierIfEffectIsNotActive((EntityPlayerMP)event.getEntityLiving()));
+		}
+	}
+	
+	@SubscribeEvent
+	public void onLock(LockTalentEvent.Post event) {
+		if(this.getClass().isInstance(event.getTalent()) && event.getEntityLiving() instanceof EntityPlayerMP) {
+			this.mods.forEach((pmod) -> pmod.forceRemoveModifier((EntityPlayerMP) event.getEntityPlayer()));
 		}
 	}
 }
