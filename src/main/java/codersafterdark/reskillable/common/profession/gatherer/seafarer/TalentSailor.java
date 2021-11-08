@@ -1,17 +1,15 @@
 package codersafterdark.reskillable.common.profession.gatherer.seafarer;
 
-import codersafterdark.reskillable.api.data.PlayerData;
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityBoat;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityMountEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentSailor extends Talent {
 

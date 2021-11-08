@@ -1,5 +1,11 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import javax.vecmath.Vector3d;
+
+import com.oblivioussp.spartanweaponry.item.ItemDagger;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
@@ -9,10 +15,8 @@ import codersafterdark.reskillable.common.network.BlinkPacket;
 import codersafterdark.reskillable.common.network.PacketHandler;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
 import codersafterdark.reskillable.common.util.Utils;
-import com.oblivioussp.spartanweaponry.item.ItemDagger;
 import electroblob.wizardry.Wizardry;
 import electroblob.wizardry.util.RayTracer;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -34,10 +38,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.vecmath.Vector3d;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
-
 public class TalentBlink extends TalentActive {
 
     @GameRegistry.ObjectHolder("reskillable:hemorrhage")
@@ -57,7 +57,7 @@ public class TalentBlink extends TalentActive {
     }
 
     @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
+    public void onKeyInput(@SuppressWarnings("unused") InputEvent.KeyInputEvent event) {
         EntityPlayer player = Minecraft.getMinecraft().player;
 
         if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this)) {
@@ -95,7 +95,7 @@ public class TalentBlink extends TalentActive {
         if (world.isRemote) {
             for(int i = 0; i < 10; ++i) {
                 double dx = player.posX;
-                double dy = player.getEntityBoundingBox().minY + (double)(2.0F * world.rand.nextFloat());
+                double dy = player.getEntityBoundingBox().minY + 2.0F * world.rand.nextFloat();
                 double dz = player.posZ;
                 world.spawnParticle(EnumParticleTypes.PORTAL, dx, dy, dz, world.rand.nextDouble() - 0.5D, world.rand.nextDouble() - 0.5D, world.rand.nextDouble() - 0.5D, new int[0]);
             }
@@ -140,7 +140,8 @@ public class TalentBlink extends TalentActive {
 
         if (rayTrace != null && rayTrace.typeOfHit == RayTraceResult.Type.BLOCK) {
             BlockPos pos = rayTrace.getBlockPos();
-            IBlockState state = world.getBlockState(pos);
+            @SuppressWarnings("unused")
+			IBlockState state = world.getBlockState(pos);
 
             /*
             if (state.getCollisionBoundingBox(world, pos) != Block.NULL_AABB) {
@@ -156,14 +157,13 @@ public class TalentBlink extends TalentActive {
             if (!world.getBlockState(pos).getMaterial().blocksMovement() && !world.getBlockState(pos.up()).getMaterial().blocksMovement()) {
                 player.playSound(codersafterdark.reskillable.common.registry.ReskillableSounds.TALENT_BLINK, 10, 1);
                 if (!world.isRemote) {
-                    player.setPositionAndUpdate((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D);
+                    player.setPositionAndUpdate(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
                 }
 
                 player.playSound(codersafterdark.reskillable.common.registry.ReskillableSounds.TALENT_BLINK, 10, 1);
                 return true;
-            } else {
-                return false;
             }
+			return false;
         }
         return false;
     }

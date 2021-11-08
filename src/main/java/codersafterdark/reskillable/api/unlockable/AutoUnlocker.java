@@ -1,5 +1,9 @@
 package codersafterdark.reskillable.api.unlockable;
 
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
@@ -14,10 +18,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
 
 public class AutoUnlocker {
     private static Set<Unlockable> unlockables = new HashSet<>();

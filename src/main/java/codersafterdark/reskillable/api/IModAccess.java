@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.api;
 
+import org.apache.logging.log4j.Level;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.profession.ProfessionConfig;
 import codersafterdark.reskillable.api.skill.SkillConfig;
@@ -9,7 +11,6 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.Level;
 
 public interface IModAccess {
 

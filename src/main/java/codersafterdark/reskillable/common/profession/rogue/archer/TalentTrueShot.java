@@ -1,8 +1,11 @@
 package codersafterdark.reskillable.common.profession.rogue.archer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.tmtravlr.potioncore.potion.PotionArchery;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
-import com.tmtravlr.potioncore.potion.PotionArchery;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
@@ -10,8 +13,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.ArrowNockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentTrueShot extends Talent {
 
@@ -31,7 +32,8 @@ public class TalentTrueShot extends Talent {
          }
     }
 
-    private void setItemUseCount(EntityPlayer player) {
+    @SuppressWarnings("static-method")
+	private void setItemUseCount(EntityPlayer player) {
         player.activeItemStackUseCount -= player.activeItemStackUseCount * 0.25;
     }
 }

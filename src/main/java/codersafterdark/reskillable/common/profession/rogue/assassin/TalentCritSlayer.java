@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
@@ -11,8 +13,6 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentCritSlayer extends Talent {
 

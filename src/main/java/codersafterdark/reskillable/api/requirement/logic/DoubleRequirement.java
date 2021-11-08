@@ -1,14 +1,15 @@
 package codersafterdark.reskillable.api.requirement.logic;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 public abstract class DoubleRequirement extends Requirement implements OuterRequirement {
     private final Requirement left, right;
@@ -42,7 +43,8 @@ public abstract class DoubleRequirement extends Requirement implements OuterRequ
         return TextFormatting.GRAY + " - " + getToolTipPart(data, getLeft()) + ' ' + color + getFormat() + ' ' + getToolTipPart(data, getRight());
     }
 
-    private String getToolTipPart(PlayerData data, Requirement side) {
+    @SuppressWarnings("static-method")
+	private String getToolTipPart(PlayerData data, Requirement side) {
         String tooltip = side.getToolTip(data);
         if (tooltip != null && tooltip.startsWith(TextFormatting.GRAY + " - ")) {
             tooltip = tooltip.replaceFirst(TextFormatting.GRAY + " - ", "");

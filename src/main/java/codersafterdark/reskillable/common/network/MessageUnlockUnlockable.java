@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.network;
 
+import java.util.Objects;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
@@ -18,8 +20,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import java.util.Objects;
-
 public class MessageUnlockUnlockable implements IMessage, IMessageHandler<MessageUnlockUnlockable, IMessage> {
     private ResourceLocation skill;
     private ResourceLocation unlockable;
@@ -34,14 +34,14 @@ public class MessageUnlockUnlockable implements IMessage, IMessageHandler<Messag
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        skill = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
-        unlockable = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.skill = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.unlockable = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, skill.toString());
-        ByteBufUtils.writeUTF8String(buf, unlockable.toString());
+        ByteBufUtils.writeUTF8String(buf, this.skill.toString());
+        ByteBufUtils.writeUTF8String(buf, this.unlockable.toString());
     }
 
     @Override
@@ -50,7 +50,8 @@ public class MessageUnlockUnlockable implements IMessage, IMessageHandler<Messag
         return null;
     }
 
-    public IMessage handleMessage(MessageUnlockUnlockable message, MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageUnlockUnlockable message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Skill skill = ReskillableRegistries.SKILLS.getValue(message.skill);
         Unlockable unlockable = Objects.requireNonNull(ReskillableRegistries.UNLOCKABLES.getValue(message.unlockable));

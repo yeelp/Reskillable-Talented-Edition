@@ -1,5 +1,8 @@
 package codersafterdark.reskillable.client.gui;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.client.gui.GuiScreen;
@@ -7,9 +10,6 @@ import net.minecraftforge.common.config.ConfigElement;
 import net.minecraftforge.fml.client.config.DummyConfigElement;
 import net.minecraftforge.fml.client.config.GuiConfig;
 import net.minecraftforge.fml.client.config.IConfigElement;
-
-import java.util.List;
-import java.util.stream.Collectors;
 
 public class GuiSkillableConfig extends GuiConfig {
     public GuiSkillableConfig(GuiScreen parentScreen) {

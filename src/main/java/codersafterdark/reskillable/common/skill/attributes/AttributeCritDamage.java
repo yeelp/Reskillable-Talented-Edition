@@ -19,7 +19,8 @@ public class AttributeCritDamage {
     @GameRegistry.ObjectHolder("reskillable:truthseeker")
     public static Talent truthSeeker;
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SuppressWarnings("static-method")
+	@SubscribeEvent(priority = EventPriority.LOWEST)
     public void onArrowCt(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityArrow) {
             EntityArrow arrow = (EntityArrow) event.getEntity();
@@ -34,7 +35,8 @@ public class AttributeCritDamage {
         }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
+    @SuppressWarnings("static-method")
+	@SubscribeEvent(priority = EventPriority.LOWEST)
     public void onCrit(CriticalHitEvent event) {
         if (event.getResult() == Event.Result.ALLOW) {
             EntityPlayer player = event.getEntityPlayer();

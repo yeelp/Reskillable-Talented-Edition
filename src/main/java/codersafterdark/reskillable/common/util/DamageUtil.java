@@ -1,10 +1,10 @@
 package codersafterdark.reskillable.common.util;
 
-import net.minecraft.entity.Entity;
-import net.minecraft.util.DamageSource;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+
+import net.minecraft.entity.Entity;
+import net.minecraft.util.DamageSource;
 
 public class DamageUtil {
 

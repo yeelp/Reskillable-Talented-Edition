@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.api.requirement;
 
+import java.util.Optional;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.RequirementHolder;
@@ -9,8 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import java.util.Optional;
 
 public class AdvancementRequirement extends Requirement {
     private ResourceLocation advancementName;
@@ -30,7 +30,7 @@ public class AdvancementRequirement extends Requirement {
 
     @Override
     public String getToolTip(PlayerData data) {
-        if (tooltip.isEmpty()) {
+        if (this.tooltip.isEmpty()) {
             Advancement adv = getAdvancement();
             this.tooltip = TextFormatting.GRAY + " - " + TextFormatting.GOLD + new TextComponentTranslation("reskillable.requirements.format.advancement",
                     "%S", adv == null ? "" : adv.getDisplayText().getUnformattedText().replaceAll("[\\[\\]]", "")).getUnformattedComponentText();
@@ -39,22 +39,22 @@ public class AdvancementRequirement extends Requirement {
     }
 
     public Advancement getAdvancement() {
-        return RequirementHolder.getAdvancementList().getAdvancement(advancementName);
+        return RequirementHolder.getAdvancementList().getAdvancement(this.advancementName);
     }
 
     @Override
     public RequirementComparison matches(Requirement other) {
-        return other instanceof AdvancementRequirement && advancementName.equals(((AdvancementRequirement) other).advancementName)
+        return other instanceof AdvancementRequirement && this.advancementName.equals(((AdvancementRequirement) other).advancementName)
                 ? RequirementComparison.EQUAL_TO : RequirementComparison.NOT_EQUAL;
     }
 
     @Override
     public boolean equals(Object o) {
-        return o == this || o instanceof AdvancementRequirement && advancementName.equals(((AdvancementRequirement) o).advancementName);
+        return o == this || o instanceof AdvancementRequirement && this.advancementName.equals(((AdvancementRequirement) o).advancementName);
     }
 
     @Override
     public int hashCode() {
-        return advancementName.hashCode();
+        return this.advancementName.hashCode();
     }
 }

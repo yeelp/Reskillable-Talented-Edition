@@ -1,11 +1,11 @@
 package codersafterdark.reskillable.common.skill.traits.agility;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitRoadWalk extends Trait {
     public TraitRoadWalk() {

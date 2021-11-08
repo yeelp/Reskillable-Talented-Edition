@@ -10,30 +10,39 @@ import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
 
 public interface IAbilityEventHandler {
-    default void onPlayerTick(PlayerTickEvent event) {
+    default void onPlayerTick(@SuppressWarnings("unused") PlayerTickEvent event) {
+    	//no-op
     }
 
-    default void onBlockDrops(HarvestDropsEvent event) {
+    default void onBlockDrops(@SuppressWarnings("unused") HarvestDropsEvent event) {
+    	//no-op
     }
 
-    default void getBreakSpeed(BreakSpeed event) {
+    default void getBreakSpeed(@SuppressWarnings("unused") BreakSpeed event) {
+    	//no-op
     }
 
-    default void onMobDrops(LivingDropsEvent event) {
+    default void onMobDrops(@SuppressWarnings("unused") LivingDropsEvent event) {
+    	//no-op
     }
 
-    default void onAttackMob(LivingHurtEvent event) {
+    default void onAttackMob(@SuppressWarnings("unused") LivingHurtEvent event) {
+    	//no-op
     }
 
-    default void onHurt(LivingHurtEvent event) {
+    default void onHurt(@SuppressWarnings("unused") LivingHurtEvent event) {
+    	//no-op
     }
 
-    default void onRightClickBlock(RightClickBlock event) {
+    default void onRightClickBlock(@SuppressWarnings("unused") RightClickBlock event) {
+    	//no-op
     }
 
-    default void onEnderTeleport(EnderTeleportEvent event) {
+    default void onEnderTeleport(@SuppressWarnings("unused") EnderTeleportEvent event) {
+    	//no-op
     }
 
-    default void onKillMob(LivingDeathEvent event) {
+    default void onKillMob(@SuppressWarnings("unused") LivingDeathEvent event) {
+    	//no-op
     }
 }

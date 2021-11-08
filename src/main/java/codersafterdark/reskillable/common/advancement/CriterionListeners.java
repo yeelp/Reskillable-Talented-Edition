@@ -1,14 +1,15 @@
 package codersafterdark.reskillable.common.advancement;
 
-import com.google.common.collect.Sets;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.ICriterionTrigger;
-import net.minecraft.advancements.PlayerAdvancements;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
+
+import com.google.common.collect.Sets;
+
+import net.minecraft.advancements.ICriterionInstance;
+import net.minecraft.advancements.ICriterionTrigger;
+import net.minecraft.advancements.PlayerAdvancements;
 
 public class CriterionListeners<T extends ICriterionInstance> {
     private final PlayerAdvancements playerAdvancements;

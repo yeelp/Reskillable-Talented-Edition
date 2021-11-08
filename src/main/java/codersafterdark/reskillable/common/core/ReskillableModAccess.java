@@ -1,5 +1,16 @@
 package codersafterdark.reskillable.common.core;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.apache.logging.log4j.Level;
+
+import com.google.common.collect.Maps;
+
 import codersafterdark.reskillable.api.IModAccess;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.RequirementHolder;
@@ -7,23 +18,15 @@ import codersafterdark.reskillable.api.profession.ProfessionConfig;
 import codersafterdark.reskillable.api.skill.SkillConfig;
 import codersafterdark.reskillable.api.talent.TalentConfig;
 import codersafterdark.reskillable.api.unlockable.UnlockableConfig;
-import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.base.ConfigHandler;
+import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.common.network.MessageDataSync;
 import codersafterdark.reskillable.common.network.PacketHandler;
-import com.google.common.collect.Maps;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
-import org.apache.commons.lang3.tuple.Pair;
-import org.apache.logging.log4j.Level;
-
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 public class ReskillableModAccess implements IModAccess {
     @Override

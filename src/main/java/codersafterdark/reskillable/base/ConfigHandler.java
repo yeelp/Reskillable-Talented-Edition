@@ -1,13 +1,13 @@
 package codersafterdark.reskillable.base;
 
+import java.io.File;
+
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;
 import net.minecraftforge.fml.client.event.ConfigChangedEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.io.File;
 
 public class ConfigHandler {
     public static Configuration config;

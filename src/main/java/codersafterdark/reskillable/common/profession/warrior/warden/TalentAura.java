@@ -1,19 +1,20 @@
 package codersafterdark.reskillable.common.profession.warrior.warden;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.fantasticsource.dynamicstealth.server.Attributes;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.event.LockTalentEvent;
 import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
-import com.fantasticsource.dynamicstealth.server.Attributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentAura extends Talent {
 

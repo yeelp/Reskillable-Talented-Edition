@@ -11,7 +11,7 @@ public class SkillConfig {
     private Map<Integer, Integer> levelStaggering;
 
     public boolean isEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -19,7 +19,7 @@ public class SkillConfig {
     }
 
     public boolean hasLevelButton() {
-        return levelButton;
+        return this.levelButton;
     }
 
     public void setLevelButton(boolean button) {
@@ -27,7 +27,7 @@ public class SkillConfig {
     }
 
     public int getLevelCap() {
-        return levelCap;
+        return this.levelCap;
     }
 
     public void setLevelCap(int levelCap) {
@@ -35,7 +35,7 @@ public class SkillConfig {
     }
 
     public int getSkillPointInterval() {
-        return skillPointInterval;
+        return this.skillPointInterval;
     }
 
     public void setSkillPointInterval(int skillPointInterval) {
@@ -43,7 +43,7 @@ public class SkillConfig {
     }
 
     public int getBaseLevelCost() {
-        return baseLevelCost;
+        return this.baseLevelCost;
     }
 
     public void setBaseLevelCost(int baseLevelCost) {
@@ -51,7 +51,7 @@ public class SkillConfig {
     }
 
     public Map<Integer, Integer> getLevelStaggering() {
-        return levelStaggering;
+        return this.levelStaggering;
     }
 
     public void setLevelStaggering(Map<Integer, Integer> levelStaggering) {

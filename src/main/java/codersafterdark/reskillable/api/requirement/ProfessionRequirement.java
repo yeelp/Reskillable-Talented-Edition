@@ -1,12 +1,12 @@
 package codersafterdark.reskillable.api.requirement;
 
+import java.util.Objects;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.profession.Profession;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import java.util.Objects;
 
 public class ProfessionRequirement extends Requirement {
     private final Profession profession;
@@ -21,30 +21,30 @@ public class ProfessionRequirement extends Requirement {
 
     @Override
     public boolean achievedByPlayer(EntityPlayer entityPlayer) {
-        return PlayerDataHandler.get(entityPlayer).getProfessionInfo(profession).getLevel() >= level;
+        return PlayerDataHandler.get(entityPlayer).getProfessionInfo(this.profession).getLevel() >= this.level;
     }
 
     public Profession getProfession() {
-        return profession;
+        return this.profession;
     }
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     @Override
     public RequirementComparison matches(Requirement other) {
         if (other instanceof ProfessionRequirement) {
             ProfessionRequirement professionRequirement = (ProfessionRequirement) other;
-            if (profession == null || professionRequirement.profession == null) {
+            if (this.profession == null || professionRequirement.profession == null) {
                 //If they are both invalid don't bother checking the level.
                 return RequirementComparison.NOT_EQUAL;
             }
-            if (profession.getKey().equals(professionRequirement.profession.getKey())) {
-                if (level == professionRequirement.level) {
+            if (this.profession.getKey().equals(professionRequirement.profession.getKey())) {
+                if (this.level == professionRequirement.level) {
                     return RequirementComparison.EQUAL_TO;
                 }
-                return level > professionRequirement.level ? RequirementComparison.GREATER_THAN : RequirementComparison.LESS_THAN;
+                return this.level > professionRequirement.level ? RequirementComparison.GREATER_THAN : RequirementComparison.LESS_THAN;
             }
         }
         return RequirementComparison.NOT_EQUAL;
@@ -52,7 +52,7 @@ public class ProfessionRequirement extends Requirement {
 
     @Override
     public boolean isEnabled() {
-        return profession != null && profession.isEnabled();
+        return this.profession != null && this.profession.isEnabled();
     }
 
     @Override
@@ -62,14 +62,14 @@ public class ProfessionRequirement extends Requirement {
         }
         if (o instanceof ProfessionRequirement) {
             ProfessionRequirement pReq = (ProfessionRequirement) o;
-            return profession.equals(pReq.profession) && level == pReq.level;
+            return this.profession.equals(pReq.profession) && this.level == pReq.level;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(profession, level);
+        return Objects.hash(this.profession, this.level);
     }
 
 }

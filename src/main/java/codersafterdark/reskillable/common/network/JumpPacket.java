@@ -11,10 +11,12 @@ public class JumpPacket implements IMessage, IMessageHandler<JumpPacket, IMessag
 
     @Override
     public void fromBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
@@ -23,7 +25,8 @@ public class JumpPacket implements IMessage, IMessageHandler<JumpPacket, IMessag
         return null;
     }
 
-    public IMessage handleMessage(MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageContext context) {
         EntityPlayerMP player = context.getServerHandler().player;
         player.server.addScheduledTask(() -> {
             player.fallDistance = 0;

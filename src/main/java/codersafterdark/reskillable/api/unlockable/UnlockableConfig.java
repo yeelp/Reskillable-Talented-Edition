@@ -11,7 +11,7 @@ public class UnlockableConfig {
     private RequirementHolder requirementHolder = RequirementHolder.realEmpty();
 
     public int getCost() {
-        return cost;
+        return this.cost;
     }
 
     public void setCost(int cost) {
@@ -20,7 +20,7 @@ public class UnlockableConfig {
     }
 
     public RequirementHolder getRequirementHolder() {
-        return requirementHolder;
+        return this.requirementHolder;
     }
 
     public void setRequirementHolder(RequirementHolder requirementHolder) {
@@ -28,7 +28,7 @@ public class UnlockableConfig {
     }
 
     public boolean isEnabled() {
-        return enabled;
+        return this.enabled;
     }
 
     public void setEnabled(boolean enabled) {
@@ -36,7 +36,7 @@ public class UnlockableConfig {
     }
 
     public int getX() {
-        return x;
+        return this.x;
     }
 
     public void setX(int x) {
@@ -44,7 +44,7 @@ public class UnlockableConfig {
     }
 
     public int getY() {
-        return y;
+        return this.y;
     }
 
     public void setY(int y) {
@@ -53,6 +53,6 @@ public class UnlockableConfig {
 
     public void setRankCap(int cap) {this.rankCap = cap;}
 
-    public int getRankCap() {return rankCap;}
+    public int getRankCap() {return this.rankCap;}
 
 }

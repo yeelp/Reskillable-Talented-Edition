@@ -1,9 +1,9 @@
 package codersafterdark.reskillable.common.profession.warrior.berserker;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.util.ResourceLocation;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentBerserkAdvanced extends Talent {
     public TalentBerserkAdvanced() {

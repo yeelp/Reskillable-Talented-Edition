@@ -1,10 +1,10 @@
 package codersafterdark.reskillable.common.profession.rogue.archer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentResourceful extends Talent {
 

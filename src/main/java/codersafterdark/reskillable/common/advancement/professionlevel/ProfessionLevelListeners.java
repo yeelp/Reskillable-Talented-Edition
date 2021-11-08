@@ -1,7 +1,7 @@
 package codersafterdark.reskillable.common.advancement.professionlevel;
 
-import codersafterdark.reskillable.common.advancement.CriterionListeners;
 import codersafterdark.reskillable.api.profession.Profession;
+import codersafterdark.reskillable.common.advancement.CriterionListeners;
 import net.minecraft.advancements.PlayerAdvancements;
 
 public class ProfessionLevelListeners extends CriterionListeners<ProfessionLevelCriterionInstance> {

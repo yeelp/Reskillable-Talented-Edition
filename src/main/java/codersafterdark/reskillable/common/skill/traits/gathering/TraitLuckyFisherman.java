@@ -1,12 +1,12 @@
 package codersafterdark.reskillable.common.skill.traits.gathering;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitLuckyFisherman extends Trait {
     public TraitLuckyFisherman() {

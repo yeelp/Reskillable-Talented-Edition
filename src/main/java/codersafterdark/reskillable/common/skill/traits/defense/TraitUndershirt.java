@@ -1,12 +1,12 @@
 package codersafterdark.reskillable.common.skill.traits.defense;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitUndershirt extends Trait {
     private static final String TAG_COOLDOWN = "skillable:UndershirtCD";

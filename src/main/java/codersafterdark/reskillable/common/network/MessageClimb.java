@@ -18,21 +18,21 @@ public class MessageClimb implements IMessage {
     public MessageClimb(byte[] dataToSet) {
         if (dataToSet.length > 2097136) {
             throw new IllegalArgumentException("Payload may not be larger than 2097136 (0x1ffff0) bytes");
-        } else {
-            this.data = dataToSet;
         }
+		this.data = dataToSet;
     }
 
-    public void toBytes(ByteBuf buffer) {
+    @Override
+	public void toBytes(ByteBuf buffer) {
         if (this.data.length > 2097136) {
             throw new IllegalArgumentException("Payload may not be larger than 2097136 (0x1ffff0) bytes");
-        } else {
-            buffer.writeShort(this.data.length);
-            buffer.writeBytes(this.data);
         }
+		buffer.writeShort(this.data.length);
+		buffer.writeBytes(this.data);
     }
 
-    public void fromBytes(ByteBuf buffer) {
+    @Override
+	public void fromBytes(ByteBuf buffer) {
         this.data = new byte[buffer.readShort()];
         buffer.readBytes(this.data);
     }

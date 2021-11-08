@@ -18,7 +18,7 @@ public final class NoneRequirement extends Requirement {
 
     @Override
     public String getToolTip(PlayerData data) {
-        return tooltip;
+        return this.tooltip;
     }
 
     @Override

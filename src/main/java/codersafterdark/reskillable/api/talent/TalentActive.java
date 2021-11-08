@@ -16,11 +16,11 @@ public class TalentActive extends Talent {
     }
 
     public int getCooldown() {
-        return cooldown;
+        return this.cooldown;
     }
 
     public int getDefaultCooldown() {
-        return defaultCooldown;
+        return this.defaultCooldown;
     }
 
 }

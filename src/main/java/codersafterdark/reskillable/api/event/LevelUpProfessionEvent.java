@@ -2,8 +2,8 @@ package codersafterdark.reskillable.api.event;
 
 import codersafterdark.reskillable.api.profession.Profession;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraftforge.fml.common.eventhandler.Cancelable;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.eventhandler.Cancelable;
 
 public class LevelUpProfessionEvent extends PlayerEvent {
     private Profession profession;
@@ -17,14 +17,14 @@ public class LevelUpProfessionEvent extends PlayerEvent {
         this.oldLevel = oldLevel;
     }
 
-    public Profession getProfession() {return profession;}
+    public Profession getProfession() {return this.profession;}
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     public int getOldLevel() {
-        return oldLevel;
+        return this.oldLevel;
     }
 
     @Cancelable

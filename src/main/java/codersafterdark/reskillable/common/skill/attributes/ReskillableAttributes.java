@@ -23,7 +23,8 @@ public class ReskillableAttributes {
             LibMisc.MOD_ID + ".damageResistance",
             0.0, 0.0, 100.0).setShouldWatch(true);
 
-    @SubscribeEvent
+    @SuppressWarnings("static-method")
+	@SubscribeEvent
     public void onPlayerConstruction(EntityEvent.EntityConstructing event) {
         if (event.getEntity() instanceof EntityPlayer) {
             AbstractAttributeMap plAttributes = ((EntityPlayer) event.getEntity()).getAttributeMap();

@@ -1,5 +1,11 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+import java.util.Set;
+import java.util.function.Consumer;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.talent.Talent;
@@ -8,12 +14,6 @@ import codersafterdark.reskillable.api.unlockable.IAbilityEventHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
-import java.util.function.Consumer;
 
 public class PlayerProfessionInfo {
     private static final String TAG_LEVEL = "level";
@@ -28,82 +28,82 @@ public class PlayerProfessionInfo {
 
     public PlayerProfessionInfo(Profession profession) {
         this.profession = profession;
-        level = 0;
+        this.level = 0;
         respec();
     }
 
     public void loadFromNBT(NBTTagCompound cmp) {
-        level = cmp.getInteger(TAG_LEVEL);
-        skillPoints = cmp.getInteger(TAG_SKILL_POINTS);
+        this.level = cmp.getInteger(TAG_LEVEL);
+        this.skillPoints = cmp.getInteger(TAG_SKILL_POINTS);
 
-        talents.clear();
+        this.talents.clear();
         NBTTagCompound talentsCmp = cmp.getCompoundTag(TAG_TALENTS);
 
         for (String s : talentsCmp.getKeySet()) {
             Optional.ofNullable(ReskillableRegistries.TALENTS.getValue(new ResourceLocation(s.replace(".", ":"))))
-                    .ifPresent(talents::add);
+                    .ifPresent(this.talents::add);
         }
     }
 
     public void saveToNBT(NBTTagCompound cmp) {
-        cmp.setInteger(TAG_LEVEL, level);
-        cmp.setInteger(TAG_SKILL_POINTS, skillPoints);
+        cmp.setInteger(TAG_LEVEL, this.level);
+        cmp.setInteger(TAG_SKILL_POINTS, this.skillPoints);
 
         NBTTagCompound talentsCmp = new NBTTagCompound();
-        for (Talent t : talents) {
+        for (Talent t : this.talents) {
             talentsCmp.setBoolean(t.getKey(), true);
         }
         cmp.setTag(TAG_TALENTS, talentsCmp);
     }
 
     public int getLevel() {
-        if (level > profession.getCap()) {
-            level = profession.getCap();
+        if (this.level > this.profession.getCap()) {
+            this.level = this.profession.getCap();
         }
 
-        return level;
+        return this.level;
     }
 
     public void setLevel(int level) {
-        int interval = profession.getSkillPointInterval();
-        skillPoints += level / interval - this.level / interval;
+        int interval = this.profession.getSkillPointInterval();
+        this.skillPoints += level / interval - this.level / interval;
         this.level = level;
     }
 
     public int getRank() {
-        return profession.getRank(level);
+        return this.profession.getRank(this.level);
     }
 
     public int getSkillPoints() {return this.skillPoints;}
 
     public void spendSkillPoints(int amount) {
-        skillPoints -= amount;
+        this.skillPoints -= amount;
     }
 
     public int getProfessionPoints() {
-        return skillPoints;
+        return this.skillPoints;
     }
 
     public boolean isCapped() {
-        return level >= profession.getCap();
+        return this.level >= this.profession.getCap();
     }
 
     public int getLevelUpCost() {
-        return profession.getLevelUpCost(level);
+        return this.profession.getLevelUpCost(this.level);
     }
 
-    public boolean isUnlocked(Talent t) {return talents.contains(t);}
+    public boolean isUnlocked(Talent t) {return this.talents.contains(t);}
 
     //TODO decide if this should just call setLevel(level + 1);
     public void levelUp() {
-        level++;
-        if (level % profession.getSkillPointInterval() == 0) {
-            skillPoints++;
+        this.level++;
+        if (this.level % this.profession.getSkillPointInterval() == 0) {
+            this.skillPoints++;
         }
     }
 
     public void addActiveTalents(Set<TalentActive> activeTalents) {
-        for (Talent t : talents) {
+        for (Talent t : this.talents) {
             if (t instanceof TalentActive) {
                 activeTalents.add((TalentActive) t);
             }
@@ -111,25 +111,25 @@ public class PlayerProfessionInfo {
     }
 
     public void lock(Talent t, EntityPlayer p) {
-        skillPoints += t.getCost();
-        talents.remove(t);
+        this.skillPoints += t.getCost();
+        this.talents.remove(t);
         t.onLock(p);
     }
 
     public void unlock(Talent u, EntityPlayer p) {
-        skillPoints -= u.getCost();
-        talents.add(u);
+        this.skillPoints -= u.getCost();
+        this.talents.add(u);
         PlayerDataHandler.get(p).getTalentInfo(u).levelUp();
         u.onUnlock(p);
     }
 
     public void respec() {
-        talents.clear();
-        skillPoints = level / profession.getSkillPointInterval();
+        this.talents.clear();
+        this.skillPoints = this.level / this.profession.getSkillPointInterval();
     }
 
     public void forEachEventHandler(Consumer<IAbilityEventHandler> consumer) {
-        talents.forEach(t -> {
+        this.talents.forEach(t -> {
             if (t.isEnabled() && t instanceof IAbilityEventHandler) {
                 consumer.accept((IAbilityEventHandler) t);
             }

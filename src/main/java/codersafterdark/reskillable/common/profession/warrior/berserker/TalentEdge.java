@@ -1,20 +1,16 @@
 package codersafterdark.reskillable.common.profession.warrior.berserker;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
-import codersafterdark.reskillable.api.event.LockTalentEvent;
-import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
-import codersafterdark.reskillable.common.profession.rogue.assassin.TalentShadow;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import zabi.minecraft.extraalchemy.potion.PotionReference;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentEdge extends Talent {
     public TalentEdge() {

@@ -28,14 +28,14 @@ public class MessageLockedItem implements IMessage, IMessageHandler<MessageLocke
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        stack = ByteBufUtils.readItemStack(buf);
-        msg = ByteBufUtils.readUTF8String(buf);
+        this.stack = ByteBufUtils.readItemStack(buf);
+        this.msg = ByteBufUtils.readUTF8String(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeItemStack(buf, stack);
-        ByteBufUtils.writeUTF8String(buf, msg);
+        ByteBufUtils.writeItemStack(buf, this.stack);
+        ByteBufUtils.writeUTF8String(buf, this.msg);
     }
 
     @Override
@@ -46,7 +46,8 @@ public class MessageLockedItem implements IMessage, IMessageHandler<MessageLocke
         return null;
     }
 
-    public IMessage handleMessage(MessageLockedItem message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageLockedItem message, @SuppressWarnings("unused") MessageContext ctx) {
         HUDHandler.setLockMessage(message.stack, message.msg);
         return null;
     }

@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.api.toast;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.toasts.GuiToast;
 import net.minecraft.client.gui.toasts.IToast;
@@ -7,8 +9,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 @SideOnly(Side.CLIENT)
 public abstract class AbstractToast implements IToast {
@@ -43,10 +43,11 @@ public abstract class AbstractToast implements IToast {
         if (hasImage) {
             renderImage(guiToast);
         }
-        return l - this.firstDrawTime >= displayTime ? Visibility.HIDE : Visibility.SHOW;
+        return l - this.firstDrawTime >= this.displayTime ? Visibility.HIDE : Visibility.SHOW;
     }
 
-    protected void bindImage(GuiToast guiToast, ResourceLocation sprite) {
+    @SuppressWarnings("static-method")
+	protected void bindImage(GuiToast guiToast, ResourceLocation sprite) {
         guiToast.getMinecraft().renderEngine.bindTexture(sprite);
         GlStateManager.color(1.0F, 1.0F, 1.0F);
     }

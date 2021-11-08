@@ -1,11 +1,11 @@
 package codersafterdark.reskillable.common.advancement.professionlevel;
 
+import javax.annotation.Nullable;
+
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 
 public class ProfessionLevelCriterionInstance extends AbstractCriterionInstance {
     private final Profession profession;

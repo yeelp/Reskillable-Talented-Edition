@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.attack;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.common.lib.LibObfuscation;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -10,8 +12,7 @@ import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
-
+@SuppressWarnings("deprecation")
 public class TraitNeutralissse extends Trait {
     private static final String TAG_DEFUSED = "skillable:defuse";
 
@@ -35,7 +36,8 @@ public class TraitNeutralissse extends Trait {
         }
     }
 
-    @SubscribeEvent
+    @SuppressWarnings("static-method")
+	@SubscribeEvent
     public void entityTick(LivingUpdateEvent event) {
         if (!event.isCanceled() && event.getEntity() instanceof EntityCreeper) {
             EntityCreeper creeper = (EntityCreeper) event.getEntity();

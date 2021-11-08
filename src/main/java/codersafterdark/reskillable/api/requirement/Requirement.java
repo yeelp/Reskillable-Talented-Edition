@@ -22,16 +22,18 @@ public abstract class Requirement {
     }
 
     //Mainly used for skills and traits. If this is false then using this requirement will log an error and ignore the requirement
-    public boolean isEnabled() {
+    @SuppressWarnings("static-method")
+	public boolean isEnabled() {
         return true;
     }
 
     //Should only be used if people know what they are doing
     public final String internalToolTip() {
-        return tooltip;
+        return this.tooltip;
     }
 
-    public boolean isCacheable() {
+    @SuppressWarnings("static-method")
+	public boolean isCacheable() {
         return true;
     }
 }

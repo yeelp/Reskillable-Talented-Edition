@@ -17,14 +17,14 @@ public class UpgradeTalentEvent extends PlayerEvent {
         this.oldRank = oldRank;
     }
 
-    public Talent getTalent() {return talent;}
+    public Talent getTalent() {return this.talent;}
 
     public int getLevel() {
-        return rank;
+        return this.rank;
     }
 
     public int getOldLevel() {
-        return oldRank;
+        return this.oldRank;
     }
 
     @Cancelable

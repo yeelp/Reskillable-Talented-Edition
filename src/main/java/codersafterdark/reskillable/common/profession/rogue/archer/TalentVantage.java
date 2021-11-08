@@ -1,23 +1,18 @@
 package codersafterdark.reskillable.common.profession.rogue.archer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
-import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.network.MessageClimb;
 import codersafterdark.reskillable.common.network.PacketHandler;
-import com.fantasticsource.dynamicstealth.common.ClientData;
-import com.tmtravlr.potioncore.network.CToSMessage;
-import com.tmtravlr.potioncore.potion.PotionClimb;
 import io.netty.buffer.Unpooled;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.network.PacketBuffer;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentVantage extends Talent {
 

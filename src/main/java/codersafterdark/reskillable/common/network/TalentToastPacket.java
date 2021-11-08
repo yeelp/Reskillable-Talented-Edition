@@ -36,7 +36,8 @@ public class TalentToastPacket implements IMessage, IMessageHandler<TalentToastP
         return null;
     }
 
-    public IMessage handleMessage(TalentToastPacket message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(TalentToastPacket message, @SuppressWarnings("unused") MessageContext ctx) {
         ToastHelper.sendTalentToast(ReskillableRegistries.TALENTS.getValue(message.talentName));
         return null;
     }

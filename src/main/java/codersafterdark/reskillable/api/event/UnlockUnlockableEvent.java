@@ -14,7 +14,7 @@ public class UnlockUnlockableEvent extends PlayerEvent {
     }
 
     public Unlockable getUnlockable() {
-        return unlockable;
+        return this.unlockable;
     }
 
     @Cancelable

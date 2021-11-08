@@ -1,12 +1,16 @@
 package codersafterdark.reskillable.client.core;
 
-import codersafterdark.reskillable.common.core.CommonProxy;
-import codersafterdark.reskillable.common.core.handler.ToolTipHandler;
+import java.util.Optional;
+
+import javax.annotation.Nullable;
+
 import codersafterdark.reskillable.client.core.handler.ClientTickHandler;
 import codersafterdark.reskillable.client.core.handler.HUDHandler;
 import codersafterdark.reskillable.client.gui.compat.SeasonsOverlay;
 import codersafterdark.reskillable.client.gui.handler.InventoryTabHandler;
 import codersafterdark.reskillable.client.gui.handler.KeyBindings;
+import codersafterdark.reskillable.common.core.CommonProxy;
+import codersafterdark.reskillable.common.core.handler.ToolTipHandler;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.advancements.AdvancementProgress;
@@ -21,9 +25,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
-import java.util.Optional;
 
 @SideOnly(Side.CLIENT)
 public class ClientProxy extends CommonProxy {
@@ -49,7 +50,7 @@ public class ClientProxy extends CommonProxy {
     }
 
     @SubscribeEvent
-    public static void connect(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+    public static void connect(@SuppressWarnings("unused") FMLNetworkEvent.ClientConnectedToServerEvent event) {
         new AdvancementManager(null);
     }
 

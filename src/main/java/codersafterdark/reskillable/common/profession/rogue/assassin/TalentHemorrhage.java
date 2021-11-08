@@ -1,9 +1,14 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import java.util.Random;
+
+import com.oblivioussp.spartanweaponry.item.ItemDagger;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
-import com.oblivioussp.spartanweaponry.item.ItemDagger;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
@@ -11,10 +16,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Random;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentHemorrhage extends Talent {
     Random rand = new Random();
@@ -32,7 +33,7 @@ public class TalentHemorrhage extends Talent {
             if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this) && player.getHeldEquipment().iterator().next().getItem() instanceof ItemDagger) {
                 float bleedChance = 15.0F * PlayerDataHandler.get(player).getTalentInfo(this).getRank();
                 bleedChance /= 100.0F;
-                if (!player.onGround && player.fallDistance > 0.0 && bleedChance >= rand.nextFloat()) {
+                if (!player.onGround && player.fallDistance > 0.0 && bleedChance >= this.rand.nextFloat()) {
                     event.getEntityLiving().addPotionEffect(new PotionEffect(ReskillablePotion.POTION_BLEED_EFFECT, 120));
                     player.sendMessage(new TextComponentString("Bleed Inflicted"));
                 }

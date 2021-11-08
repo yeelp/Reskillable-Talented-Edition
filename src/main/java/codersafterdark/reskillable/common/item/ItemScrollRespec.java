@@ -1,5 +1,10 @@
 package codersafterdark.reskillable.common.item;
 
+import java.util.Collection;
+import java.util.Iterator;
+
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
@@ -10,15 +15,16 @@ import dynamicswordskills.entity.DSSPlayerInfo;
 import dynamicswordskills.skills.SkillBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.Loader;
-
-import javax.annotation.Nonnull;
-import java.util.Collection;
-import java.util.Iterator;
 
 public class ItemScrollRespec extends ReskillableItem {
 
@@ -37,7 +43,7 @@ public class ItemScrollRespec extends ReskillableItem {
 
         if (world.isRemote) {
             while (var8.hasNext()) {
-                PlayerSkillInfo skillInfo = (PlayerSkillInfo)var8.next();
+                PlayerSkillInfo skillInfo = var8.next();
                 int oldLevel = skillInfo.getLevel();
                 if (!MinecraftForge.EVENT_BUS.post(new LevelUpEvent.Pre(player, skillInfo.skill, 1, oldLevel))) {
                     skillInfo.setLevel(1);

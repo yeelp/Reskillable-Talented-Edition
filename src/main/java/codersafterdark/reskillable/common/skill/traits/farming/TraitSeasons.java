@@ -1,9 +1,9 @@
 package codersafterdark.reskillable.common.skill.traits.farming;
 
-    import codersafterdark.reskillable.api.unlockable.Trait;
-import net.minecraft.util.ResourceLocation;
+    import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+import codersafterdark.reskillable.api.unlockable.Trait;
+import net.minecraft.util.ResourceLocation;
 
 public class TraitSeasons extends Trait {
 

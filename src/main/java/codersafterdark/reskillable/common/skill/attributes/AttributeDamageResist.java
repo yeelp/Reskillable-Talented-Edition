@@ -7,7 +7,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class AttributeDamageResist {
 
-    @SubscribeEvent
+    @SuppressWarnings("static-method")
+	@SubscribeEvent
     public void onHurt(LivingHurtEvent event) {
         if (event.isCanceled() || !(event.getEntityLiving() instanceof EntityPlayer)){
             return;

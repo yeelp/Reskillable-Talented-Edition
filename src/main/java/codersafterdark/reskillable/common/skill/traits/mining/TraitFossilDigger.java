@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.mining;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.common.core.ConditionHelper;
 import net.minecraft.block.state.IBlockState;
@@ -12,8 +14,6 @@ import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitFossilDigger extends Trait {
     public TraitFossilDigger() {

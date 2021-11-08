@@ -15,8 +15,8 @@ public class TalentToast extends AbstractToast{
 
     @Override
     protected void renderImage(GuiToast guiToast) {
-        bindImage(guiToast, talent.getIcon());
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 16, 16, 16, 16);
+        bindImage(guiToast, this.talent.getIcon());
+        Gui.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, 0, 16, 16, 16, 16);
     }
 
     @Override

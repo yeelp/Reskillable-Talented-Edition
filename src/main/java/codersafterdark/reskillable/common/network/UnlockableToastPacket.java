@@ -36,7 +36,8 @@ public class UnlockableToastPacket implements IMessage, IMessageHandler<Unlockab
         return null;
     }
 
-    public IMessage handleMessage(UnlockableToastPacket message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(UnlockableToastPacket message, @SuppressWarnings("unused") MessageContext ctx) {
         ToastHelper.sendUnlockableToast(ReskillableRegistries.UNLOCKABLES.getValue(message.unlockableName));
         return null;
     }

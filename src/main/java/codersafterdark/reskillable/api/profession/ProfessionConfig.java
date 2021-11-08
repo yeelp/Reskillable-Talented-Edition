@@ -10,14 +10,14 @@ public class ProfessionConfig {
     private int baseLevelCost = 3;
     private Map<Integer, Integer> levelStaggering;
 
-    public boolean isEnabled() {return enabled;}
+    public boolean isEnabled() {return this.enabled;}
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
     public boolean hasLevelButton() {
-        return levelButton;
+        return this.levelButton;
     }
 
     public void setLevelButton(boolean button) {
@@ -25,7 +25,7 @@ public class ProfessionConfig {
     }
 
     public int getLevelCap() {
-        return levelCap;
+        return this.levelCap;
     }
 
     public void setLevelCap(int levelCap) {
@@ -33,7 +33,7 @@ public class ProfessionConfig {
     }
 
     public int getSkillPointInterval() {
-        return skillPointInterval;
+        return this.skillPointInterval;
     }
 
     public void setSkillPointInterval(int skillPointInterval) {
@@ -41,7 +41,7 @@ public class ProfessionConfig {
     }
 
     public int getBaseLevelCost() {
-        return baseLevelCost;
+        return this.baseLevelCost;
     }
 
     public void setBaseLevelCost(int baseLevelCost) {
@@ -49,7 +49,7 @@ public class ProfessionConfig {
     }
 
     public Map<Integer, Integer> getLevelStaggering() {
-        return levelStaggering;
+        return this.levelStaggering;
     }
 
     public void setLevelStaggering(Map<Integer, Integer> levelStaggering) {

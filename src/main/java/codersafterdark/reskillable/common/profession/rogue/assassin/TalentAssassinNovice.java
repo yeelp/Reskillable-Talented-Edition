@@ -1,14 +1,15 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.fantasticsource.dynamicstealth.server.event.attacks.StealthAttackEvent;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
-import com.fantasticsource.dynamicstealth.server.event.attacks.StealthAttackEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentAssassinNovice extends Talent {
     public TalentAssassinNovice() {

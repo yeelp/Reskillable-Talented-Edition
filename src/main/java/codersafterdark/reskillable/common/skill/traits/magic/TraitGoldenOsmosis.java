@@ -26,7 +26,8 @@ public class TraitGoldenOsmosis extends Trait {
         }
     }
 
-    private void tryRepair(EntityPlayer player, ItemStack stack) {
+    @SuppressWarnings("static-method")
+	private void tryRepair(EntityPlayer player, ItemStack stack) {
         if (!stack.isEmpty()) {
             int damage = stack.getItemDamage();
             if (damage > 2) {

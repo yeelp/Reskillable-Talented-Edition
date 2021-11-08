@@ -11,7 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 @Mod.EventBusSubscriber(value = Side.CLIENT, modid = LibMisc.MOD_ID)
 public final class ModelHandler {
     @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent evt) {
+    public static void registerModels(@SuppressWarnings("unused") ModelRegistryEvent evt) {
         for (Item item : Item.REGISTRY) {
             if (item instanceof IModelRegister)
                 ((IModelRegister) item).registerModels();

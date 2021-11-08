@@ -1,7 +1,7 @@
 package codersafterdark.reskillable.common.advancement.skilllevel;
 
-import codersafterdark.reskillable.common.advancement.CriterionListeners;
 import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.common.advancement.CriterionListeners;
 import net.minecraft.advancements.PlayerAdvancements;
 
 public class SkillLevelListeners extends CriterionListeners<SkillLevelCriterionInstance> {

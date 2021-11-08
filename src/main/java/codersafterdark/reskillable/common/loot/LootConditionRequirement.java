@@ -1,25 +1,32 @@
 package codersafterdark.reskillable.common.loot;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+import javax.annotation.Nonnull;
+import javax.annotation.ParametersAreNonnullByDefault;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSerializationContext;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.common.lib.LibMisc;
-import com.google.gson.*;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.conditions.LootCondition;
 
-import javax.annotation.Nonnull;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
 public class LootConditionRequirement implements LootCondition {
     private final RequirementHolder requirementHolder;
-    private final boolean requiresPlayer;
-    private final String[] requirements;
+    final boolean requiresPlayer;
+    final String[] requirements;
 
     public LootConditionRequirement(boolean requiresPlayer, String[] requirements) {
         this.requiresPlayer = requiresPlayer;
@@ -32,8 +39,8 @@ public class LootConditionRequirement implements LootCondition {
     @ParametersAreNonnullByDefault
     public boolean testCondition(Random rand, LootContext context) {
         return context.getKillerPlayer() instanceof EntityPlayer ?
-                PlayerDataHandler.get((EntityPlayer) context.getKillerPlayer()).matchStats(requirementHolder) :
-                !requiresPlayer;
+                PlayerDataHandler.get((EntityPlayer) context.getKillerPlayer()).matchStats(this.requirementHolder) :
+                !this.requiresPlayer;
     }
 
     public static class Serializer extends LootCondition.Serializer<LootConditionRequirement> {

@@ -1,9 +1,9 @@
 package codersafterdark.reskillable.common.profession;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.profession.Profession;
 import net.minecraft.util.ResourceLocation;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class ProfessionFarmer extends Profession {
     public ProfessionFarmer() {

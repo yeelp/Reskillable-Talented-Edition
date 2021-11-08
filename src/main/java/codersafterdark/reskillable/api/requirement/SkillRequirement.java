@@ -1,12 +1,12 @@
 package codersafterdark.reskillable.api.requirement;
 
+import java.util.Objects;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.skill.Skill;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-
-import java.util.Objects;
 
 public class SkillRequirement extends Requirement {
     private final Skill skill;
@@ -21,30 +21,30 @@ public class SkillRequirement extends Requirement {
 
     @Override
     public boolean achievedByPlayer(EntityPlayer entityPlayer) {
-        return PlayerDataHandler.get(entityPlayer).getSkillInfo(skill).getLevel() >= level;
+        return PlayerDataHandler.get(entityPlayer).getSkillInfo(this.skill).getLevel() >= this.level;
     }
 
     public Skill getSkill() {
-        return skill;
+        return this.skill;
     }
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     @Override
     public RequirementComparison matches(Requirement other) {
         if (other instanceof SkillRequirement) {
             SkillRequirement skillRequirement = (SkillRequirement) other;
-            if (skill == null || skillRequirement.skill == null) {
+            if (this.skill == null || skillRequirement.skill == null) {
                 //If they are both invalid don't bother checking the level.
                 return RequirementComparison.NOT_EQUAL;
             }
-            if (skill.getKey().equals(skillRequirement.skill.getKey())) {
-                if (level == skillRequirement.level) {
+            if (this.skill.getKey().equals(skillRequirement.skill.getKey())) {
+                if (this.level == skillRequirement.level) {
                     return RequirementComparison.EQUAL_TO;
                 }
-                return level > skillRequirement.level ? RequirementComparison.GREATER_THAN : RequirementComparison.LESS_THAN;
+                return this.level > skillRequirement.level ? RequirementComparison.GREATER_THAN : RequirementComparison.LESS_THAN;
             }
         }
         return RequirementComparison.NOT_EQUAL;
@@ -52,7 +52,7 @@ public class SkillRequirement extends Requirement {
 
     @Override
     public boolean isEnabled() {
-        return skill != null && skill.isEnabled();
+        return this.skill != null && this.skill.isEnabled();
     }
 
     @Override
@@ -62,13 +62,13 @@ public class SkillRequirement extends Requirement {
         }
         if (o instanceof SkillRequirement) {
             SkillRequirement sReq = (SkillRequirement) o;
-            return skill.equals(sReq.skill) && level == sReq.level;
+            return this.skill.equals(sReq.skill) && this.level == sReq.level;
         }
         return false;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(skill, level);
+        return Objects.hash(this.skill, this.level);
     }
 }

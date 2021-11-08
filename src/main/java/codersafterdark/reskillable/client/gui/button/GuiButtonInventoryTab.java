@@ -1,5 +1,9 @@
 package codersafterdark.reskillable.client.gui.button;
 
+import java.util.function.Predicate;
+
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.client.gui.GuiSkills;
@@ -11,9 +15,6 @@ import net.minecraft.client.gui.inventory.GuiContainerCreative;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.util.text.TextComponentTranslation;
-
-import javax.annotation.Nonnull;
-import java.util.function.Predicate;
 
 public class GuiButtonInventoryTab extends GuiButton {
     public final TabType type;
@@ -27,14 +28,14 @@ public class GuiButtonInventoryTab extends GuiButton {
 
     @Override
     public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY, float f) {
-        enabled = type.shouldRender() && !mc.player.getRecipeBook().isGuiOpen();
+        this.enabled = this.type.shouldRender() && !mc.player.getRecipeBook().isGuiOpen();
 
         GuiScreen curr = mc.currentScreen;
         if (curr instanceof GuiContainerCreative && ((GuiContainerCreative) curr).getSelectedTabIndex() != CreativeTabs.INVENTORY.getIndex()) {
-            enabled = false;
+            this.enabled = false;
         }
 
-        if (enabled) {
+        if (this.enabled) {
             GlStateManager.color(1F, 1F, 1F);
             mc.renderEngine.bindTexture(GuiSkills.SKILLS_RES);
 
@@ -42,8 +43,8 @@ public class GuiButtonInventoryTab extends GuiButton {
             int y = this.y;
             int u = 176;
             int v = 0;
-            int w = width;
-            int h = height;
+            int w = this.width;
+            int h = this.height;
 
             if (isSelected()) {
                 x += 4;
@@ -51,10 +52,10 @@ public class GuiButtonInventoryTab extends GuiButton {
             }
 
             drawTexturedModalRect(x, y, u, v, w, h);
-            drawTexturedModalRect(this.x + 12, y + 6, 176 + type.iconIndex * 16, 28, 16, 16);
+            drawTexturedModalRect(this.x + 12, y + 6, 176 + this.type.iconIndex * 16, 28, 16, 16);
 
-            if (mouseX > this.x && mouseY > this.y && mouseX < this.x + width && mouseY < this.y + height) {
-                InventoryTabHandler.tooltip = new TextComponentTranslation("reskillable.tab." + type.name().toLowerCase()).getUnformattedComponentText();
+            if (mouseX > this.x && mouseY > this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
+                InventoryTabHandler.tooltip = new TextComponentTranslation("reskillable.tab." + this.type.name().toLowerCase()).getUnformattedComponentText();
                 InventoryTabHandler.mx = mouseX;
                 InventoryTabHandler.my = mouseY;
             }
@@ -62,7 +63,7 @@ public class GuiButtonInventoryTab extends GuiButton {
     }
 
     public boolean isSelected() {
-        return selectedPred.test(Minecraft.getMinecraft().currentScreen);
+        return this.selectedPred.test(Minecraft.getMinecraft().currentScreen);
     }
 
     public enum TabType {
@@ -76,14 +77,14 @@ public class GuiButtonInventoryTab extends GuiButton {
         TabType(int iconIndex, Predicate<PlayerData> render) {
             this.iconIndex = iconIndex;
             this.renderPred = render;
-            if (renderPred == null) {
-                renderPred = data -> true;
+            if (this.renderPred == null) {
+                this.renderPred = data -> true;
             }
         }
 
         public boolean shouldRender() {
             PlayerData data = PlayerDataHandler.get(Minecraft.getMinecraft().player);
-            return data != null && renderPred.test(data);
+            return data != null && this.renderPred.test(data);
         }
     }
 }

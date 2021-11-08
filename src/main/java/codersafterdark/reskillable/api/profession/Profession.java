@@ -1,16 +1,21 @@
 package codersafterdark.reskillable.api.profession;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import javax.annotation.Nonnull;
+
+import org.apache.commons.lang3.tuple.MutablePair;
+import org.apache.commons.lang3.tuple.Pair;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import org.apache.commons.lang3.tuple.MutablePair;
-import org.apache.commons.lang3.tuple.Pair;
-
-import javax.annotation.Nonnull;
-import java.util.*;
 
 public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> implements Comparable<Profession> {
     private final Map<Integer, ResourceLocation> customSprites = new HashMap<>();
@@ -39,21 +44,21 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     }
 
     public List<SubProfession> getAllSubProfessions() {
-        return subProfessions;
+        return this.subProfessions;
     }
 
-    public void addTalent(Talent talent) {talents.add(talent);}
+    public void addTalent(Talent talent) {this.talents.add(talent);}
 
-    public List<Talent> getTalents() {return talents;}
+    public List<Talent> getTalents() {return this.talents;}
 
-    public String getKey() {return name;}
+    public String getKey() {return this.name;}
 
     public String getName() {
         return new TextComponentTranslation("reskillable.profession." + getKey()).getUnformattedComponentText();
     }
 
     public ResourceLocation getBackground() {
-        return background;
+        return this.background;
     }
 
     public void setBackground(ResourceLocation resourceLocation) {
@@ -61,15 +66,15 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     }
 
     public int getCap() {
-        return professionConfig.getLevelCap();
+        return this.professionConfig.getLevelCap();
     }
 
     public boolean isEnabled() {
-        return professionConfig.isEnabled();
+        return this.professionConfig.isEnabled();
     }
 
     public boolean hasLevelButton() {
-        return professionConfig.hasLevelButton();
+        return this.professionConfig.hasLevelButton();
     }
 
     public String getDescription() {
@@ -81,7 +86,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     public void setColor(int color) {this.color = color;}
 
     public ResourceLocation getSpriteLocation() {
-        return spriteLocation;
+        return this.spriteLocation;
     }
 
     public void setOffense(boolean bool) {
@@ -92,33 +97,34 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         return this.offense;
     }
 
-    public Pair<Integer, Integer> getSpriteFromRank(int rank) {
+    @SuppressWarnings("static-method")
+	public Pair<Integer, Integer> getSpriteFromRank(int rank) {
         //TODO: If we ever end up having more images than 4 when the Math.min is changed make sure to also change the value rank is divided by
         return new MutablePair<>(Math.min(rank / 2, 3) * 16, 0);
     }
 
     public void setCustomSprite(int rank, ResourceLocation location) {
-        customSprites.put(rank, location);
+        this.customSprites.put(rank, location);
     }
 
     public void removeCustomSprite(int rank) {
-        customSprites.remove(rank);
+        this.customSprites.remove(rank);
     }
 
     public ResourceLocation getSpriteLocation(int rank) {
-        if (customSprites.containsKey(rank)) {
-            return customSprites.get(rank);
+        if (this.customSprites.containsKey(rank)) {
+            return this.customSprites.get(rank);
         }
         for (int i = rank - 1; i >= 0; i--) {
-            if (customSprites.containsKey(i)) {
-                return customSprites.get(i);
+            if (this.customSprites.containsKey(i)) {
+                return this.customSprites.get(i);
             }
         }
         return null;
     }
 
     public boolean hasCustomSprites() {
-        return !customSprites.isEmpty();
+        return !this.customSprites.isEmpty();
     }
 
     @Override
@@ -127,7 +133,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     }
 
     public int getSkillPointInterval() {
-        return professionConfig.getSkillPointInterval();
+        return this.professionConfig.getSkillPointInterval();
     }
 
     public int getLevelUpCost(int level) {
@@ -141,11 +147,11 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     }
 
     public final ProfessionConfig getProfessionConfig() {
-        return professionConfig;
+        return this.professionConfig;
     }
 
     public boolean isHidden() {
-        return hidden;
+        return this.hidden;
     }
 
     public void setHidden(boolean hidden) {
@@ -156,7 +162,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         return 8 * level / getCap();
     }
 
-    public int getGuiIndex() {return guiIndex;}
+    public int getGuiIndex() {return this.guiIndex;}
 
     public void setGuiIndex(int index) {this.guiIndex = index;}
 
@@ -174,11 +180,11 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         }
 
         public String getName() {
-            return name;
+            return this.name;
         }
 
         public String getUnformattedName() {
-            return resourcePath;
+            return this.resourcePath;
         }
 
         public String getRegistryName() {
@@ -186,7 +192,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         }
 
         public Profession getProfession() {
-            return profession;
+            return this.profession;
         }
 
         public void setProfession(Profession profession) {
@@ -194,7 +200,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         }
 
         public int getGuiIndex() {
-            return guiIndex;
+            return this.guiIndex;
         }
 
         public void setGuiIndex(int guiIndex) {

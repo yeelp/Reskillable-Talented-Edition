@@ -1,5 +1,8 @@
 package codersafterdark.reskillable.api.transmutations;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPrismarine;
 import net.minecraft.block.BlockPumpkin;
@@ -9,9 +12,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class TransmutationRegistry {
     private static Map<Item, Map<IBlockState, IBlockState>> reagentStateMap = new HashMap<>();
@@ -24,7 +24,10 @@ public class TransmutationRegistry {
         return reagentStateMap.get(item);
     }
 
-    public static void initDefaultMap() {
+    @SuppressWarnings({
+			"deprecation",
+			"static-access"})
+	public static void initDefaultMap() {
         Item item = Items.CHORUS_FRUIT;
 
         TransmutationRegistry.addEntryToReagentByBlockDefaultState(item, Blocks.MELON_BLOCK, Blocks.PUMPKIN);

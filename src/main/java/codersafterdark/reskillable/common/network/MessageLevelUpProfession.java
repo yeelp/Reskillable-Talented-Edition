@@ -29,12 +29,12 @@ public class MessageLevelUpProfession implements IMessage, IMessageHandler<Messa
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        professionName = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.professionName = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, professionName.toString());
+        ByteBufUtils.writeUTF8String(buf, this.professionName.toString());
     }
 
     @Override
@@ -43,7 +43,8 @@ public class MessageLevelUpProfession implements IMessage, IMessageHandler<Messa
         return null;
     }
 
-    public IMessage handleMessage(MessageLevelUpProfession message, MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageLevelUpProfession message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Profession profession = ReskillableRegistries.PROFESSIONS.getValue(message.professionName);
         PlayerData data = PlayerDataHandler.get(player);

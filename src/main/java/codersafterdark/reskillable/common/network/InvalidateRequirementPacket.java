@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.network;
 
+import java.util.UUID;
+
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementCache;
 import io.netty.buffer.ByteBuf;
@@ -9,8 +11,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-
-import java.util.UUID;
 
 public class InvalidateRequirementPacket implements IMessage, IMessageHandler<InvalidateRequirementPacket, IMessage> {
     private Class<? extends Requirement>[] cacheTypes;
@@ -29,13 +29,13 @@ public class InvalidateRequirementPacket implements IMessage, IMessageHandler<In
     @SuppressWarnings("unchecked")
 	@Override
     public void fromBytes(ByteBuf buf) {
-        uuid = new UUID(buf.readLong(), buf.readLong());
-        cacheTypes = new Class[buf.readInt()];
-        for (int i = 0; i < cacheTypes.length; i++) {
+        this.uuid = new UUID(buf.readLong(), buf.readLong());
+        this.cacheTypes = new Class[buf.readInt()];
+        for (int i = 0; i < this.cacheTypes.length; i++) {
             try {
                 Class<?> rClass = Class.forName(ByteBufUtils.readUTF8String(buf));
                 if (Requirement.class.isAssignableFrom(rClass)) {
-                    cacheTypes[i] = (Class<? extends Requirement>) rClass;
+                    this.cacheTypes[i] = (Class<? extends Requirement>) rClass;
                 }
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
@@ -45,10 +45,10 @@ public class InvalidateRequirementPacket implements IMessage, IMessageHandler<In
 
     @Override
     public void toBytes(ByteBuf buf) {
-        buf.writeLong(uuid.getMostSignificantBits());
-        buf.writeLong(uuid.getLeastSignificantBits());
-        buf.writeInt(cacheTypes.length);
-        for (Class<? extends Requirement> rClass : cacheTypes) {
+        buf.writeLong(this.uuid.getMostSignificantBits());
+        buf.writeLong(this.uuid.getLeastSignificantBits());
+        buf.writeInt(this.cacheTypes.length);
+        for (Class<? extends Requirement> rClass : this.cacheTypes) {
             ByteBufUtils.writeUTF8String(buf, rClass.getName());
         }
     }
@@ -63,7 +63,8 @@ public class InvalidateRequirementPacket implements IMessage, IMessageHandler<In
         return null;
     }
 
-    public IMessage handleMessage(InvalidateRequirementPacket message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(InvalidateRequirementPacket message, MessageContext ctx) {
         if (message.cacheTypes.length == 0) {
             RequirementCache.getCache(message.uuid, ctx.side.isClient()).forceClear();
         } else {

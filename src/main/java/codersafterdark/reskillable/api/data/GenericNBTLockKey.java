@@ -24,6 +24,6 @@ public class GenericNBTLockKey extends NBTLockKey {
 
     @Override
     public int hashCode() {
-        return tag == null ? super.hashCode() : tag.hashCode();
+        return this.tag == null ? super.hashCode() : this.tag.hashCode();
     }
 }

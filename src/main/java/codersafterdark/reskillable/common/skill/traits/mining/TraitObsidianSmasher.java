@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.mining;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.common.core.ConditionHelper;
 import net.minecraft.block.state.IBlockState;
@@ -8,8 +10,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitObsidianSmasher extends Trait {
     public TraitObsidianSmasher() {

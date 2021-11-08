@@ -14,6 +14,6 @@ public class UnlockUnlockableCriterionInstance extends AbstractCriterionInstance
     }
 
     public boolean test(Unlockable other) {
-        return unlockable == other;
+        return this.unlockable == other;
     }
 }

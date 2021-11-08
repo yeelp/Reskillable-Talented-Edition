@@ -23,7 +23,8 @@ public class SeasonsOverlay extends Gui {
 
     public static SeasonsOverlay instance = new SeasonsOverlay();
     private static final ResourceLocation TEXTURE = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/compat/seasons_hud.png");
-    private static final int glyphWidth = 64;
+    @SuppressWarnings("unused")
+	private static final int glyphWidth = 64;
     private static final int glyphHeight = 16;
     public boolean enabled;
 
@@ -33,7 +34,7 @@ public class SeasonsOverlay extends Gui {
             return;
         }
         EntityPlayer player = Minecraft.getMinecraft().player;
-        if (PlayerDataHandler.get(player).getSkillInfo(LibSkills.farming).isUnlocked(LibSkills.traitSeasons) && enabled) {
+        if (PlayerDataHandler.get(player).getSkillInfo(LibSkills.farming).isUnlocked(LibSkills.traitSeasons) && this.enabled) {
 
             Season season = SeasonHelper.getSeasonState(player.world).getSeason();
             Season.SubSeason subSeason = SeasonHelper.getSeasonState(player.world).getSubSeason();
@@ -71,19 +72,20 @@ public class SeasonsOverlay extends Gui {
     }
 
     @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {keyTyped(KeyBindings.keySeasonsHUD);}
+    public void onKeyInput(@SuppressWarnings("unused") InputEvent.KeyInputEvent event) {keyTyped(KeyBindings.keySeasonsHUD);}
 
     private void keyTyped(KeyBinding binding) {
         final Minecraft minecraft = FMLClientHandler.instance().getClient();
         boolean hasTrait = PlayerDataHandler.get(minecraft.player).getSkillInfo(LibSkills.farming).isUnlocked(LibSkills.traitSeasons);
         if (hasTrait && binding.isPressed()) {
             if (minecraft.currentScreen == null) {
-                enabled = !enabled;
+                this.enabled = !this.enabled;
             }
         }
     }
 
-    public String localizeSubSeason(Season.SubSeason subSeason) {
+    @SuppressWarnings("static-method")
+	public String localizeSubSeason(Season.SubSeason subSeason) {
         switch (subSeason) {
             case EARLY_SPRING: return "reskillable.hud.early_spring";
             case MID_SPRING: return "reskillable.hud.mid_spring";
@@ -101,7 +103,8 @@ public class SeasonsOverlay extends Gui {
         }
     }
 
-    public int colorizeSeasonText(Season.SubSeason subSeason) {
+    @SuppressWarnings("static-method")
+	public int colorizeSeasonText(Season.SubSeason subSeason) {
         switch (subSeason) {
             case EARLY_SPRING:
             case MID_SPRING:

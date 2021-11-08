@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.network;
 
+import java.util.Objects;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
@@ -18,8 +20,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
-import java.util.Objects;
-
 public class MessageUpgradeTalent implements IMessage, IMessageHandler<MessageUpgradeTalent, IMessage> {
     private ResourceLocation profession;
     private ResourceLocation talent;
@@ -34,14 +34,14 @@ public class MessageUpgradeTalent implements IMessage, IMessageHandler<MessageUp
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        profession = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
-        talent = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.profession = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.talent = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, profession.toString());
-        ByteBufUtils.writeUTF8String(buf, talent.toString());
+        ByteBufUtils.writeUTF8String(buf, this.profession.toString());
+        ByteBufUtils.writeUTF8String(buf, this.talent.toString());
     }
 
     @Override
@@ -50,7 +50,8 @@ public class MessageUpgradeTalent implements IMessage, IMessageHandler<MessageUp
         return null;
     }
 
-    public IMessage handleMessage(MessageUpgradeTalent message, MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageUpgradeTalent message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Profession profession = ReskillableRegistries.PROFESSIONS.getValue(message.profession);
         Talent talent = Objects.requireNonNull(ReskillableRegistries.TALENTS.getValue(message.talent));

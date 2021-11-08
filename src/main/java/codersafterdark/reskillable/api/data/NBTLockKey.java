@@ -1,11 +1,16 @@
 package codersafterdark.reskillable.api.data;
 
-import net.minecraft.nbt.*;
-import net.minecraftforge.common.util.Constants;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
+
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagByteArray;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagIntArray;
+import net.minecraft.nbt.NBTTagList;
+import net.minecraft.nbt.NBTTagLongArray;
+import net.minecraftforge.common.util.Constants;
 
 public abstract class NBTLockKey implements FuzzyLockKey {
     protected NBTTagCompound tag;
@@ -126,6 +131,7 @@ public abstract class NBTLockKey implements FuzzyLockKey {
             try {
                 data[i] = Long.parseLong(entries[i].substring(0, entries[i].length() - 1));//Trim the L
             } catch (Exception ignored) {
+            	//ignore
             }
         }
         return data;

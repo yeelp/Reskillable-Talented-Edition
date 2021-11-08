@@ -1,8 +1,10 @@
 package codersafterdark.reskillable.client.gui.handler;
 
-import codersafterdark.reskillable.common.Reskillable;
+import org.lwjgl.input.Keyboard;
+
 import codersafterdark.reskillable.client.gui.GuiProfessions;
 import codersafterdark.reskillable.client.gui.GuiSkills;
+import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.KeyBinding;
@@ -12,7 +14,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.InputEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.input.Keyboard;
 
 @SideOnly(Side.CLIENT)
 public class KeyBindings {
@@ -29,11 +30,12 @@ public class KeyBindings {
     }
 
     @SubscribeEvent
-    public void onKeyInput(InputEvent.KeyInputEvent event) {
+    public void onKeyInput(@SuppressWarnings("unused") InputEvent.KeyInputEvent event) {
         keyTyped(openGUI);
     }
 
-    private void keyTyped(KeyBinding binding) {
+    @SuppressWarnings("static-method")
+	private void keyTyped(KeyBinding binding) {
         final Minecraft minecraft = FMLClientHandler.instance().getClient();
         if (binding.isPressed()) {
             if (minecraft.currentScreen == null) {
@@ -43,7 +45,7 @@ public class KeyBindings {
     }
 
     @SubscribeEvent
-    public void keyInput(InputEvent.KeyInputEvent event) {
+    public void keyInput(@SuppressWarnings("unused") InputEvent.KeyInputEvent event) {
         // Exit on key de-press
         if (!Keyboard.getEventKeyState()) {
             return;
@@ -55,7 +57,8 @@ public class KeyBindings {
     }
 
     // Opens GUI to show profession menu
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("static-method")
+	@SideOnly(Side.CLIENT)
     private void openProfessionGui () {
         Minecraft mc = Minecraft.getMinecraft();
         mc.displayGuiScreen(new GuiProfessions());

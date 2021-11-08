@@ -1,8 +1,8 @@
 package codersafterdark.reskillable.common.network;
 
-import codersafterdark.reskillable.common.Reskillable;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.common.Reskillable;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.nbt.NBTTagCompound;
@@ -20,18 +20,18 @@ public class MessageDataSync implements IMessage, IMessageHandler<MessageDataSyn
     }
 
     public MessageDataSync(PlayerData data) {
-        cmp = new NBTTagCompound();
-        data.saveToNBT(cmp);
+        this.cmp = new NBTTagCompound();
+        data.saveToNBT(this.cmp);
     }
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        cmp = ByteBufUtils.readTag(buf);
+        this.cmp = ByteBufUtils.readTag(buf);
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeTag(buf, cmp);
+        ByteBufUtils.writeTag(buf, this.cmp);
     }
 
     @Override
@@ -40,7 +40,8 @@ public class MessageDataSync implements IMessage, IMessageHandler<MessageDataSyn
         return null;
     }
 
-    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("static-method")
+	@SideOnly(Side.CLIENT)
     public void handleMessage(MessageDataSync message) {
         PlayerData data = PlayerDataHandler.get(Reskillable.proxy.getClientPlayer());
         data.loadFromNBT(message.cmp);

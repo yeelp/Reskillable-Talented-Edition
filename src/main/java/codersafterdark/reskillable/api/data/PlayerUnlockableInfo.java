@@ -1,13 +1,14 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import codersafterdark.reskillable.api.unlockable.Unlockable;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import java.util.*;
 
 public class PlayerUnlockableInfo extends PlayerSkillInfo {
 
@@ -21,37 +22,40 @@ public class PlayerUnlockableInfo extends PlayerSkillInfo {
     public PlayerUnlockableInfo(Unlockable unlockable) {
         super(unlockable.getParentSkill());
         this.unlockable = unlockable;
-        rank = 0;
+        this.rank = 0;
     }
 
-    public void loadFromNBT(NBTTagCompound cmp) {
-        rank = cmp.getInteger(TAG_RANK);
+    @Override
+	public void loadFromNBT(NBTTagCompound cmp) {
+        this.rank = cmp.getInteger(TAG_RANK);
 
-        unlockableAttributes.clear();
+        this.unlockableAttributes.clear();
         NBTTagList modifiersCmp = cmp.getTagList(TAG_MODIFIERS, 10);
 
         for (int i = 0; i < modifiersCmp.tagCount(); i++) {
             NBTTagCompound attributeCmp = modifiersCmp.getCompoundTagAt(i);
-            unlockableAttributes.add(SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp));
+            this.unlockableAttributes.add(SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp));
         }
     }
 
-    public void saveToNBT(NBTTagCompound cmp) {
-        cmp.setInteger(TAG_RANK, rank);
+    @Override
+	public void saveToNBT(NBTTagCompound cmp) {
+        cmp.setInteger(TAG_RANK, this.rank);
 
         NBTTagList modifiersCmp = new NBTTagList();
-        for (AttributeModifier a : unlockableAttributes) {
+        for (AttributeModifier a : this.unlockableAttributes) {
             modifiersCmp.appendTag(SharedMonsterAttributes.writeAttributeModifierToNBT(a));
         }
 
         cmp.setTag(TAG_MODIFIERS, modifiersCmp);
     }
 
-    public int getRank() {
-        if (rank > unlockable.getCap()) {
-            rank = unlockable.getCap();
+    @Override
+	public int getRank() {
+        if (this.rank > this.unlockable.getCap()) {
+            this.rank = this.unlockable.getCap();
         }
-        return rank;
+        return this.rank;
     }
 
     public void setRank(int rank) {
@@ -61,33 +65,36 @@ public class PlayerUnlockableInfo extends PlayerSkillInfo {
     }
 
     public List<AttributeModifier> getUnlockableAttributes() {
-        return unlockableAttributes;
+        return this.unlockableAttributes;
     }
 
-    public boolean isCapped() {
-        return rank >= unlockable.getCap();
+    @Override
+	public boolean isCapped() {
+        return this.rank >= this.unlockable.getCap();
     }
 
-    public int getLevelUpCost() {
-        return unlockable.getCost();
+    @Override
+	public int getLevelUpCost() {
+        return this.unlockable.getCost();
     }
 
-    public void levelUp() {
-        rank++;
+    @Override
+	public void levelUp() {
+        this.rank++;
     }
 
     public void addAttributeModifier(IAttributeInstance attributeInstance, AttributeModifier modifier) {
-        unlockableAttributes.add(modifier);
+        this.unlockableAttributes.add(modifier);
         attributeInstance.applyModifier(modifier);
     }
 
     public void removeUnlockableAttribute(IAttributeInstance attributeInstance) {
-        for (AttributeModifier modifier : unlockableAttributes) {
+        for (AttributeModifier modifier : this.unlockableAttributes) {
             if (modifier.getName().equals(attributeInstance.getAttribute().getName())) {
                 attributeInstance.removeModifier(modifier);
             }
         }
-        unlockableAttributes.clear();
+        this.unlockableAttributes.clear();
     }
 
 }

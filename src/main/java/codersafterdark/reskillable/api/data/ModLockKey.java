@@ -1,10 +1,10 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.Objects;
+
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
-
-import java.util.Objects;
 
 public class ModLockKey extends NBTLockKey {
     private final String modName;
@@ -26,7 +26,7 @@ public class ModLockKey extends NBTLockKey {
 
     @Override
     public LockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new ModLockKey(modName);
+        return isNotFuzzy() ? this : new ModLockKey(this.modName);
     }
 
     @Override
@@ -42,10 +42,10 @@ public class ModLockKey extends NBTLockKey {
 
     @Override
     public int hashCode() {
-        return Objects.hash(modName, tag);
+        return Objects.hash(this.modName, this.tag);
     }
 
     public String getModName() {
-        return modName;
+        return this.modName;
     }
 }

@@ -9,11 +9,11 @@ public final class GenericLockKey implements LockKey {
 
     @Override
     public boolean equals(Object o) {
-        return o == this || o instanceof GenericLockKey && (type == null ? ((GenericLockKey) o).type == null : type.equals(((GenericLockKey) o).type));
+        return o == this || o instanceof GenericLockKey && (this.type == null ? ((GenericLockKey) o).type == null : this.type.equals(((GenericLockKey) o).type));
     }
 
     @Override
     public int hashCode() {
-        return type == null ? super.hashCode() : type.hashCode();
+        return this.type == null ? super.hashCode() : this.type.hashCode();
     }
 }

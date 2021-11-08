@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.building;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.unlockable.Trait;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -8,8 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.world.BlockEvent.HarvestDropsEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TraitPerfectRecover extends Trait {
     private Item glowstone;
@@ -37,16 +37,16 @@ public class TraitPerfectRecover extends Trait {
     }
 
     private Item getGlowstone() {
-        if (glowstone == null) {
-            glowstone = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft:glowstone"));
+        if (this.glowstone == null) {
+            this.glowstone = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft:glowstone"));
         }
-        return glowstone;
+        return this.glowstone;
     }
 
     private Item getSeaLantern() {
-        if (lantern == null) {
-            lantern = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft:sea_lantern"));
+        if (this.lantern == null) {
+            this.lantern = ForgeRegistries.ITEMS.getValue(new ResourceLocation("minecraft:sea_lantern"));
         }
-        return lantern;
+        return this.lantern;
     }
 }

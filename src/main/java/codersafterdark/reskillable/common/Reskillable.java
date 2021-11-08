@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common;
 
+import org.apache.logging.log4j.Logger;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.common.core.CommonProxy;
 import codersafterdark.reskillable.common.core.ReskillableModAccess;
@@ -13,7 +15,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import org.apache.logging.log4j.Logger;
 
 @Mod(modid = LibMisc.MOD_ID, name = LibMisc.MOD_NAME, version = LibMisc.VERSION, guiFactory = LibMisc.GUI_FACTORY)
 public class Reskillable {
@@ -26,24 +27,28 @@ public class Reskillable {
         ReskillableAPI.setInstance(new ReskillableAPI(new ReskillableModAccess()));
     }
 
-    @EventHandler
+    @SuppressWarnings("static-method")
+	@EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         logger = event.getModLog();
         proxy.preInit(event);
         ReskillableSounds.TALENTS = SoundCategory.PLAYERS;
     }
 
-    @EventHandler
+    @SuppressWarnings("static-method")
+	@EventHandler
     public void init(FMLInitializationEvent event) {
         proxy.init(event);
     }
 
-    @EventHandler
+    @SuppressWarnings("static-method")
+	@EventHandler
     public void postInit(FMLPostInitializationEvent event) {
         proxy.postInit(event);
     }
 
-    @EventHandler
+    @SuppressWarnings("static-method")
+	@EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
         proxy.serverStarting(event);
     }

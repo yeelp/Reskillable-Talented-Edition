@@ -1,11 +1,11 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.Objects;
+
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.OreDictionary;
-
-import java.util.Objects;
 
 public class ItemInfo extends NBTLockKey {
     private int metadata;
@@ -27,7 +27,7 @@ public class ItemInfo extends NBTLockKey {
 
     @Override
     public LockKey getNotFuzzy() {
-        return isNotFuzzy() ? this : new ItemInfo(item, metadata);
+        return isNotFuzzy() ? this : new ItemInfo(this.item, this.metadata);
     }
 
     @Override
@@ -50,14 +50,14 @@ public class ItemInfo extends NBTLockKey {
 
     @Override
     public int hashCode() {
-        return Objects.hash(item, tag);
+        return Objects.hash(this.item, this.tag);
     }
 
     public Item getItem() {
-        return item;
+        return this.item;
     }
 
     public int getMetadata() {
-        return metadata;
+        return this.metadata;
     }
 }

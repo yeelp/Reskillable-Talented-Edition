@@ -3,7 +3,6 @@ package codersafterdark.reskillable.common.network;
 import codersafterdark.reskillable.common.profession.rogue.assassin.TalentBlink;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
@@ -13,10 +12,12 @@ public class BlinkPacket implements IMessage, IMessageHandler<BlinkPacket, IMess
 
     @Override
     public void fromBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
@@ -25,7 +26,8 @@ public class BlinkPacket implements IMessage, IMessageHandler<BlinkPacket, IMess
         return null;
     }
 
-    public IMessage handleMessage(MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageContext context) {
         EntityPlayerMP player = context.getServerHandler().player;
         player.server.addScheduledTask(() -> {
             TalentBlink talentBlink = new TalentBlink();

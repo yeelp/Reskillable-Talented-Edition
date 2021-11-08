@@ -1,10 +1,11 @@
 package codersafterdark.reskillable.common.advancement.professionlevel;
 
-import codersafterdark.reskillable.common.advancement.CriterionTrigger;
-import codersafterdark.reskillable.api.profession.Profession;
-import codersafterdark.reskillable.common.lib.LibMisc;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
+
+import codersafterdark.reskillable.api.profession.Profession;
+import codersafterdark.reskillable.common.advancement.CriterionTrigger;
+import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 

@@ -1,18 +1,19 @@
 package codersafterdark.reskillable.common.advancement.skilllevel;
 
-import codersafterdark.reskillable.common.advancement.CriterionTrigger;
-import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.skill.Skill;
-import codersafterdark.reskillable.common.lib.LibMisc;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
+
+import codersafterdark.reskillable.api.ReskillableRegistries;
+import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.common.advancement.CriterionTrigger;
+import codersafterdark.reskillable.common.lib.LibMisc;
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.ParametersAreNonnullByDefault;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault

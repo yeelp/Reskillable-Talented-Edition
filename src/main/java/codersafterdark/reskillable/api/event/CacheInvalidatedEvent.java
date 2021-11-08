@@ -27,6 +27,6 @@ public class CacheInvalidatedEvent extends Event {
      * @return True if any part of the cache was modified.
      */
     public boolean anyModified() {
-        return modified;
+        return this.modified;
     }
 }

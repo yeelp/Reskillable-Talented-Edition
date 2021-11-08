@@ -1,7 +1,28 @@
 package codersafterdark.reskillable.base;
 
+import static net.minecraftforge.fml.common.eventhandler.EventPriority.HIGH;
+
+import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.logging.log4j.Level;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
-import codersafterdark.reskillable.api.data.*;
+import codersafterdark.reskillable.api.data.FuzzyLockKey;
+import codersafterdark.reskillable.api.data.GenericLockKey;
+import codersafterdark.reskillable.api.data.GenericNBTLockKey;
+import codersafterdark.reskillable.api.data.ItemInfo;
+import codersafterdark.reskillable.api.data.LockKey;
+import codersafterdark.reskillable.api.data.ModLockKey;
+import codersafterdark.reskillable.api.data.ParentLockKey;
+import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.common.core.handler.ToolTipHandler;
 import codersafterdark.reskillable.common.network.MessageLockedItem;
 import codersafterdark.reskillable.common.network.PacketHandler;
@@ -31,12 +52,6 @@ import net.minecraftforge.event.world.BlockEvent.BreakEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-import org.apache.logging.log4j.Level;
-
-import java.lang.reflect.InvocationTargetException;
-import java.util.*;
-
-import static net.minecraftforge.fml.common.eventhandler.EventPriority.HIGH;
 
 public class LevelLockHandler {
     public static final String[] DEFAULT_SKILL_LOCKS = new String[]{"minecraft:iron_shovel:*=reskillable:gathering|5", "minecraft:iron_axe:*=reskillable:gathering|5", "minecraft:iron_sword:*=reskillable:attack|5", "minecraft:iron_pickaxe:*=reskillable:mining|5", "minecraft:iron_hoe:*=reskillable:farming|5", "minecraft:iron_helmet:*=reskillable:defense|5", "minecraft:iron_chestplate:*=reskillable:defense|5", "minecraft:iron_leggings:*=reskillable:defense|5", "minecraft:iron_boots:*=reskillable:defense|5", "minecraft:golden_shovel:*=reskillable:gathering|5,reskillable:magic|5", "minecraft:golden_axe:*=reskillable:gathering|5,reskillable:magic|5", "minecraft:golden_sword:*=reskillable:attack|5,reskillable:magic|5", "minecraft:golden_pickaxe:*=reskillable:mining|5,reskillable:magic|5", "minecraft:golden_hoe:*=reskillable:farming|5,reskillable:magic|5", "minecraft:golden_helmet:*=reskillable:defense|5,reskillable:magic|5", "minecraft:golden_chestplate:*=reskillable:defense|5,reskillable:magic|5", "minecraft:golden_leggings:*=reskillable:defense|5,reskillable:magic|5", "minecraft:golden_boots:*=reskillable:defense|5,reskillable:magic|5", "minecraft:diamond_shovel:*=reskillable:gathering|16", "minecraft:diamond_axe:*=reskillable:gathering|16", "minecraft:diamond_sword:*=reskillable:attack|16", "minecraft:diamond_pickaxe:*=reskillable:mining|16", "minecraft:diamond_hoe:*=reskillable:farming|16", "minecraft:diamond_helmet:*=reskillable:defense|16", "minecraft:diamond_chestplate:*=reskillable:defense|16", "minecraft:diamond_leggings:*=reskillable:defense|16", "minecraft:diamond_boots:*=reskillable:defense|16", "minecraft:shears:*=reskillable:farming|5,reskillable:gathering|5", "minecraft:fishing_rod:*=reskillable:gathering|8", "minecraft:shield:*=reskillable:defense|8", "minecraft:bow:*=reskillable:attack|8", "minecraft:ender_pearl=reskillable:magic|8", "minecraft:ender_eye=reskillable:magic|16,reskillable:building|8", "minecraft:elytra:*=reskillable:defense|16,reskillable:agility|24,reskillable:magic|16", "minecraft:lead=reskillable:farming|5", "minecraft:end_crystal=reskillable:building|24,reskillable:magic|32", "minecraft:iron_horse_armor:*=reskillable:defense|5,reskillable:agility|5", "minecraft:golden_horse_armor:*=reskillable:defense|5,reskillable:magic|5,reskillable:agility|5", "minecraft:diamond_horse_armor:*=reskillable:defense|16,reskillable:agility|16", "minecraft:fireworks=reskillable:agility|24", "minecraft:dye:15=reskillable:farming|12", "minecraft:saddle=reskillable:agility|12", "minecraft:redstone=reskillable:building|5", "minecraft:redstone_torch=reskillable:building|5", "minecraft:skull:1=reskillable:building|20,reskillable:attack|20,reskillable:defense|20", "spartanweaponry:saber_wood:*=talent|reskillable:warden_novice", "spartanweaponry:saber_stone:*=talent|reskillable:warden_novice", "spartanweaponry:saber_copper:*=talent|reskillable:warden_novice", "spartanweaponry:saber_lead:*=talent|reskillable:warden_novice", "spartanweaponry:saber_tin:*=talent|reskillable:warden_novice", "spartanweaponry:saber_iron:*=talent|reskillable:warden_advanced", "spartanweaponry:saber_silver:*=talent|reskillable:warden_advanced", "spartanweaponry:saber_gold:*=talent|reskillable:warden_advanced", "spartanweaponry:saber_bronze:*=talent|reskillable:warden_advanced", "spartanweaponry:saber_nickel:*=talent|reskillable:warden_advanced", "spartanweaponry:saber_invar:*=talent|reskillable:warden_master", "spartanweaponry:saber_platinum:*=talent|reskillable:warden_master", "spartanweaponry:saber_steel:*=talent|reskillable:warden_master", "spartanweaponry:saber_bronze:*=talent|reskillable:warden_master", "spartanweaponry:saber_electrum:*=talent|reskillable:warden_master", "spartanweaponry:saber_diamond:*=talent|reskillable:warden_master", "spartanshields:shield_basic_wood:*=talent|reskillable:warden_novice", "spartanshields:shield_basic_stone:*=talent|reskillable:warden_novice", "spartanshields:shield_basic_copper:*=talent|reskillable:warden_novice", "spartanshields:shield_basic_lead:*=talent|reskillable:warden_novice", "spartanshields:shield_basic_tin:*=talent|reskillable:warden_novice", "spartanshields:shield_basic_iron:*=talent|reskillable:warden_advanced", "spartanshields:shield_basic_silver:*=talent|reskillable:warden_advanced", "spartanshields:shield_basic_gold:*=talent|reskillable:warden_advanced", "spartanshields:shield_basic_bronze:*=talent|reskillable:warden_advanced", "spartanshields:shield_basic_nickel:*=talent|reskillable:warden_advanced", "spartanshields:shield_basic_invar:*=talent|reskillable:warden_master", "spartanshields:shield_basic_platinum:*=talent|reskillable:warden_master", "spartanshields:shield_basic_steel:*=talent|reskillable:warden_master", "spartanshields:shield_basic_bronze:*=talent|reskillable:warden_master", "spartanshields:shield_basic_electrum:*=talent|reskillable:warden_master", "spartanshields:shield_basic_diamond:*=talent|reskillable:warden_master", "spartanweaponry:battleaxe_wood:*=talent|reskillable:berserk_novice", "spartanweaponry:battleaxe_stone:*=talent|reskillable:berserk_novice", "spartanweaponry:battleaxe_copper:*=talent|reskillable:berserk_novice", "spartanweaponry:battleaxe_lead:*=talent|reskillable:berserk_novice", "spartanweaponry:battleaxe_tin:*=talent|reskillable:berserk_novice", "spartanweaponry:battleaxe_iron:*=talent|reskillable:berserk_advanced", "spartanweaponry:battleaxe_silver:*=talent|reskillable:berserk_advanced", "spartanweaponry:battleaxe_gold:*=talent|reskillable:berserk_advanced", "spartanweaponry:battleaxe_bronze:*=talent|reskillable:berserk_advanced", "spartanweaponry:battleaxe_nickel:*=talent|reskillable:berserk_advanced", "spartanweaponry:battleaxe_invar:*=talent|reskillable:berserk_master", "spartanweaponry:battleaxe_platinum:*=talent|reskillable:berserk_master", "spartanweaponry:battleaxe_steel:*=talent|reskillable:berserk_master", "spartanweaponry:battleaxe_bronze:*=talent|reskillable:berserk_master", "spartanweaponry:battleaxe_electrum:*=talent|reskillable:berserk_master", "spartanweaponry:battleaxe_diamond:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_wood:*=talent|reskillable:berserk_novice", "spartanweaponry:throwing_axe_stone:*=talent|reskillable:berserk_novice", "spartanweaponry:throwing_axe_copper:*=talent|reskillable:berserk_novice", "spartanweaponry:throwing_axe_lead:*=talent|reskillable:berserk_novice", "spartanweaponry:throwing_axe_tin:*=talent|reskillable:berserk_novice", "spartanweaponry:throwing_axe_iron:*=talent|reskillable:berserk_advanced", "spartanweaponry:throwing_axe_silver:*=talent|reskillable:berserk_advanced", "spartanweaponry:throwing_axe_gold:*=talent|reskillable:berserk_advanced", "spartanweaponry:throwing_axe_bronze:*=talent|reskillable:berserk_advanced", "spartanweaponry:throwing_axe_nickel:*=talent|reskillable:berserk_advanced", "spartanweaponry:throwing_axe_invar:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_platinum:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_steel:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_bronze:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_electrum:*=talent|reskillable:berserk_master", "spartanweaponry:throwing_axe_diamond:*=talent|reskillable:berserk_master"};
@@ -285,7 +300,8 @@ public class LevelLockHandler {
         }
     }
 
-    @SubscribeEvent(priority = HIGH)
+    @SuppressWarnings("deprecation")
+	@SubscribeEvent(priority = HIGH)
     public static void leftClick(LeftClickBlock event) {
         enforce(event);
         if (event.isCanceled()) {
@@ -311,7 +327,8 @@ public class LevelLockHandler {
         enforce(event);
     }
 
-    @SubscribeEvent(priority = HIGH)
+    @SuppressWarnings("deprecation")
+	@SubscribeEvent(priority = HIGH)
     public static void rightClickBlock(RightClickBlock event) {
         enforce(event);
         if (event.isCanceled()) {

@@ -29,12 +29,12 @@ public class MessageLevelUp implements IMessage, IMessageHandler<MessageLevelUp,
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        skillName = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.skillName = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, skillName.toString());
+        ByteBufUtils.writeUTF8String(buf, this.skillName.toString());
     }
 
     @Override
@@ -43,7 +43,8 @@ public class MessageLevelUp implements IMessage, IMessageHandler<MessageLevelUp,
         return null;
     }
 
-    public IMessage handleMessage(MessageLevelUp message, MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageLevelUp message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Skill skill = ReskillableRegistries.SKILLS.getValue(message.skillName);
         PlayerData data = PlayerDataHandler.get(player);

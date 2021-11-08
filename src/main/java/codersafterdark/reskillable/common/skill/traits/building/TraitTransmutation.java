@@ -1,5 +1,8 @@
 package codersafterdark.reskillable.common.skill.traits.building;
 
+import java.util.Map;
+import java.util.stream.IntStream;
+
 import codersafterdark.reskillable.api.transmutations.TransmutationRegistry;
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.common.lib.LibMisc;
@@ -11,9 +14,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-
-import java.util.Map;
-import java.util.stream.IntStream;
 
 public class TraitTransmutation extends Trait {
 

@@ -1,13 +1,14 @@
 package codersafterdark.reskillable.client.gui.button;
 
-import net.minecraft.util.text.TextFormatting;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.annotation.Nullable;
+
+import net.minecraft.util.text.TextFormatting;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
 public class ToolTip {
@@ -24,7 +25,7 @@ public class ToolTip {
     }
 
     public void clear() {
-        lines.clear();
+        this.lines.clear();
     }
 
     public boolean add(String line) {
@@ -32,7 +33,7 @@ public class ToolTip {
     }
 
     public boolean add(String line, @Nullable TextFormatting formatting) {
-        return lines.add(formatting != null ? formatting + line : line);
+        return this.lines.add(formatting != null ? formatting + line : line);
     }
 
     public boolean add(List<Object> lines) {
@@ -46,26 +47,27 @@ public class ToolTip {
     }
 
     public List<String> getLines() {
-        return Collections.unmodifiableList(lines);
+        return Collections.unmodifiableList(this.lines);
     }
 
     public void onTick(boolean mouseOver) {
-        if (delay == 0) {
+        if (this.delay == 0) {
             return;
         }
         if (mouseOver) {
-            if (mouseOverStart == 0) {
-                mouseOverStart = System.currentTimeMillis();
+            if (this.mouseOverStart == 0) {
+                this.mouseOverStart = System.currentTimeMillis();
             }
         } else {
-            mouseOverStart = 0;
+            this.mouseOverStart = 0;
         }
     }
 
     public boolean isReady() {
-        return delay == 0 || mouseOverStart != 0 && System.currentTimeMillis() - mouseOverStart >= delay;
+        return this.delay == 0 || this.mouseOverStart != 0 && System.currentTimeMillis() - this.mouseOverStart >= this.delay;
     }
 
     public void refresh() {
+    	//no-op
     }
 }

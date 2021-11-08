@@ -1,8 +1,12 @@
 package codersafterdark.reskillable.common.network;
 
+import java.util.Objects;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.data.*;
-import codersafterdark.reskillable.api.event.UpgradeTalentEvent;
+import codersafterdark.reskillable.api.data.PlayerData;
+import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.PlayerSkillInfo;
+import codersafterdark.reskillable.api.data.PlayerUnlockableInfo;
 import codersafterdark.reskillable.api.event.UpgradeUnlockableEvent;
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.api.unlockable.Unlockable;
@@ -15,8 +19,6 @@ import net.minecraftforge.fml.common.network.ByteBufUtils;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
-
-import java.util.Objects;
 
 public class MessageUpgradeUnlockable implements IMessage, IMessageHandler<MessageUpgradeUnlockable, IMessage> {
     private ResourceLocation skill;
@@ -32,14 +34,14 @@ public class MessageUpgradeUnlockable implements IMessage, IMessageHandler<Messa
 
     @Override
     public void fromBytes(ByteBuf buf) {
-        skill = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
-        unlockable = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.skill = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
+        this.unlockable = new ResourceLocation(ByteBufUtils.readUTF8String(buf));
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
-        ByteBufUtils.writeUTF8String(buf, skill.toString());
-        ByteBufUtils.writeUTF8String(buf, unlockable.toString());
+        ByteBufUtils.writeUTF8String(buf, this.skill.toString());
+        ByteBufUtils.writeUTF8String(buf, this.unlockable.toString());
     }
 
     @Override
@@ -48,7 +50,8 @@ public class MessageUpgradeUnlockable implements IMessage, IMessageHandler<Messa
         return null;
     }
 
-    public IMessage handleMessage(MessageUpgradeUnlockable message, MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageUpgradeUnlockable message, MessageContext context) {
         EntityPlayer player = context.getServerHandler().player;
         Skill skill = ReskillableRegistries.SKILLS.getValue(message.skill);
         Unlockable unlockable = Objects.requireNonNull(ReskillableRegistries.UNLOCKABLES.getValue(message.unlockable));

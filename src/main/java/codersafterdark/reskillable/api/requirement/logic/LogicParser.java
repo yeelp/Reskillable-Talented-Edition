@@ -1,8 +1,18 @@
 package codersafterdark.reskillable.api.requirement.logic;
 
 import codersafterdark.reskillable.api.ReskillableAPI;
-import codersafterdark.reskillable.api.requirement.*;
-import codersafterdark.reskillable.api.requirement.logic.impl.*;
+import codersafterdark.reskillable.api.requirement.Requirement;
+import codersafterdark.reskillable.api.requirement.RequirementComparison;
+import codersafterdark.reskillable.api.requirement.RequirementException;
+import codersafterdark.reskillable.api.requirement.RequirementRegistry;
+import codersafterdark.reskillable.api.requirement.UnobtainableRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.ANDRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.NANDRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.NORRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.NOTRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.ORRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.XNORRequirement;
+import codersafterdark.reskillable.api.requirement.logic.impl.XORRequirement;
 
 //TODO: Make it so that if a requirement is simplified it logs what the new string is so that pack makers can know the simpler string
 //null means it is an invalid requirement/subrequirement TRUE means that it is valid but more or less will just be ignored
@@ -192,7 +202,7 @@ public class LogicParser {
         return new XNORRequirement(left, right);
     }
 
-    private static RequirementPair getSubRequirements(String input) throws RequirementException {
+	private static RequirementPair getSubRequirements(String input) throws RequirementException {
         //[requirement]~[requirement]
         //[ -> Count if at start or after '|' or '~'
         //] -> Count if at end or before '~'
@@ -251,16 +261,16 @@ public class LogicParser {
     private static class RequirementPair {
         private Requirement left, right;
 
-        private RequirementPair(Requirement left, Requirement right) {
+        RequirementPair(Requirement left, Requirement right) {
             this.left = left;
             this.right = right;
         }
 
-        private Requirement getLeft() {
+        Requirement getLeft() {
             return this.left;
         }
 
-        private Requirement getRight() {
+        Requirement getRight() {
             return this.right;
         }
     }

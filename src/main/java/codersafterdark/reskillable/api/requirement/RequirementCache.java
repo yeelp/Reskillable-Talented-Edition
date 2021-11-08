@@ -1,6 +1,26 @@
 package codersafterdark.reskillable.api.requirement;
 
-import codersafterdark.reskillable.api.event.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+import codersafterdark.reskillable.api.event.CacheInvalidatedEvent;
+import codersafterdark.reskillable.api.event.LevelUpEvent;
+import codersafterdark.reskillable.api.event.LevelUpProfessionEvent;
+import codersafterdark.reskillable.api.event.LockTalentEvent;
+import codersafterdark.reskillable.api.event.LockUnlockableEvent;
+import codersafterdark.reskillable.api.event.UnlockTalentEvent;
+import codersafterdark.reskillable.api.event.UnlockUnlockableEvent;
 import codersafterdark.reskillable.api.requirement.logic.DoubleRequirement;
 import codersafterdark.reskillable.api.requirement.logic.OuterRequirement;
 import codersafterdark.reskillable.api.requirement.logic.impl.NOTRequirement;
@@ -17,11 +37,6 @@ import net.minecraftforge.event.entity.player.AdvancementEvent;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Collectors;
 
 public class RequirementCache {
     private static Set<Class<? extends Requirement>> dirtyCacheTypes = new HashSet<>();
@@ -41,7 +56,7 @@ public class RequirementCache {
     @Deprecated
     public RequirementCache(@Nonnull EntityPlayer player) {
         this(player.getUniqueID(), player.getEntityWorld().isRemote);
-        cacheMap.put(new SidedUUID(uuid, isRemote), this);
+        cacheMap.put(new SidedUUID(this.uuid, this.isRemote), this);
     }
 
     private RequirementCache(UUID uuid, boolean isClientPlayer) {
@@ -205,15 +220,15 @@ public class RequirementCache {
 
     @Nullable
     private EntityPlayer getPlayer() {
-        if (isRemote) {
+        if (this.isRemote) {
             WorldClient world = Minecraft.getMinecraft().world;
-            return world == null ? null : world.getPlayerEntityByUUID(uuid);
+            return world == null ? null : world.getPlayerEntityByUUID(this.uuid);
         }
         MinecraftServer server = FMLCommonHandler.instance().getMinecraftServerInstance();
         //Server should only be able to be null when isRemote is true, but just in case have this statement
         if (server != null) {
             for (WorldServer world : server.worlds) {
-                EntityPlayer player = world.getPlayerEntityByUUID(uuid);
+                EntityPlayer player = world.getPlayerEntityByUUID(this.uuid);
                 if (player != null) {
                     return player;
                 }
@@ -238,12 +253,12 @@ public class RequirementCache {
         if (isValid()) {
             EntityPlayer player = getPlayer();
             if (player != null) {
-                requirementCache.clear();
-                recentlyInvalidated.clear();
-                dirtyCache = false;
+                this.requirementCache.clear();
+                this.recentlyInvalidated.clear();
+                this.dirtyCache = false;
                 MinecraftForge.EVENT_BUS.post(new CacheInvalidatedEvent(player, true));
-                if (!isRemote) {
-                    PacketHandler.INSTANCE.sendTo(new InvalidateRequirementPacket(uuid), (EntityPlayerMP) player);
+                if (!this.isRemote) {
+                    PacketHandler.INSTANCE.sendTo(new InvalidateRequirementPacket(this.uuid), (EntityPlayerMP) player);
                 }
             }
         }
@@ -264,24 +279,24 @@ public class RequirementCache {
 
         Class<? extends Requirement> clazz = requirement.getClass();
         Map<Requirement, Boolean> cache;
-        if (requirementCache.containsKey(clazz)) {
-            cache = requirementCache.get(clazz);
+        if (this.requirementCache.containsKey(clazz)) {
+            cache = this.requirementCache.get(clazz);
             if (cache.containsKey(requirement)) {
                 return cache.get(requirement);
             }
         } else {
-            requirementCache.put(clazz, cache = new HashMap<>());
+            this.requirementCache.put(clazz, cache = new HashMap<>());
         }
         boolean achieved = requirement.achievedByPlayer(player);
         cache.put(requirement, achieved);
-        if (!dirtyCache && dirtyCacheTypes.stream().anyMatch(dirtyType -> dirtyType.isInstance(requirement))) {
-            dirtyCache = true;
+        if (!this.dirtyCache && dirtyCacheTypes.stream().anyMatch(dirtyType -> dirtyType.isInstance(requirement))) {
+            this.dirtyCache = true;
         }
         //Remove the cached already invalidated types
-        recentlyInvalidated.removeAll(recentlyInvalidated.stream().filter(type -> type.isInstance(requirement)).collect(Collectors.toList()));
+        this.recentlyInvalidated.removeAll(this.recentlyInvalidated.stream().filter(type -> type.isInstance(requirement)).collect(Collectors.toList()));
 
         if (requirement instanceof OuterRequirement) {
-            recentlyInvalidated.removeAll(((OuterRequirement) requirement).getInternalTypes());
+            this.recentlyInvalidated.removeAll(((OuterRequirement) requirement).getInternalTypes());
         }
 
         return achieved;
@@ -295,15 +310,15 @@ public class RequirementCache {
             return;
         }
 
-        List<Class<? extends Requirement>> dirtyTypes = dirtyCache ? new ArrayList<>(dirtyCacheTypes) : new ArrayList<>();
+        List<Class<? extends Requirement>> dirtyTypes = this.dirtyCache ? new ArrayList<>(dirtyCacheTypes) : new ArrayList<>();
         //Clear all types that are supposed to be invalidated each time if dirtyCache is true
 
         if (cacheType != null) {
             //If no classes of that type have been added do not bother invalidating it again.
             for (Class<? extends Requirement> type : cacheType) {
-                if (!recentlyInvalidated.contains(type)) {
+                if (!this.recentlyInvalidated.contains(type)) {
                     dirtyTypes.add(type);
-                    recentlyInvalidated.add(type);
+                    this.recentlyInvalidated.add(type);
                 }
             }
             if (dirtyTypes.size() == dirtyCacheTypes.size()) {
@@ -318,7 +333,7 @@ public class RequirementCache {
             return;
         }
 
-        Set<Class<? extends Requirement>> requirements = requirementCache.keySet();
+        Set<Class<? extends Requirement>> requirements = this.requirementCache.keySet();
         List<Class<? extends Requirement>> toRemove = new ArrayList<>();
 
         for (Class<? extends Requirement> requirement : requirements) {
@@ -328,7 +343,7 @@ public class RequirementCache {
                 }
             }
         }
-        toRemove.forEach(requirement -> requirementCache.remove(requirement));
+        toRemove.forEach(requirement -> this.requirementCache.remove(requirement));
 
         MinecraftForge.EVENT_BUS.post(new CacheInvalidatedEvent(player, !toRemove.isEmpty()));
     }
@@ -337,7 +352,7 @@ public class RequirementCache {
         private final UUID uuid;
         private final boolean isRemote; //true if client
 
-        private SidedUUID(UUID uuid, boolean isRemote) {
+        SidedUUID(UUID uuid, boolean isRemote) {
             this.uuid = uuid;
             this.isRemote = isRemote;
         }
@@ -349,14 +364,14 @@ public class RequirementCache {
             }
             if (obj instanceof SidedUUID) {
                 SidedUUID other = (SidedUUID) obj;
-                return isRemote == other.isRemote && uuid.equals(other.uuid);
+                return this.isRemote == other.isRemote && this.uuid.equals(other.uuid);
             }
             return false;
         }
 
         @Override
         public int hashCode() {
-            return Objects.hash(isRemote, uuid);
+            return Objects.hash(this.isRemote, this.uuid);
         }
     }
 }

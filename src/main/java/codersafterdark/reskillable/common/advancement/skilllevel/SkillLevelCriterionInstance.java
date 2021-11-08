@@ -1,11 +1,11 @@
 package codersafterdark.reskillable.common.advancement.skilllevel;
 
+import javax.annotation.Nullable;
+
 import codersafterdark.reskillable.api.skill.Skill;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import net.minecraft.advancements.critereon.AbstractCriterionInstance;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
 
 public class SkillLevelCriterionInstance extends AbstractCriterionInstance {
     private final Skill skill;

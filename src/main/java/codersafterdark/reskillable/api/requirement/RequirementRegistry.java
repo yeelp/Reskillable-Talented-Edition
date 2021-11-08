@@ -1,13 +1,15 @@
 package codersafterdark.reskillable.api.requirement;
 
-import codersafterdark.reskillable.common.Reskillable;
-import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.skill.Skill;
-import com.google.common.collect.Maps;
-import net.minecraft.util.ResourceLocation;
+import java.util.Map;
+
 import org.apache.logging.log4j.Level;
 
-import java.util.Map;
+import com.google.common.collect.Maps;
+
+import codersafterdark.reskillable.api.ReskillableRegistries;
+import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.common.Reskillable;
+import net.minecraft.util.ResourceLocation;
 
 public class RequirementRegistry {
     private Map<String, RequirementFunction<String, Requirement>> requirementHandlers = Maps.newHashMap();
@@ -20,8 +22,8 @@ public class RequirementRegistry {
                 String requirementType = requirements[0];
                 String requirementInputs = requirements[1];
 
-                if (requirementHandlers.containsKey(requirementType)) {
-                    requirement = requirementHandlers.get(requirementType).apply(requirementInputs);
+                if (this.requirementHandlers.containsKey(requirementType)) {
+                    requirement = this.requirementHandlers.get(requirementType).apply(requirementInputs);
                 } else {
                     Skill skill = ReskillableRegistries.SKILLS.getValue(new ResourceLocation(requirementType));
                     if (skill == null) {
@@ -40,11 +42,11 @@ public class RequirementRegistry {
                 }
             } else if (requirements.length > 0) {
                 String requirementType = requirements[0];
-                if (requirementHandlers.containsKey(requirementType)) {
+                if (this.requirementHandlers.containsKey(requirementType)) {
                     //Pass them the whole extended requirement Inputs (Note: they will have to split by | themselves)
                     int pos = requirementType.length() + 1;
                     String input = pos > requirementString.length() ? "" : requirementString.substring(pos);
-                    requirement = requirementHandlers.get(requirementType).apply(input);
+                    requirement = this.requirementHandlers.get(requirementType).apply(input);
                 }
             }
         } catch (RequirementException e) {
@@ -62,6 +64,6 @@ public class RequirementRegistry {
     }
 
     public void addRequirementHandler(String identity, RequirementFunction<String, Requirement> creator) {
-        requirementHandlers.put(identity, creator);
+        this.requirementHandlers.put(identity, creator);
     }
 }

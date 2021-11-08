@@ -1,16 +1,16 @@
 package codersafterdark.reskillable.common.profession.warrior.berserker;
 
-import codersafterdark.reskillable.api.data.PlayerData;
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import java.util.Random;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerProfessionInfo;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.talent.Talent;
-import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
-import electroblob.wizardry.potion.PotionMagicEffect;
 import electroblob.wizardry.registry.WizardryPotions;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -20,10 +20,6 @@ import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.Random;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentFear extends Talent {
     Random rand = new Random();
@@ -42,7 +38,7 @@ public class TalentFear extends Talent {
             if (PlayerDataHandler.get(player).getProfessionInfo(getParentProfession()).isUnlocked(this) && player.getHealth() <= player.getMaxHealth() * 0.5) {
                 float fearChance = 5.0F * PlayerDataHandler.get(player).getTalentInfo(this).getRank();
                 fearChance /= 100.0F;
-                if (fearChance >= rand.nextFloat()) {
+                if (fearChance >= this.rand.nextFloat()) {
                     event.getEntityLiving().addPotionEffect(new PotionEffect(WizardryPotions.fear, 120));
                 }
             }

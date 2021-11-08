@@ -1,10 +1,10 @@
 package codersafterdark.reskillable.common.profession.gatherer.seafarer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
-import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.potion.PotionEffect;
@@ -12,8 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentNeptunium extends Talent {
 
@@ -40,7 +38,7 @@ public class TalentNeptunium extends Talent {
                 double motionY = player.motionY * SPEED_MULT;
                 double motionZ = player.motionZ * SPEED_MULT;
 
-                boolean flying = player instanceof EntityPlayer && player.capabilities.isFlying;
+                boolean flying = player.capabilities.isFlying;
 
                 if (Math.abs(motionX) < MAX_SPEED && !flying)
                     player.motionX = motionX;

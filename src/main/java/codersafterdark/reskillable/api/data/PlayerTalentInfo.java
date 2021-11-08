@@ -1,14 +1,14 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class PlayerTalentInfo extends PlayerProfessionInfo {
 
@@ -22,37 +22,40 @@ public class PlayerTalentInfo extends PlayerProfessionInfo {
     public PlayerTalentInfo(Talent talent) {
         super(talent.getParentProfession());
         this.talent = talent;
-        rank = 0;
+        this.rank = 0;
     }
 
-    public void loadFromNBT(NBTTagCompound cmp) {
-        rank = cmp.getInteger(TAG_RANK);
+    @Override
+	public void loadFromNBT(NBTTagCompound cmp) {
+        this.rank = cmp.getInteger(TAG_RANK);
 
-        talentAttributes.clear();
+        this.talentAttributes.clear();
         NBTTagList modifiersCmp = cmp.getTagList(TAG_MODIFIERS, 10);
 
         for (int i = 0; i < modifiersCmp.tagCount(); i++) {
             NBTTagCompound attributeCmp = modifiersCmp.getCompoundTagAt(i);
-            talentAttributes.add(SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp));
+            this.talentAttributes.add(SharedMonsterAttributes.readAttributeModifierFromNBT(attributeCmp));
         }
     }
 
-    public void saveToNBT(NBTTagCompound cmp) {
-        cmp.setInteger(TAG_RANK, rank);
+    @Override
+	public void saveToNBT(NBTTagCompound cmp) {
+        cmp.setInteger(TAG_RANK, this.rank);
 
         NBTTagList modifiersCmp = new NBTTagList();
-        for (AttributeModifier a : talentAttributes) {
+        for (AttributeModifier a : this.talentAttributes) {
             modifiersCmp.appendTag(SharedMonsterAttributes.writeAttributeModifierToNBT(a));
         }
 
         cmp.setTag(TAG_MODIFIERS, modifiersCmp);
     }
 
-    public int getRank() {
-        if (rank > talent.getCap()) {
-            rank = talent.getCap();
+    @Override
+	public int getRank() {
+        if (this.rank > this.talent.getCap()) {
+            this.rank = this.talent.getCap();
         }
-        return rank;
+        return this.rank;
     }
 
     public void setRank(int rank) {
@@ -61,32 +64,35 @@ public class PlayerTalentInfo extends PlayerProfessionInfo {
         this.rank = rank;
     }
 
-    public List<AttributeModifier> getTalentAttributes() {return talentAttributes;}
+    public List<AttributeModifier> getTalentAttributes() {return this.talentAttributes;}
 
-    public boolean isCapped() {
-        return rank >= talent.getCap();
+    @Override
+	public boolean isCapped() {
+        return this.rank >= this.talent.getCap();
     }
 
-    public int getLevelUpCost() {
-        return talent.getCost();
+    @Override
+	public int getLevelUpCost() {
+        return this.talent.getCost();
     }
 
-    public void levelUp() {
-        rank++;
+    @Override
+	public void levelUp() {
+        this.rank++;
     }
 
     public void addAttributeModifier(IAttributeInstance attributeInstance, AttributeModifier modifier) {
-        talentAttributes.add(modifier);
+        this.talentAttributes.add(modifier);
         attributeInstance.applyModifier(modifier);
     }
 
     public void removeTalentAttribute(IAttributeInstance attributeInstance) {
-        for (AttributeModifier modifier : talentAttributes) {
+        for (AttributeModifier modifier : this.talentAttributes) {
             if (modifier.getName().equals(attributeInstance.getAttribute().getName())) {
                 attributeInstance.removeModifier(modifier);
             }
         }
-        talentAttributes.clear();
+        this.talentAttributes.clear();
     }
 
 }

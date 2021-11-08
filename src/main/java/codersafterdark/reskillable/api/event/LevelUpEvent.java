@@ -18,15 +18,15 @@ public class LevelUpEvent extends PlayerEvent {
     }
 
     public Skill getSkill() {
-        return skill;
+        return this.skill;
     }
 
     public int getLevel() {
-        return level;
+        return this.level;
     }
 
     public int getOldLevel() {
-        return oldLevel;
+        return this.oldLevel;
     }
 
     @Cancelable

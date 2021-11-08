@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.agility;
 
+import java.util.UUID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerSkillInfo;
 import codersafterdark.reskillable.api.event.LevelUpEvent;
@@ -19,8 +21,6 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.UUID;
-
 public class TraitMightyStrikes extends Trait {
     IAttribute critDamageMod = ReskillableAttributes.CRIT_DAMAGE;
     private UUID modifierID = null;
@@ -36,10 +36,10 @@ public class TraitMightyStrikes extends Trait {
         if (event.getSkill() instanceof SkillAgility && !player.world.isRemote) {
             PlayerSkillInfo info = PlayerDataHandler.get(player).getSkillInfo(getParentSkill());
             if (!info.isUnlocked(this)) {return;}
-            IAttributeInstance AttributeCritDamage = player.getEntityAttribute(critDamageMod);
-            AttributeCritDamage.removeModifier(modifierID);
+            IAttributeInstance AttributeCritDamage = player.getEntityAttribute(this.critDamageMod);
+            AttributeCritDamage.removeModifier(this.modifierID);
             AttributeModifier newModifier = new AttributeModifier("reskillable.critDamage", calcCritDamage(player), 0);
-            modifierID = newModifier.getID();
+            this.modifierID = newModifier.getID();
             AttributeCritDamage.applyModifier(newModifier);
             AttributeCritDamage.getModifiers().forEach(modifiers -> player.sendMessage(new TextComponentString(modifiers.toString())));
         }
@@ -50,11 +50,11 @@ public class TraitMightyStrikes extends Trait {
         if (event.getUnlockable() instanceof TraitMightyStrikes) {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.world.isRemote) {
-                IAttributeInstance AttributeCritDamage = player.getEntityAttribute(critDamageMod);
+                IAttributeInstance AttributeCritDamage = player.getEntityAttribute(this.critDamageMod);
                 float amount = calcCritDamage(player);
                 AttributeModifier modifier = new AttributeModifier("reskillable.critDamage", amount, 0);
                 AttributeCritDamage.applyModifier(modifier);
-                modifierID = modifier.getID();
+                this.modifierID = modifier.getID();
             }
         }
     }
@@ -63,8 +63,8 @@ public class TraitMightyStrikes extends Trait {
     public void onLock(LockUnlockableEvent event) {
         if (event.getUnlockable() instanceof TraitMightyStrikes) {
             EntityPlayer player = event.getEntityPlayer();
-            IAttributeInstance AttributeCrit = player.getEntityAttribute(critDamageMod);
-            AttributeCrit.removeModifier(modifierID);
+            IAttributeInstance AttributeCrit = player.getEntityAttribute(this.critDamageMod);
+            AttributeCrit.removeModifier(this.modifierID);
         }
     }
 

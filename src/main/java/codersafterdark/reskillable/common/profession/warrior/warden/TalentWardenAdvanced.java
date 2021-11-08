@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.profession.warrior.warden;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.event.LockTalentEvent;
@@ -13,8 +15,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentWardenAdvanced extends Talent {
     IAttribute damageResist = ReskillableAttributes.DAMAGE_RESIST;
@@ -31,7 +31,7 @@ public class TalentWardenAdvanced extends Talent {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.world.isRemote) {
                 PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
-                IAttributeInstance AttributeResist = player.getEntityAttribute(damageResist);
+                IAttributeInstance AttributeResist = player.getEntityAttribute(this.damageResist);
                 AttributeModifier modifier = new AttributeModifier("reskillable.damageResistance", 5.0D, 0);
                 info.addAttributeModifier(AttributeResist, modifier);
                 PlayerDataHandler.get(player).saveAndSync();
@@ -43,7 +43,7 @@ public class TalentWardenAdvanced extends Talent {
     public void onLock(LockTalentEvent.Post event) {
         if (event.getTalent() instanceof TalentWardenAdvanced) {
             EntityPlayer player = event.getEntityPlayer();
-            IAttributeInstance AttributeCrit = player.getEntityAttribute(damageResist);
+            IAttributeInstance AttributeCrit = player.getEntityAttribute(this.damageResist);
             PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
             info.removeTalentAttribute(AttributeCrit);
             PlayerDataHandler.get(player).saveAndSync();

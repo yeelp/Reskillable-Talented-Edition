@@ -1,5 +1,9 @@
 package codersafterdark.reskillable.client.core.handler;
 
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.RequirementHolder;
@@ -10,7 +14,6 @@ import codersafterdark.reskillable.base.LevelLockHandler;
 import codersafterdark.reskillable.client.core.RenderHelper;
 import codersafterdark.reskillable.client.gui.GuiSkills;
 import codersafterdark.reskillable.common.network.MessageLockedItem;
-import com.google.common.collect.Lists;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.DisplayInfo;
 import net.minecraft.client.Minecraft;
@@ -25,8 +28,6 @@ import net.minecraftforge.client.event.RenderGameOverlayEvent.ElementType;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.List;
 
 @SideOnly(Side.CLIENT)
 public class HUDHandler {

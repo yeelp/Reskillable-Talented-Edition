@@ -1,16 +1,17 @@
 package codersafterdark.reskillable.common.profession.rogue.archer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.fantasticsource.dynamicstealth.common.ClientData;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
-import com.fantasticsource.dynamicstealth.common.ClientData;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentTruthSeeker extends Talent {
 

@@ -1,5 +1,13 @@
 package codersafterdark.reskillable.client.gui;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
@@ -16,13 +24,6 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GuiSkills extends GuiScreen {
     public static final ResourceLocation SKILLS_RES = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/skills.png");
@@ -40,7 +41,7 @@ public class GuiSkills extends GuiScreen {
     private List<Skill> skills = new ArrayList<>();
 
     public GuiSkills() {
-        ReskillableRegistries.SKILLS.getValuesCollection().stream().filter(Skill::isEnabled).forEach(enabledSkills::add);
+        ReskillableRegistries.SKILLS.getValuesCollection().stream().filter(Skill::isEnabled).forEach(this.enabledSkills::add);
     }
 
     public static void drawSkill(int x, int y, Skill skill) {
@@ -88,67 +89,67 @@ public class GuiSkills extends GuiScreen {
 
     @Override
     public void initGui() {
-        guiWidth = 176;
-        guiHeight = 166;
+        this.guiWidth = 176;
+        this.guiHeight = 166;
 
-        buttonList.clear();
-        InventoryTabHandler.addTabs(this, buttonList);
+        this.buttonList.clear();
+        InventoryTabHandler.addTabs(this, this.buttonList);
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
-        mc.renderEngine.bindTexture(SKILLS_RES);
+        this.mc.renderEngine.bindTexture(SKILLS_RES);
         GlStateManager.color(1F, 1F, 1F);
 
-        left = width / 2 - guiWidth / 2;
-        top = height / 2 - guiHeight / 2;
-        drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
+        this.left = this.width / 2 - this.guiWidth / 2;
+        this.top = this.height / 2 - this.guiHeight / 2;
+        drawTexturedModalRect(this.left, this.top, 0, 0, this.guiWidth, this.guiHeight);
 
-        PlayerData data = PlayerDataHandler.get(mc.player);
+        PlayerData data = PlayerDataHandler.get(this.mc.player);
 
-        hoveredSkill = null;
+        this.hoveredSkill = null;
 
-        skills = new ArrayList<>();
-        enabledSkills.stream().filter(enabledSkill -> !enabledSkill.isHidden()).forEach(skills::add);
+        this.skills = new ArrayList<>();
+        this.enabledSkills.stream().filter(enabledSkill -> !enabledSkill.isHidden()).forEach(this.skills::add);
 
         int index = 0;
-        for (int j = offset; j < skills.size() && index < 8; j++) {
-            Skill skill = skills.get(j);
+        for (int j = this.offset; j < this.skills.size() && index < 8; j++) {
+            Skill skill = this.skills.get(j);
             PlayerSkillInfo skillInfo = data.getSkillInfo(skill);
 
             int i = index++;
             int w = 79;
             int h = 32;
-            int x = left + (i % 2) * (w + 3) + 8;
-            int y = top + (i / 2) * (h + 3) + 18;
+            int x = this.left + (i % 2) * (w + 3) + 8;
+            int y = this.top + (i / 2) * (h + 3) + 18;
 
-            lastY = y;
+            this.lastY = y;
             int u = 0;
-            int v = guiHeight;
+            int v = this.guiHeight;
 
             if (mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + h) {
                 u += w;
-                hoveredSkill = skill;
+                this.hoveredSkill = skill;
             }
             if (skillInfo.isCapped()) {
                 v += h;
             }
 
-            mc.renderEngine.bindTexture(SKILLS_RES);
+            this.mc.renderEngine.bindTexture(SKILLS_RES);
             GlStateManager.color(1F, 1F, 1F);
             drawTexturedModalRect(x, y, u, v, w, h);
             drawSkill(x + 5, y + 9, skill);
 
-            mc.fontRenderer.drawString(skill.getName(), x + 26, y + 6, 0xFFFFFF);
-            mc.fontRenderer.drawString(skillInfo.getLevel() + "/" + skill.getCap(), x + 26, y + 17, 0x888888);
+            this.mc.fontRenderer.drawString(skill.getName(), x + 26, y + 6, 0xFFFFFF);
+            this.mc.fontRenderer.drawString(skillInfo.getLevel() + "/" + skill.getCap(), x + 26, y + 17, 0x888888);
         }
         GL11.glColor4f(1, 1, 1, 1);
-        drawScrollButtonsTop(left + 49, top + 14);
-        drawScrollButtonsBottom(left + 49, lastY + 32);
+        drawScrollButtonsTop(this.left + 49, this.top + 14);
+        drawScrollButtonsBottom(this.left + 49, this.lastY + 32);
 
         String skillsStr = new TextComponentTranslation("reskillable.misc.skills").getUnformattedComponentText();
-        fontRenderer.drawString(skillsStr, width / 2 - fontRenderer.getStringWidth(skillsStr) / 2, top + 5, 4210752);
+        this.fontRenderer.drawString(skillsStr, this.width / 2 - this.fontRenderer.getStringWidth(skillsStr) / 2, this.top + 5, 4210752);
 
         super.drawScreen(mouseX, mouseY, partialTicks);
     }
@@ -157,16 +158,16 @@ public class GuiSkills extends GuiScreen {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        if (mouseButton == 0 && hoveredSkill != null) {
-            mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-            GuiSkillInfo gui = new GuiSkillInfo(hoveredSkill);
-            mc.displayGuiScreen(gui);
+        if (mouseButton == 0 && this.hoveredSkill != null) {
+            this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            GuiSkillInfo gui = new GuiSkillInfo(this.hoveredSkill);
+            this.mc.displayGuiScreen(gui);
         }
         if (mouseButton == 0) {
-            if (mouseX >= left + 49 && mouseX <= left + 128 && mouseY >= top + 14) {
-                if (mouseY <= top + 18) {
+            if (mouseX >= this.left + 49 && mouseX <= this.left + 128 && mouseY >= this.top + 14) {
+                if (mouseY <= this.top + 18) {
                     scrollUp();
-                } else if (mouseY <= lastY + 36) {
+                } else if (mouseY <= this.lastY + 36) {
                     scrollDown();
                 }
             }
@@ -174,15 +175,15 @@ public class GuiSkills extends GuiScreen {
     }
 
     private void scrollUp() {
-        offset = Math.max(offset - 2, 0);
+        this.offset = Math.max(this.offset - 2, 0);
     }
 
     private void scrollDown() {
         int off = 2;
-        if (skills.size() % 2 == 1) {
+        if (this.skills.size() % 2 == 1) {
             off = 1;
         }
-        offset = Math.min(offset + 2, Math.max(skills.size() - 6 - off, 0));
+        this.offset = Math.min(this.offset + 2, Math.max(this.skills.size() - 6 - off, 0));
     }
 
     @Override

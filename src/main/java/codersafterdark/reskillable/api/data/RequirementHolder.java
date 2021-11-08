@@ -1,5 +1,10 @@
 package codersafterdark.reskillable.api.data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.google.common.collect.Lists;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.requirement.NoneRequirement;
 import codersafterdark.reskillable.api.requirement.Requirement;
@@ -7,7 +12,6 @@ import codersafterdark.reskillable.api.requirement.RequirementComparison;
 import codersafterdark.reskillable.api.requirement.logic.TrueRequirement;
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.common.lib.LibObfuscation;
-import com.google.common.collect.Lists;
 import net.minecraft.advancements.AdvancementList;
 import net.minecraft.advancements.AdvancementManager;
 import net.minecraft.client.gui.GuiScreen;
@@ -17,9 +21,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.ArrayList;
-import java.util.List;
-
+@SuppressWarnings("deprecation")
 public class RequirementHolder {
     private static AdvancementList advList;
     private final List<Requirement> requirements;
@@ -42,7 +44,7 @@ public class RequirementHolder {
         for (RequirementHolder other : others) {
             if (other.hasNone) {
                 this.requirements.addAll(other.requirements);
-                hasNone = true;
+                this.hasNone = true;
                 break;
             }
             other.requirements.forEach(otherRequirement -> addRequirement(this.requirements, otherRequirement));
@@ -110,15 +112,15 @@ public class RequirementHolder {
     }
 
     public boolean isRealLock() {
-        return getRestrictionLength() > 0 && !forcedEmpty;
+        return getRestrictionLength() > 0 && !this.forcedEmpty;
     }
 
     public boolean isForcedEmpty() {
-        return forcedEmpty;
+        return this.forcedEmpty;
     }
 
     public int getRestrictionLength() {
-        return requirements.size();
+        return this.requirements.size();
     }
 
     @SideOnly(Side.CLIENT)
@@ -137,15 +139,15 @@ public class RequirementHolder {
     @SideOnly(Side.CLIENT)
     public void addRequirementsIgnoreShift(PlayerData data, List<String> tooltip) {
         if (isRealLock()) {
-            requirements.stream().map(requirement -> requirement.getToolTip(data)).forEach(tooltip::add);
+            this.requirements.stream().map(requirement -> requirement.getToolTip(data)).forEach(tooltip::add);
         }
     }
 
     public List<Requirement> getRequirements() {
-        return requirements;
+        return this.requirements;
     }
 
     public boolean hasNone() {
-        return hasNone;
+        return this.hasNone;
     }
 }

@@ -2,6 +2,11 @@ package codersafterdark.reskillable.client.gui.button;
 
 import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.base.ConfigHandler;
 import codersafterdark.reskillable.client.gui.GuiSkillInfo;
 import net.minecraft.client.Minecraft;
@@ -9,17 +14,13 @@ import net.minecraft.client.gui.GuiButton;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.util.text.TextFormatting;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 public class GuiButtonLevelUp extends GuiButton {
     int cost;
     float renderTicks;
 
     public GuiButtonLevelUp(int x, int y) {
         super(0, x, y, 14, 14, "");
-        cost = Integer.MAX_VALUE;
+        this.cost = Integer.MAX_VALUE;
     }
 
     public void setCost(int cost) {
@@ -28,10 +29,10 @@ public class GuiButtonLevelUp extends GuiButton {
 
     @Override
     public void drawButton(@Nonnull Minecraft mc, int mouseX, int mouseY, float f) {
-        enabled = mc.player.experienceLevel >= cost || mc.player.isCreative();
+        this.enabled = mc.player.experienceLevel >= this.cost || mc.player.isCreative();
 
         if (ConfigHandler.enableLevelUp) {
-            if (enabled) {
+            if (this.enabled) {
                 GlStateManager.color(1F, 1F, 1F);
                 mc.renderEngine.bindTexture(GuiSkillInfo.SKILL_INFO_RES);
 
@@ -39,10 +40,10 @@ public class GuiButtonLevelUp extends GuiButton {
                 int y = this.y;
                 int u = 176;
                 int v = 0;
-                int w = width;
-                int h = height;
+                int w = this.width;
+                int h = this.height;
 
-                if (mouseX > this.x && mouseY > this.y && mouseX < this.x + width && mouseY < this.y + height) {
+                if (mouseX > this.x && mouseY > this.y && mouseX < this.x + this.width && mouseY < this.y + this.height) {
                     v += h;
                 } else {
                     float speedModifier = 4;
@@ -53,7 +54,8 @@ public class GuiButtonLevelUp extends GuiButton {
         }
     }
 
-    public void drawLevelButtonTooltip(String desc, String cost, int mouseX, int mouseY) {
+    @SuppressWarnings("static-method")
+	public void drawLevelButtonTooltip(String desc, String cost, int mouseX, int mouseY) {
         List<String> tooltip = new ArrayList<>();
 
         if (!(desc == null)) {tooltip.add(TextFormatting.YELLOW + desc);}

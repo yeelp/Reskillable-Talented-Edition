@@ -40,7 +40,8 @@ public class ProfessionToastPacket implements IMessage, IMessageHandler<Professi
         return null;
     }
 
-    public IMessage handleMessage(ProfessionToastPacket message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(ProfessionToastPacket message, @SuppressWarnings("unused") MessageContext ctx) {
         ToastHelper.sendProfessionToast(ReskillableRegistries.PROFESSIONS.getValue(message.professionName), message.level);
         return null;
     }

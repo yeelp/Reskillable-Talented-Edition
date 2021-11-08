@@ -1,18 +1,20 @@
 package codersafterdark.reskillable.api.unlockable;
 
-import codersafterdark.reskillable.common.Reskillable;
+import java.util.Objects;
+
+import javax.annotation.Nonnull;
+
+import org.apache.logging.log4j.Level;
+
 import codersafterdark.reskillable.api.ReskillableAPI;
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.RequirementHolder;
 import codersafterdark.reskillable.api.skill.Skill;
+import codersafterdark.reskillable.common.Reskillable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import org.apache.logging.log4j.Level;
-
-import javax.annotation.Nonnull;
-import java.util.*;
 
 public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> implements Comparable<Unlockable> {
     private final String name;
@@ -30,35 +32,35 @@ public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> im
 
     @Nonnull
     public Skill getParentSkill() {
-        return parentSkill;
+        return this.parentSkill;
     }
 
     protected void setParentSkill(ResourceLocation skillName) {
-        if (parentSkill != null) {
-            if (skillName != null && skillName.equals(parentSkill.getRegistryName())) {
+        if (this.parentSkill != null) {
+            if (skillName != null && skillName.equals(this.parentSkill.getRegistryName())) {
                 //The skill is already the parent skill
                 return;
             }
             //Remove from old parent skill if there already is a parent skill
-            parentSkill.getUnlockables().remove(this);
+            this.parentSkill.getUnlockables().remove(this);
         }
-        parentSkill = Objects.requireNonNull(ReskillableRegistries.SKILLS.getValue(skillName));
+        this.parentSkill = Objects.requireNonNull(ReskillableRegistries.SKILLS.getValue(skillName));
         if (isEnabled()) {
-            if (parentSkill.isEnabled()) {
-                parentSkill.addUnlockable(this);
+            if (this.parentSkill.isEnabled()) {
+                this.parentSkill.addUnlockable(this);
             } else {
-                Reskillable.logger.log(Level.ERROR, getName() + " is enabled but the parent skill: " + parentSkill.getName() + " is disabled. Disabling: " + getName());
+                Reskillable.logger.log(Level.ERROR, getName() + " is enabled but the parent skill: " + this.parentSkill.getName() + " is disabled. Disabling: " + getName());
                 this.unlockableConfig.setEnabled(false);
             }
         }
     }
 
     public RequirementHolder getRequirements() {
-        return unlockableConfig.getRequirementHolder();
+        return this.unlockableConfig.getRequirementHolder();
     }
 
     public String getKey() {
-        return name;
+        return this.name;
     }
 
     public String getName() {
@@ -69,30 +71,33 @@ public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> im
         return new TextComponentTranslation("reskillable.unlock." + getKey() + ".desc").getUnformattedComponentText();
     }
 
-    public void setCap(int cap) {unlockableConfig.setRankCap(cap);}
+    public void setCap(int cap) {this.unlockableConfig.setRankCap(cap);}
 
-    public int getCap() {return unlockableConfig.getRankCap();}
+    public int getCap() {return this.unlockableConfig.getRankCap();}
 
     public ResourceLocation getIcon() {
-        return icon;
+        return this.icon;
     }
 
     protected void setIcon(ResourceLocation newIcon) {
-        icon = newIcon;
+        this.icon = newIcon;
     }
 
-    public void onUnlock(EntityPlayer player) {
+    public void onUnlock(@SuppressWarnings("unused") EntityPlayer player) {
+    	//no-op
     }
 
-    public void onLock(EntityPlayer player) {
+    public void onLock(@SuppressWarnings("unused") EntityPlayer player) {
+    	//no-op
     }
 
-    public boolean hasSpikes() {
+    @SuppressWarnings("static-method")
+	public boolean hasSpikes() {
         return false;
     }
 
     public boolean isEnabled() {
-        return unlockableConfig.isEnabled();
+        return this.unlockableConfig.isEnabled();
     }
 
     @Override
@@ -105,18 +110,18 @@ public abstract class Unlockable extends IForgeRegistryEntry.Impl<Unlockable> im
     }
 
     public int getCost() {
-        return unlockableConfig.getCost();
+        return this.unlockableConfig.getCost();
     }
 
     public int getX() {
-        return unlockableConfig.getX();
+        return this.unlockableConfig.getX();
     }
 
     public int getY() {
-        return unlockableConfig.getY();
+        return this.unlockableConfig.getY();
     }
 
     public final UnlockableConfig getUnlockableConfig() {
-        return unlockableConfig;
+        return this.unlockableConfig;
     }
 }

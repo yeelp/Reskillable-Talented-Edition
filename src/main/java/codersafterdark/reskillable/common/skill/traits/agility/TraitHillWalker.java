@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.agility;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.unlockable.Trait;
@@ -9,8 +11,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
-
 public class TraitHillWalker extends Trait {
     public TraitHillWalker() {
         super(new ResourceLocation(MOD_ID, "hillwalker"), 2, 2, new ResourceLocation(MOD_ID, "agility"), 8, "reskillable:agility|32");
@@ -19,7 +19,8 @@ public class TraitHillWalker extends Trait {
         }
     }
 
-    @Override
+    @SuppressWarnings("null")
+	@Override
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         PlayerData data = null;

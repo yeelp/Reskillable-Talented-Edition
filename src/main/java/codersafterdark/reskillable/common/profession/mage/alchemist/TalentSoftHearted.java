@@ -2,9 +2,6 @@ package codersafterdark.reskillable.common.profession.mage.alchemist;
 
 import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import com.google.common.collect.ImmutableSet;
 
 import net.minecraft.entity.SharedMonsterAttributes;

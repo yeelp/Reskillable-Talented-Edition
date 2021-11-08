@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.skill.traits.agility;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.unlockable.Trait;
 import codersafterdark.reskillable.client.core.handler.ClientTickHandler;
@@ -23,8 +25,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent.Phase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
-
 public class TraitSidestep extends Trait {
     public static final int MAX_CD = 20;
     private int leftDown, rightDown, cd;
@@ -41,15 +41,15 @@ public class TraitSidestep extends Trait {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void clientTick(ClientTickEvent event) {
-        if (event.phase == Phase.END && cd > 0) {
-            cd--;
+        if (event.phase == Phase.END && this.cd > 0) {
+            this.cd--;
         }
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public void onKeyDown(KeyInputEvent event) {
-        if (cd > 0) {
+    public void onKeyDown(@SuppressWarnings("unused") KeyInputEvent event) {
+        if (this.cd > 0) {
             return;
         }
 
@@ -60,17 +60,17 @@ public class TraitSidestep extends Trait {
 
         int threshold = 4;
         if (mc.gameSettings.keyBindLeft.isKeyDown()) {
-            int oldLeft = leftDown;
-            leftDown = ClientTickHandler.ticksInGame;
+            int oldLeft = this.leftDown;
+            this.leftDown = ClientTickHandler.ticksInGame;
 
-            if (leftDown - oldLeft < threshold) {
+            if (this.leftDown - oldLeft < threshold) {
                 dodge(mc.player, true);
             }
         } else if (mc.gameSettings.keyBindRight.isKeyDown()) {
-            int oldRight = rightDown;
-            rightDown = ClientTickHandler.ticksInGame;
+            int oldRight = this.rightDown;
+            this.rightDown = ClientTickHandler.ticksInGame;
 
-            if (rightDown - oldRight < threshold) {
+            if (this.rightDown - oldRight < threshold) {
                 dodge(mc.player, false);
             }
         }
@@ -91,7 +91,7 @@ public class TraitSidestep extends Trait {
         player.motionX = sideVec.x;
         player.motionY = sideVec.y;
         player.motionZ = sideVec.z;
-        cd = MAX_CD;
+        this.cd = MAX_CD;
     }
 
     @SubscribeEvent
@@ -108,7 +108,7 @@ public class TraitSidestep extends Trait {
 
         GlStateManager.enableBlend();
         if (!mc.player.capabilities.isFlying) {
-            int width = Math.min((int) ((cd - event.getPartialTicks()) * 2), 40);
+            int width = Math.min((int) ((this.cd - event.getPartialTicks()) * 2), 40);
             GlStateManager.color(1F, 1F, 1F, 1F);
             if (width > 0) {
                 Gui.drawRect(xo, y - 2, xo + 40, y - 1, 0x44000000);

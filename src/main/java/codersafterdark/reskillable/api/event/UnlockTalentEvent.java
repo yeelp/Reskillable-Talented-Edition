@@ -14,7 +14,7 @@ public class UnlockTalentEvent extends PlayerEvent {
     }
 
     public Talent getTalent() {
-        return talent;
+        return this.talent;
     }
 
     @Cancelable

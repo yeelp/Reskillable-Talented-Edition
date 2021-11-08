@@ -40,7 +40,8 @@ public class SkillToastPacket implements IMessage, IMessageHandler<SkillToastPac
         return null;
     }
 
-    public IMessage handleMessage(SkillToastPacket message, MessageContext ctx) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(SkillToastPacket message, @SuppressWarnings("unused") MessageContext ctx) {
         ToastHelper.sendSkillToast(ReskillableRegistries.SKILLS.getValue(message.skillName), message.level);
         return null;
     }

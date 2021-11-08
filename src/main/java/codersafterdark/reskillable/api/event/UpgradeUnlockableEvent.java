@@ -17,14 +17,14 @@ public class UpgradeUnlockableEvent extends PlayerEvent {
         this.oldRank = oldRank;
     }
 
-    public Unlockable getUnlockable() {return unlockable;}
+    public Unlockable getUnlockable() {return this.unlockable;}
 
     public int getLevel() {
-        return rank;
+        return this.rank;
     }
 
     public int getOldLevel() {
-        return oldRank;
+        return this.oldRank;
     }
 
     @Cancelable

@@ -1,7 +1,6 @@
 package codersafterdark.reskillable.api.event;
 
 import codersafterdark.reskillable.api.talent.Talent;
-import codersafterdark.reskillable.api.unlockable.Unlockable;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.eventhandler.Cancelable;
@@ -15,7 +14,7 @@ public class LockTalentEvent extends PlayerEvent {
     }
 
     public Talent getTalent() {
-        return talent;
+        return this.talent;
     }
 
     @Cancelable

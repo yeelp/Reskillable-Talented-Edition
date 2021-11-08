@@ -1,9 +1,9 @@
 package codersafterdark.reskillable.common.commands;
 
+import javax.annotation.Nonnull;
+
 import net.minecraft.command.ICommandSender;
 import net.minecraftforge.server.command.CommandTreeBase;
-
-import javax.annotation.Nonnull;
 
 public class ReskillableCmd extends CommandTreeBase {
     //TODO ResetSkill and ResetAll should really make it so any skill locks or trait requirements no longer met get their state reset as well

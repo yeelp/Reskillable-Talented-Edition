@@ -1,5 +1,7 @@
 package codersafterdark.reskillable.common.potion;
 
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.common.core.CommonProxy;
 import codersafterdark.reskillable.common.lib.LibMisc;
 import codersafterdark.reskillable.common.util.DamageUtil;
@@ -9,8 +11,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.WorldServer;
-
-import javax.annotation.Nonnull;
 
 public class PotionBleed extends Potion {
     public PotionBleed(String name, boolean isBadPotion, int color, int iconIndexX, int iconIndexY) {

@@ -1,10 +1,13 @@
 package codersafterdark.reskillable.common.profession.rogue.assassin;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.fantasticsource.dynamicstealth.common.ClientData;
+import com.fantasticsource.dynamicstealth.server.event.attacks.StealthAttackEvent;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.talent.Talent;
 import codersafterdark.reskillable.common.potion.ReskillablePotion;
-import com.fantasticsource.dynamicstealth.common.ClientData;
-import com.fantasticsource.dynamicstealth.server.event.attacks.StealthAttackEvent;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.potion.PotionEffect;
@@ -12,8 +15,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentDarkness extends Talent {
     public TalentDarkness() {

@@ -1,19 +1,20 @@
 package codersafterdark.reskillable.common.profession.rogue.archer;
 
+import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
+
+import com.tmtravlr.potioncore.PotionCoreAttributes;
+
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.PlayerTalentInfo;
 import codersafterdark.reskillable.api.event.LockTalentEvent;
 import codersafterdark.reskillable.api.event.UnlockTalentEvent;
 import codersafterdark.reskillable.api.talent.Talent;
-import com.tmtravlr.potioncore.PotionCoreAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import static codersafterdark.reskillable.common.lib.LibMisc.MOD_ID;
 
 public class TalentArcherNovice extends Talent {
     IAttribute projectileDamage = PotionCoreAttributes.PROJECTILE_DAMAGE;
@@ -29,7 +30,7 @@ public class TalentArcherNovice extends Talent {
             EntityPlayer player = event.getEntityPlayer();
             if (!player.world.isRemote) {
                 PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
-                IAttributeInstance AttributeProjectile = player.getEntityAttribute(projectileDamage);
+                IAttributeInstance AttributeProjectile = player.getEntityAttribute(this.projectileDamage);
                 AttributeModifier modifier = new AttributeModifier("potioncore.projectileDamage", 15.0D, 0);
                 info.addAttributeModifier(AttributeProjectile, modifier);
                 PlayerDataHandler.get(player).saveAndSync();
@@ -41,7 +42,7 @@ public class TalentArcherNovice extends Talent {
     public void onLock(LockTalentEvent.Post event) {
         if (event.getTalent() instanceof TalentArcherNovice) {
             EntityPlayer player = event.getEntityPlayer();
-            IAttributeInstance AttributeProjectile = player.getEntityAttribute(projectileDamage);
+            IAttributeInstance AttributeProjectile = player.getEntityAttribute(this.projectileDamage);
             PlayerTalentInfo info = PlayerDataHandler.get(player).getTalentInfo(this);
             info.removeTalentAttribute(AttributeProjectile);
             PlayerDataHandler.get(player).saveAndSync();

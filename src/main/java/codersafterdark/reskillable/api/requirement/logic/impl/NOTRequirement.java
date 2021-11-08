@@ -1,15 +1,16 @@
 package codersafterdark.reskillable.api.requirement.logic.impl;
 
+import java.util.Collections;
+import java.util.List;
+
+import javax.annotation.Nonnull;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.requirement.Requirement;
 import codersafterdark.reskillable.api.requirement.RequirementComparison;
 import codersafterdark.reskillable.api.requirement.logic.OuterRequirement;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextFormatting;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
 
 public class NOTRequirement extends Requirement implements OuterRequirement {
     private final Requirement requirement;
@@ -82,7 +83,7 @@ public class NOTRequirement extends Requirement implements OuterRequirement {
     @Override
     public RequirementComparison matches(Requirement o) {
         if (o instanceof NOTRequirement) {
-            RequirementComparison match = requirement.matches(((NOTRequirement) o).requirement);
+            RequirementComparison match = this.requirement.matches(((NOTRequirement) o).requirement);
             switch (match) {
                 case GREATER_THAN:
                     return RequirementComparison.LESS_THAN;
@@ -97,25 +98,25 @@ public class NOTRequirement extends Requirement implements OuterRequirement {
 
     @Override
     public boolean equals(Object o) {
-        return o == this || o instanceof NOTRequirement && requirement.equals(((NOTRequirement) o).requirement);
+        return o == this || o instanceof NOTRequirement && this.requirement.equals(((NOTRequirement) o).requirement);
     }
 
     @Override
     public int hashCode() {
-        return requirement.hashCode();
+        return this.requirement.hashCode();
     }
 
     @Nonnull
     @Override
     public List<Class<? extends Requirement>> getInternalTypes() {
-        if (requirement instanceof OuterRequirement) {
-            return ((OuterRequirement) requirement).getInternalTypes();
+        if (this.requirement instanceof OuterRequirement) {
+            return ((OuterRequirement) this.requirement).getInternalTypes();
         }
-        return Collections.singletonList(requirement.getClass());
+        return Collections.singletonList(this.requirement.getClass());
     }
 
     @Override
     public boolean isCacheable() {
-        return requirement.isCacheable();
+        return this.requirement.isCacheable();
     }
 }

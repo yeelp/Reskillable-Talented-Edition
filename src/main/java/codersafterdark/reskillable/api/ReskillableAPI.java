@@ -1,9 +1,20 @@
 package codersafterdark.reskillable.api;
 
+import java.util.Objects;
+
+import org.apache.logging.log4j.Level;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.profession.Profession;
 import codersafterdark.reskillable.api.profession.ProfessionConfig;
-import codersafterdark.reskillable.api.requirement.*;
+import codersafterdark.reskillable.api.requirement.AdvancementRequirement;
+import codersafterdark.reskillable.api.requirement.NoneRequirement;
+import codersafterdark.reskillable.api.requirement.ProfessionRequirement;
+import codersafterdark.reskillable.api.requirement.RequirementException;
+import codersafterdark.reskillable.api.requirement.RequirementRegistry;
+import codersafterdark.reskillable.api.requirement.TalentRequirement;
+import codersafterdark.reskillable.api.requirement.TraitRequirement;
+import codersafterdark.reskillable.api.requirement.UnobtainableRequirement;
 import codersafterdark.reskillable.api.requirement.logic.LogicParser;
 import codersafterdark.reskillable.api.skill.SkillConfig;
 import codersafterdark.reskillable.api.talent.Talent;
@@ -14,9 +25,6 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
-import org.apache.logging.log4j.Level;
-
-import java.util.Objects;
 
 public class ReskillableAPI {
     private static ReskillableAPI instance;
@@ -26,15 +34,15 @@ public class ReskillableAPI {
     public ReskillableAPI(IModAccess modAccess) {
         this.modAccess = modAccess;
         this.requirementRegistry = new RequirementRegistry();
-        requirementRegistry.addRequirementHandler("adv", input -> new AdvancementRequirement(new ResourceLocation(input)));
-        requirementRegistry.addRequirementHandler("trait", input -> {
+        this.requirementRegistry.addRequirementHandler("adv", input -> new AdvancementRequirement(new ResourceLocation(input)));
+        this.requirementRegistry.addRequirementHandler("trait", input -> {
             Unlockable unlockable = ReskillableRegistries.UNLOCKABLES.getValue(new ResourceLocation(input));
             if (unlockable == null) {
                 throw new RequirementException("Unlockable '" + input + "' not found.");
             }
             return new TraitRequirement(unlockable);
         });
-        requirementRegistry.addRequirementHandler("profession", input -> {
+        this.requirementRegistry.addRequirementHandler("profession", input -> {
             String[] requirements = input.split("\\|");
             if (requirements.length == 2) {
                 Profession profession = ReskillableRegistries.PROFESSIONS.getValue(new ResourceLocation(requirements[0]));
@@ -48,33 +56,32 @@ public class ReskillableAPI {
                     int level = Integer.parseInt(requirementInputs);
                     if (level > 1) {
                         return new ProfessionRequirement(profession, level);
-                    } else {
-                        throw new RequirementException("Level must be greater than 1. Found: '" + level + "'.");
                     }
+					throw new RequirementException("Level must be greater than 1. Found: '" + level + "'.");
                 } catch (NumberFormatException e) {
                     throw new RequirementException("Invalid level '" + requirementInputs + "' for profession '" + profession.getName() + "'.");
                 }
             }
             return null;
         });
-        requirementRegistry.addRequirementHandler("talent", input -> {
+        this.requirementRegistry.addRequirementHandler("talent", input -> {
             Talent talent = ReskillableRegistries.TALENTS.getValue(new ResourceLocation(input));
             if (talent == null) {
                 throw new RequirementException("Talent '" + input + "' not found.");
             }
             return new TalentRequirement(talent);
         });
-        requirementRegistry.addRequirementHandler("unobtainable", input -> new UnobtainableRequirement());
-        requirementRegistry.addRequirementHandler("none", input -> new NoneRequirement()); //Makes it so other requirements are ignored
+        this.requirementRegistry.addRequirementHandler("unobtainable", input -> new UnobtainableRequirement());
+        this.requirementRegistry.addRequirementHandler("none", input -> new NoneRequirement()); //Makes it so other requirements are ignored
 
         //Logic Requirements
-        requirementRegistry.addRequirementHandler("not", LogicParser::parseNOT);
-        requirementRegistry.addRequirementHandler("and", LogicParser::parseAND);
-        requirementRegistry.addRequirementHandler("nand", LogicParser::parseNAND);
-        requirementRegistry.addRequirementHandler("or", LogicParser::parseOR);
-        requirementRegistry.addRequirementHandler("nor", LogicParser::parseNOR);
-        requirementRegistry.addRequirementHandler("xor", LogicParser::parseXOR);
-        requirementRegistry.addRequirementHandler("xnor", LogicParser::parseXNOR);
+        this.requirementRegistry.addRequirementHandler("not", LogicParser::parseNOT);
+        this.requirementRegistry.addRequirementHandler("and", LogicParser::parseAND);
+        this.requirementRegistry.addRequirementHandler("nand", LogicParser::parseNAND);
+        this.requirementRegistry.addRequirementHandler("or", LogicParser::parseOR);
+        this.requirementRegistry.addRequirementHandler("nor", LogicParser::parseNOR);
+        this.requirementRegistry.addRequirementHandler("xor", LogicParser::parseXOR);
+        this.requirementRegistry.addRequirementHandler("xnor", LogicParser::parseXNOR);
     }
 
     public static ReskillableAPI getInstance() {
@@ -85,33 +92,33 @@ public class ReskillableAPI {
         instance = reskillableAPI;
     }
 
-    public ProfessionConfig getProfessionConfig(ResourceLocation name) {return modAccess.getProfessionConfig(name);}
+    public ProfessionConfig getProfessionConfig(ResourceLocation name) {return this.modAccess.getProfessionConfig(name);}
 
     public SkillConfig getSkillConfig(ResourceLocation name) {
-        return modAccess.getSkillConfig(name);
+        return this.modAccess.getSkillConfig(name);
     }
 
     public UnlockableConfig getTraitConfig(ResourceLocation name, int x, int y, int cost, String[] defaultRequirements) {
-        return modAccess.getUnlockableConfig(name, x, y, cost, defaultRequirements);
+        return this.modAccess.getUnlockableConfig(name, x, y, cost, defaultRequirements);
     }
 
     public TalentConfig getTalentConfig(ResourceLocation name, int x, int y, int cost, String[] defaultRequirements) {
-        return modAccess.getTalentConfig(name, x, y, cost, defaultRequirements);
+        return this.modAccess.getTalentConfig(name, x, y, cost, defaultRequirements);
     }
 
     public void syncPlayerData(EntityPlayer entityPlayer, PlayerData playerData) {
-        modAccess.syncPlayerData(entityPlayer, playerData);
+        this.modAccess.syncPlayerData(entityPlayer, playerData);
     }
 
     public AdvancementProgress getAdvancementProgress(EntityPlayer entityPlayer, Advancement advancement) {
-        return modAccess.getAdvancementProgress(entityPlayer, advancement);
+        return this.modAccess.getAdvancementProgress(entityPlayer, advancement);
     }
 
     public RequirementRegistry getRequirementRegistry() {
-        return requirementRegistry;
+        return this.requirementRegistry;
     }
 
     public void log(Level warn, String s) {
-        modAccess.log(warn, s);
+        this.modAccess.log(warn, s);
     }
 }

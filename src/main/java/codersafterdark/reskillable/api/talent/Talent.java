@@ -1,26 +1,22 @@
 package codersafterdark.reskillable.api.talent;
 
-import codersafterdark.reskillable.common.Reskillable;
-import codersafterdark.reskillable.api.ReskillableAPI;
-import codersafterdark.reskillable.api.ReskillableRegistries;
-import codersafterdark.reskillable.api.data.RequirementHolder;
-import codersafterdark.reskillable.api.profession.Profession;
-import codersafterdark.reskillable.common.registry.ReskillableSounds;
-import electroblob.wizardry.registry.WizardrySounds;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.text.TextComponentTranslation;
-import net.minecraft.world.World;
-import net.minecraftforge.registries.IForgeRegistryEntry;
-import org.apache.logging.log4j.Level;
+import java.util.Objects;
+import java.util.Optional;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.stream.Collectors;
+
+import org.apache.logging.log4j.Level;
+
+import codersafterdark.reskillable.api.ReskillableAPI;
+import codersafterdark.reskillable.api.ReskillableRegistries;
+import codersafterdark.reskillable.api.data.PlayerDataHandler;
+import codersafterdark.reskillable.api.data.RequirementHolder;
+import codersafterdark.reskillable.api.profession.Profession;
+import codersafterdark.reskillable.common.Reskillable;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements Comparable<Talent> {
     private final String name;
@@ -40,47 +36,47 @@ public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements
     }
 
     public Profession.SubProfession getSubProfession() {
-        return subProfession;
+        return this.subProfession;
     }
 
     public void setSubProfession(ResourceLocation subProfession) {
-        if (parentProfession != null && !parentProfession.getAllSubProfessions().isEmpty()) {
-            Optional<Profession.SubProfession> subP = parentProfession.getAllSubProfessions().stream().filter(subprofession1 -> subprofession1.getUnformattedName().equals(subProfession.getPath())).findFirst();
+        if (this.parentProfession != null && !this.parentProfession.getAllSubProfessions().isEmpty()) {
+            Optional<Profession.SubProfession> subP = this.parentProfession.getAllSubProfessions().stream().filter(subprofession1 -> subprofession1.getUnformattedName().equals(subProfession.getPath())).findFirst();
             subP.ifPresent(profession -> this.subProfession = profession);
         }
     }
 
     @Nonnull
     public Profession getParentProfession() {
-        return subProfession.getProfession();
+        return this.subProfession.getProfession();
     }
 
     protected void setParentProfession(ResourceLocation professionName) {
-        if (parentProfession != null) {
-            if (professionName != null && professionName.equals(parentProfession.getRegistryName())) {
+        if (this.parentProfession != null) {
+            if (professionName != null && professionName.equals(this.parentProfession.getRegistryName())) {
                 //The skill is already the parent profession
                 return;
             }
             //Remove from old parent profession if there already is a parent profession
-            parentProfession.getTalents().remove(this);
+            this.parentProfession.getTalents().remove(this);
         }
-        parentProfession = Objects.requireNonNull(ReskillableRegistries.PROFESSIONS.getValue(professionName));
+        this.parentProfession = Objects.requireNonNull(ReskillableRegistries.PROFESSIONS.getValue(professionName));
         if (isEnabled()) {
-            if (parentProfession.isEnabled()) {
-                parentProfession.addTalent(this);
+            if (this.parentProfession.isEnabled()) {
+                this.parentProfession.addTalent(this);
             } else {
-                Reskillable.logger.log(Level.ERROR, getName() + " is enabled but the parent skill: " + parentProfession.getName() + " is disabled. Disabling: " + getName());
+                Reskillable.logger.log(Level.ERROR, getName() + " is enabled but the parent skill: " + this.parentProfession.getName() + " is disabled. Disabling: " + getName());
                 this.talentConfig.setEnabled(false);
             }
         }
     }
 
     public RequirementHolder getRequirements() {
-        return talentConfig.getRequirementHolder();
+        return this.talentConfig.getRequirementHolder();
     }
 
     public String getKey() {
-        return name;
+        return this.name;
     }
 
     public String getName() {
@@ -91,25 +87,38 @@ public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements
         return new TextComponentTranslation("reskillable.talent." + getKey() + ".desc").getUnformattedComponentText();
     }
 
-    public void setCap(int cap) {talentConfig.setRankCap(cap);}
+    public void setCap(int cap) {this.talentConfig.setRankCap(cap);}
 
-    public int getCap() {return talentConfig.getRankCap();}
+    public int getCap() {return this.talentConfig.getRankCap();}
 
     public ResourceLocation getIcon() {
-        return icon;
+        return this.icon;
     }
 
     protected void setIcon(ResourceLocation newIcon) {
-        icon = newIcon;
+        this.icon = newIcon;
     }
 
-    public void onUnlock(EntityPlayer player) {}
+    /**
+     * On unlock callback
+     * @param player player unlocking talent
+     */
+    public void onUnlock(EntityPlayer player) {
+    	//no-op
+    }
 
-    public void onLock(EntityPlayer player) {}
+    /**
+     * on lock callback
+     * @param player player locking talent
+     */
+    public void onLock(EntityPlayer player) {
+    	//no-op
+    }
 
-    public boolean hasSpikes() {return false;}
+    @SuppressWarnings("static-method")
+	public boolean hasSpikes() {return false;}
 
-    public boolean isEnabled() {return talentConfig.isEnabled();}
+    public boolean isEnabled() {return this.talentConfig.isEnabled();}
 
     @Override
     public int compareTo(@Nonnull Talent o) {
@@ -121,19 +130,23 @@ public abstract class Talent extends IForgeRegistryEntry.Impl<Talent> implements
     }
 
     public int getCost() {
-        return talentConfig.getCost();
+        return this.talentConfig.getCost();
     }
 
     public int getX() {
-        return talentConfig.getX();
+        return this.talentConfig.getX();
     }
 
     public int getY() {
-        return talentConfig.getY();
+        return this.talentConfig.getY();
     }
 
     public final TalentConfig getTalentConfig() {
-        return talentConfig;
+        return this.talentConfig;
+    }
+    
+    public static final boolean hasTalentUnlocked(EntityPlayer player, Talent t) {
+    	return PlayerDataHandler.get(player).getProfessionInfo(t.getParentProfession()).isUnlocked(t);
     }
 
 }

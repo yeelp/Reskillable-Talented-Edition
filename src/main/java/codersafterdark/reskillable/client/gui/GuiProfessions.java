@@ -1,5 +1,17 @@
 package codersafterdark.reskillable.client.gui;
 
+import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.commons.lang3.tuple.Pair;
+import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.GL11;
+
 import codersafterdark.reskillable.api.ReskillableRegistries;
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
@@ -17,17 +29,6 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.util.text.TextFormatting;
-import org.apache.commons.lang3.tuple.Pair;
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.GL11;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import static codersafterdark.reskillable.client.core.RenderHelper.renderTooltip;
 
 public class GuiProfessions extends GuiScreen {
     public static final ResourceLocation SKILLS_RES = new ResourceLocation(LibMisc.MOD_ID, "textures/gui/professions.png");
@@ -46,112 +47,112 @@ public class GuiProfessions extends GuiScreen {
     private Map<Integer, Profession> professions = new HashMap<>();
 
     public GuiProfessions() {
-        ReskillableRegistries.PROFESSIONS.getValuesCollection().stream().filter(Profession::isEnabled).forEach(enabledProfession -> enabledProfessions.put(enabledProfession.getGuiIndex(), enabledProfession));
+        ReskillableRegistries.PROFESSIONS.getValuesCollection().stream().filter(Profession::isEnabled).forEach(enabledProfession -> this.enabledProfessions.put(enabledProfession.getGuiIndex(), enabledProfession));
     }
 
     @Override
     public void initGui() {
-        guiWidth = 176;
-        guiHeight = 166;
+        this.guiWidth = 176;
+        this.guiHeight = 166;
 
-        buttonList.clear();
-        InventoryTabHandler.addTabs(this, buttonList);
+        this.buttonList.clear();
+        InventoryTabHandler.addTabs(this, this.buttonList);
     }
 
     @Override
     public void drawScreen(int mouseX, int mouseY, float partialTicks) {
         drawDefaultBackground();
-        mc.renderEngine.bindTexture(SKILLS_RES);
+        this.mc.renderEngine.bindTexture(SKILLS_RES);
         GlStateManager.color(1F, 1F, 1F);
 
-        left = width / 2 - guiWidth / 2;
-        top = height / 2 - guiHeight / 2;
-        drawTexturedModalRect(left, top, 0, 0, guiWidth, guiHeight);
+        this.left = this.width / 2 - this.guiWidth / 2;
+        this.top = this.height / 2 - this.guiHeight / 2;
+        drawTexturedModalRect(this.left, this.top, 0, 0, this.guiWidth, this.guiHeight);
 
-        PlayerData data = PlayerDataHandler.get(mc.player);
+        PlayerData data = PlayerDataHandler.get(this.mc.player);
 
-        hoveredProfession = null;
+        this.hoveredProfession = null;
 
-        professions = new HashMap<>();
+        this.professions = new HashMap<>();
 
-        enabledProfessions.entrySet().stream().filter(entry -> !entry.getValue().isHidden()).forEach(entry -> professions.put(entry.getKey(), entry.getValue()));
+        this.enabledProfessions.entrySet().stream().filter(entry -> !entry.getValue().isHidden()).forEach(entry -> this.professions.put(entry.getKey(), entry.getValue()));
         int index = 0;
 
         if (data.hasSecondaryProfession()) {
-            for (int j = offset; j < data.getUnlockedProfessions().size() && index < 2; j ++) {
+            for (int j = this.offset; j < data.getUnlockedProfessions().size() && index < 2; j ++) {
                 Profession profession = data.getUnlockedProfessions().get(j);
 
                 int i = index++;
                 int w = 79;
                 int h = 110;
-                int x = left + (i % 2) * (w + 3) + 8;
-                int y = top + (i / 2) * (h + 3) + 18;
+                int x = this.left + (i % 2) * (w + 3) + 8;
+                int y = this.top + (i / 2) * (h + 3) + 18;
 
-                lastY = y;
+                this.lastY = y;
                 int u = 176;
                 int v = 0;
 
                 if (mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + h) {
                     v += 110;
-                    hoveredProfession = profession;
+                    this.hoveredProfession = profession;
                 }
 
-                mc.renderEngine.bindTexture(SELECTED_PROFS);
+                this.mc.renderEngine.bindTexture(SELECTED_PROFS);
                 GlStateManager.color(1F, 1F, 1F);
                 drawTexturedModalRect(x, y, u, v, w, h);
                 drawProfession(x + 5, y + 9, profession);
 
-                mc.fontRenderer.drawString(profession.getName(), x + 26, y + 12, 0xFFFFFF);
+                this.mc.fontRenderer.drawString(profession.getName(), x + 26, y + 12, 0xFFFFFF);
             }
         } else {
-            for (int j = offset; j < professions.size() && index < 8; j++) {
-                Profession profession = professions.get(j);
+            for (int j = this.offset; j < this.professions.size() && index < 8; j++) {
+                Profession profession = this.professions.get(j);
                 PlayerProfessionInfo professionInfo = data.getProfessionInfo(profession);
 
                 int i = index++;
                 int w = 79;
                 int h = 32;
-                int x = left + (i % 2) * (w + 3) + 8;
-                int y = top + (i / 2) * (h + 3) + 18;
+                int x = this.left + (i % 2) * (w + 3) + 8;
+                int y = this.top + (i / 2) * (h + 3) + 18;
 
-                lastY = y;
+                this.lastY = y;
                 int u = 0;
-                int v = guiHeight;
+                int v = this.guiHeight;
 
                 if (mouseX >= x && mouseY >= y && mouseX < x + w && mouseY < y + h) {
                     u += w;
-                    hoveredProfession = profession;
+                    this.hoveredProfession = profession;
                 }
                 if (professionInfo.getLevel() > 0) {
                     v += h;
                 }
 
-                mc.renderEngine.bindTexture(SKILLS_RES);
+                this.mc.renderEngine.bindTexture(SKILLS_RES);
                 GlStateManager.color(1F, 1F, 1F);
                 drawTexturedModalRect(x, y, u, v, w, h);
                 drawProfession(x + 5, y + 9, profession);
 
-                mc.fontRenderer.drawString(profession.getName(), x + 26, y + 12, 0xFFFFFF);
+                this.mc.fontRenderer.drawString(profession.getName(), x + 26, y + 12, 0xFFFFFF);
                 //mc.fontRenderer.drawString(professionInfo.getLevel() + "/" + profession.getCap(), x + 26, y + 17, 0x888888);
             }
         }
 
         GL11.glColor4f(1, 1, 1, 1);
-        drawScrollButtonsTop(left + 49, top + 14);
+        drawScrollButtonsTop(this.left + 49, this.top + 14);
         if (!data.hasSecondaryProfession()) {
-            drawScrollButtonsBottom(left + 49, lastY + 32);
+            drawScrollButtonsBottom(this.left + 49, this.lastY + 32);
         } else {
-            drawScrollButtonsBottom(left + 49, lastY + 110);
+            drawScrollButtonsBottom(this.left + 49, this.lastY + 110);
         }
 
         String professionsStr = new TextComponentTranslation("reskillable.misc.professions").getUnformattedComponentText();
-        fontRenderer.drawString(professionsStr, width / 2 - fontRenderer.getStringWidth(professionsStr) / 2, top + 5, 4210752);
+        this.fontRenderer.drawString(professionsStr, this.width / 2 - this.fontRenderer.getStringWidth(professionsStr) / 2, this.top + 5, 4210752);
         String infoString = new TextComponentTranslation("reskillable.misc.profession_info").getUnformattedComponentText();
         if (!data.hasSecondaryProfession()) {
-            fontRenderer.drawSplitString(infoString, left + 6, top + 126, guiWidth - 8, 4210752);
+            this.fontRenderer.drawSplitString(infoString, this.left + 6, this.top + 126, this.guiWidth - 8, 4210752);
         }
 
-        if (hoveredProfession != null) {
+        if (this.hoveredProfession != null) {
             makeProfessionTooltip(mouseX, mouseY);
         }
 
@@ -187,10 +188,10 @@ public class GuiProfessions extends GuiScreen {
     private void makeProfessionTooltip(int mouseX, int mouseY) {
         List<String> tooltip = new ArrayList<>();
 
-        tooltip.add(TextFormatting.YELLOW + hoveredProfession.getName());
+        tooltip.add(TextFormatting.YELLOW + this.hoveredProfession.getName());
 
         if (isShiftKeyDown()) {
-            addLongStringToTooltip(tooltip, hoveredProfession.getDescription(), guiWidth);
+            addLongStringToTooltip(tooltip, this.hoveredProfession.getDescription(), this.guiWidth);
         } else {
             tooltip.add(TextFormatting.GRAY + new TextComponentTranslation("reskillable.misc.shift").getUnformattedComponentText());
             tooltip.add("");
@@ -205,7 +206,7 @@ public class GuiProfessions extends GuiScreen {
         int i = 0;
 
         while (i < tokens.length) {
-            while (fontRenderer.getStringWidth(curr) < maxLen && i < tokens.length) {
+            while (this.fontRenderer.getStringWidth(curr) < maxLen && i < tokens.length) {
                 curr = curr + tokens[i] + ' ';
                 i++;
             }
@@ -236,16 +237,16 @@ public class GuiProfessions extends GuiScreen {
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
 
-        if (mouseButton == 0 && hoveredProfession != null) {
-            mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
-            GuiProfessionInfo gui = new GuiProfessionInfo(hoveredProfession);
-            mc.displayGuiScreen(gui);
+        if (mouseButton == 0 && this.hoveredProfession != null) {
+            this.mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK, 1.0F));
+            GuiProfessionInfo gui = new GuiProfessionInfo(this.hoveredProfession);
+            this.mc.displayGuiScreen(gui);
         }
         if (mouseButton == 0) {
-            if (mouseX >= left + 49 && mouseX <= left + 128 && mouseY >= top + 14) {
-                if (mouseY <= top + 18) {
+            if (mouseX >= this.left + 49 && mouseX <= this.left + 128 && mouseY >= this.top + 14) {
+                if (mouseY <= this.top + 18) {
                     scrollUp();
-                } else if (mouseY <= lastY + 36) {
+                } else if (mouseY <= this.lastY + 36) {
                     scrollDown();
                 }
             }
@@ -253,15 +254,15 @@ public class GuiProfessions extends GuiScreen {
     }
 
     private void scrollUp() {
-        offset = Math.max(offset - 2, 0);
+        this.offset = Math.max(this.offset - 2, 0);
     }
 
     private void scrollDown() {
         int off = 2;
-        if (professions.size() % 2 == 1) {
+        if (this.professions.size() % 2 == 1) {
             off = 1;
         }
-        offset = Math.min(offset + 2, Math.max(professions.size() - 6 - off, 0));
+        this.offset = Math.min(this.offset + 2, Math.max(this.professions.size() - 6 - off, 0));
     }
 
     @Override

@@ -1,16 +1,18 @@
 package codersafterdark.reskillable.common.advancement;
 
+import java.util.Map;
+import java.util.function.Function;
+
+import javax.annotation.Nullable;
+import javax.annotation.ParametersAreNonnullByDefault;
+
 import com.google.common.collect.Maps;
+
 import mcp.MethodsReturnNonnullByDefault;
 import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.ICriterionTrigger;
 import net.minecraft.advancements.PlayerAdvancements;
 import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nullable;
-import javax.annotation.ParametersAreNonnullByDefault;
-import java.util.Map;
-import java.util.function.Function;
 
 @ParametersAreNonnullByDefault
 @MethodsReturnNonnullByDefault
@@ -26,14 +28,14 @@ public abstract class CriterionTrigger<T extends CriterionListeners<U>, U extend
 
     @Override
     public ResourceLocation getId() {
-        return id;
+        return this.id;
     }
 
     @Override
     public void addListener(PlayerAdvancements playerAdvancements, Listener<U> listener) {
         T listeners = this.listeners.get(playerAdvancements);
         if (listeners == null) {
-            listeners = createNew.apply(playerAdvancements);
+            listeners = this.createNew.apply(playerAdvancements);
             this.listeners.put(playerAdvancements, listeners);
         }
         listeners.add(listener);

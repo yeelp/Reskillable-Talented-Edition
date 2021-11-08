@@ -1,5 +1,13 @@
 package codersafterdark.reskillable.common.core.handler;
 
+import static net.minecraftforge.fml.common.eventhandler.EventPriority.LOW;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
+
 import codersafterdark.reskillable.api.data.PlayerData;
 import codersafterdark.reskillable.api.data.PlayerDataHandler;
 import codersafterdark.reskillable.api.data.RequirementHolder;
@@ -17,14 +25,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.network.FMLNetworkEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.Function;
-
-import static net.minecraftforge.fml.common.eventhandler.EventPriority.LOW;
 
 public class ToolTipHandler { //TODO: Convert this from being basically all static to being an object (Low priority)
     private static Map<Class<? extends GuiScreen>, Function<ToolTipInfo, List<String>>> tooltipInjectors = new HashMap<>();
@@ -89,13 +89,13 @@ public class ToolTipHandler { //TODO: Convert this from being basically all stat
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void connect(FMLNetworkEvent.ClientConnectedToServerEvent event) {
+    public static void connect(@SuppressWarnings("unused") FMLNetworkEvent.ClientConnectedToServerEvent event) {
         enabled = true;
     }
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void disconnect(FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
+    public static void disconnect(@SuppressWarnings("unused") FMLNetworkEvent.ClientDisconnectionFromServerEvent event) {
         enabled = false;
     }
 
@@ -123,15 +123,15 @@ public class ToolTipHandler { //TODO: Convert this from being basically all stat
         }
 
         public boolean showDetails() {
-            return showDetails;
+            return this.showDetails;
         }
 
         public PlayerData getData() {
-            return data;
+            return this.data;
         }
 
         public ItemStack getItem() {
-            return item;
+            return this.item;
         }
     }
 }

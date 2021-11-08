@@ -18,8 +18,8 @@ public class UnlockableToast extends AbstractToast {
 
     @Override
     protected void renderImage(GuiToast guiToast) {
-        bindImage(guiToast, unlockable.getIcon());
-        Gui.drawModalRectWithCustomSizedTexture(x, y, 0, 0, 16, 16, 16, 16);
+        bindImage(guiToast, this.unlockable.getIcon());
+        Gui.drawModalRectWithCustomSizedTexture(this.x, this.y, 0, 0, 16, 16, 16, 16);
     }
 
     @Override

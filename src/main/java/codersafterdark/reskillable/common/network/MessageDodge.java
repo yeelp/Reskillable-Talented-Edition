@@ -10,10 +10,12 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageDodge implements IMessage, IMessageHandler<MessageDodge, IMessage> {
     @Override
     public void fromBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
     public void toBytes(ByteBuf buf) {
+    	//no-op
     }
 
     @Override
@@ -22,7 +24,8 @@ public class MessageDodge implements IMessage, IMessageHandler<MessageDodge, IMe
         return null;
     }
 
-    public IMessage handleMessage(MessageContext context) {
+    @SuppressWarnings("static-method")
+	public IMessage handleMessage(MessageContext context) {
         EntityPlayerMP player = context.getServerHandler().player;
         player.server.addScheduledTask(() -> player.addExhaustion(0.3F));
         return null;
