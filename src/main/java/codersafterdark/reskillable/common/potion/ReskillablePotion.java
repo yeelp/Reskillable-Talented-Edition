@@ -1,7 +1,7 @@
 package codersafterdark.reskillable.common.potion;
 
-import codersafterdark.reskillable.common.profession.mage.alchemist.TalentEquivalentExchange.PotionEffectBoost;
-import codersafterdark.reskillable.common.profession.mage.alchemist.TalentEquivalentExchange.PotionEffectBoost.Type;
+import codersafterdark.reskillable.common.skill.attributes.AttributeHarmingHealingBoost.PotionEffectBoost;
+import codersafterdark.reskillable.common.skill.attributes.AttributeHarmingHealingBoost.PotionEffectBoost.Type;
 import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.potion.Potion;

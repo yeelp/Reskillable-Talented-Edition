@@ -13,6 +13,7 @@ import codersafterdark.reskillable.common.potion.ReskillablePotion;
 import codersafterdark.reskillable.common.skill.attributes.AttributeCritChance;
 import codersafterdark.reskillable.common.skill.attributes.AttributeCritDamage;
 import codersafterdark.reskillable.common.skill.attributes.AttributeDamageResist;
+import codersafterdark.reskillable.common.skill.attributes.AttributeHarmingHealingBoost;
 import codersafterdark.reskillable.common.skill.attributes.ReskillableAttributes;
 import codersafterdark.reskillable.common.util.DamageSourceUtil;
 import net.minecraft.advancements.Advancement;
@@ -45,6 +46,7 @@ public class CommonProxy {
         MinecraftForge.EVENT_BUS.register(new AttributeCritChance());
         MinecraftForge.EVENT_BUS.register(new AttributeCritDamage());
         MinecraftForge.EVENT_BUS.register(new AttributeDamageResist());
+        MinecraftForge.EVENT_BUS.register(new AttributeHarmingHealingBoost());
         ReskillablePotion.registerPotions();
     }
 

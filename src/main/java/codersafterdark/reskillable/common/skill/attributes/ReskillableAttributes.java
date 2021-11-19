@@ -11,31 +11,28 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class ReskillableAttributes {
 
-    public static IAttribute CRIT_CHANCE = new RangedAttribute(null,
-            LibMisc.MOD_ID + ".critChance",
-            5.0, 0, 100.0).setShouldWatch(true);
+	public static final IAttribute CRIT_CHANCE = new RangedAttribute(null, LibMisc.MOD_ID + ".critChance", 5.0, 0, 100.0).setShouldWatch(true);
 
-    public static IAttribute CRIT_DAMAGE = new RangedAttribute(null,
-            LibMisc.MOD_ID + ".critDamage",
-            125.0, 100.0, 200.0).setShouldWatch(true);
+	public static final IAttribute CRIT_DAMAGE = new RangedAttribute(null, LibMisc.MOD_ID + ".critDamage", 125.0, 100.0, 200.0).setShouldWatch(true);
 
-    public static IAttribute DAMAGE_RESIST = new RangedAttribute(null,
-            LibMisc.MOD_ID + ".damageResistance",
-            0.0, 0.0, 100.0).setShouldWatch(true);
+	public static final IAttribute DAMAGE_RESIST = new RangedAttribute(null, LibMisc.MOD_ID + ".damageResistance", 0.0, 0.0, 100.0).setShouldWatch(true);
 
-    @SuppressWarnings("static-method")
+	public static final IAttribute POTION_POTENCY = new RangedAttribute(null, LibMisc.MOD_ID + ".potionPotency", 0.0, 0.0, 100.0).setShouldWatch(true);
+
+	@SuppressWarnings("static-method")
 	@SubscribeEvent
-    public void onPlayerConstruction(EntityEvent.EntityConstructing event) {
-        if (event.getEntity() instanceof EntityPlayer) {
-            AbstractAttributeMap plAttributes = ((EntityPlayer) event.getEntity()).getAttributeMap();
-            plAttributes.registerAttribute(CRIT_CHANCE).setBaseValue(5.0);
-            plAttributes.registerAttribute(CRIT_DAMAGE).setBaseValue(125.0);
-            plAttributes.registerAttribute(DAMAGE_RESIST).setBaseValue(0.0);
-        }
-    }
+	public void onPlayerConstruction(EntityEvent.EntityConstructing event) {
+		if(event.getEntity() instanceof EntityPlayer) {
+			AbstractAttributeMap plAttributes = ((EntityPlayer) event.getEntity()).getAttributeMap();
+			plAttributes.registerAttribute(CRIT_CHANCE).setBaseValue(5.0);
+			plAttributes.registerAttribute(CRIT_DAMAGE).setBaseValue(125.0);
+			plAttributes.registerAttribute(DAMAGE_RESIST).setBaseValue(0.0);
+			plAttributes.registerAttribute(POTION_POTENCY).setBaseValue(0.0);
+		}
+	}
 
-    public void register() {
-        MinecraftForge.EVENT_BUS.register(this);
-    }
+	public void register() {
+		MinecraftForge.EVENT_BUS.register(this);
+	}
 
 }
