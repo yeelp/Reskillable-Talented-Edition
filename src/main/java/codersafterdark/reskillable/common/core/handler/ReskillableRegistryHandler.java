@@ -17,6 +17,13 @@ import codersafterdark.reskillable.common.profession.ProfessionRogue;
 import codersafterdark.reskillable.common.profession.ProfessionTinkerer;
 import codersafterdark.reskillable.common.profession.ProfessionWarrior;
 import codersafterdark.reskillable.common.profession.gatherer.seafarer.TalentNeptunium;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentAlchemicDrive;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentAlchemistTraining;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentEquivalentExchange;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentIndecisiveDrinker;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentIronHearted;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentQuickDrinker;
+import codersafterdark.reskillable.common.profession.mage.alchemist.TalentSoftHearted;
 import codersafterdark.reskillable.common.profession.mage.alchemist.TalentTrueExtension;
 import codersafterdark.reskillable.common.profession.mage.monk.TalentMonk;
 import codersafterdark.reskillable.common.profession.rogue.archer.TalentArcherAdvanced;
@@ -238,6 +245,15 @@ public class ReskillableRegistryHandler {
                 new TalentMonk(),
                 
                 new TalentTrueExtension(),
+                new TalentIndecisiveDrinker(),
+                new TalentAlchemicDrive(),
+                new TalentEquivalentExchange(),
+                new TalentIronHearted(),
+                new TalentSoftHearted(),
+                new TalentQuickDrinker(),
+                new TalentAlchemistTraining.AlchemistNovice(),
+                new TalentAlchemistTraining.AlchemistAdvanced(),
+                new TalentAlchemistTraining.AlchemistMaster(),
 
                 new TalentNeptunium()
         );
