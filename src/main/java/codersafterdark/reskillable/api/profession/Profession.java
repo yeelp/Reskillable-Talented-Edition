@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.PrimitiveIterator.OfInt;
+import java.util.stream.IntStream;
 
 import javax.annotation.Nonnull;
 
@@ -29,6 +31,8 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     private boolean hidden;
     private int guiIndex;
     private int color;
+    private final byte id;
+    private static final OfInt IDS = IntStream.iterate(1, (i) -> (int)Math.pow(2, i)).iterator();
 
     public Profession(ResourceLocation name, ResourceLocation background) {
         this.name = name.toString().replace(":", ".");
@@ -37,6 +41,7 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
         this.setRegistryName(name);
         this.professionConfig = ReskillableAPI.getInstance().getProfessionConfig(name);
         this.offense = true;
+        this.id = (byte) IDS.nextInt();
     }
 
     public void addSubProfession(String subProfession, int guiIndex) {
@@ -52,6 +57,10 @@ public abstract class Profession extends IForgeRegistryEntry.Impl<Profession> im
     public List<Talent> getTalents() {return this.talents;}
 
     public String getKey() {return this.name;}
+    
+    public byte getID() {
+    	return this.id;
+    }
 
     public String getName() {
         return new TextComponentTranslation("reskillable.profession." + getKey()).getUnformattedComponentText();

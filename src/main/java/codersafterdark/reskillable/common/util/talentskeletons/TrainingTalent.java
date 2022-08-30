@@ -11,6 +11,8 @@ import codersafterdark.reskillable.api.talent.Talent;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -19,6 +21,7 @@ public abstract class TrainingTalent extends Talent {
 
 	private final IAttribute attribute;
 	private final TrainingLevel level;
+	private static final String KEY = "reskillable.firstunlock";
 
 	protected static enum TrainingLevel {
 		NOVICE,
@@ -49,6 +52,25 @@ public abstract class TrainingTalent extends Talent {
 			PlayerTalentInfo info = data.getTalentInfo(this);
 			info.addAttributeModifier(player.getEntityAttribute(this.attribute), new AttributeModifier(this.level.name() + " Training Bonus", this.getAttributeModifierAmount(this.level), this.getOperation()));
 			data.saveAndSync();
+			if(this.level == TrainingLevel.NOVICE) {
+				NBTTagCompound root = player.getEntityData();
+				NBTTagCompound tag;
+				byte unlocks = 0;
+				if(root.hasKey(EntityPlayer.PERSISTED_NBT_TAG)) {
+					tag = root.getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG);
+				}
+				else {
+					root.setTag(EntityPlayer.PERSISTED_NBT_TAG, tag = new NBTTagCompound());
+				}
+				if(tag.hasKey(KEY)) {
+					unlocks = tag.getByte(KEY);
+				}
+				if((unlocks & this.getParentProfession().getID()) == 0) {
+					unlocks ^= this.getParentProfession().getID();
+					tag.setByte(KEY, unlocks);
+					//TODO Give sub profession kit
+				}
+			}
 		}
 	}
 	
